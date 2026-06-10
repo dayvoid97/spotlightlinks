@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <rect width="800" height="800" fill="#000000" />
+  
+  <g fill="#ffffff" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">
+    <text x="400" y="408" font-size="70" font-weight="900" letter-spacing="1">SPOTLIGHT</text>
+    
+    <text x="400" y="482" font-size="70" font-weight="900" letter-spacing="1">
+      LINKS<tspan font-size="46" font-weight="700" letter-spacing="0">.com</tspan>
+    </text>
+  </g>
+</svg>
