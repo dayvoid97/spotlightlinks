@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spotlight Links — Core Platform Engine
 
-## Getting Started
+Spotlight Links is an end-to-end digital venture studio specializing in rapid product conceptualization, premium full-stack software development, modern cloud architecture deployment, and comprehensive online business formation.
 
-First, run the development server:
+---
+
+## Technical Stack & Infrastructure Architecture
+
+This application acts as the central digital headquarters for Spotlight Links, engineered using a high-performance modern web framework stack:
+
+- **Framework:** Next.js (App Router) utilizing React 19 production build parameters.
+- **Styling Engine:** Tailwind CSS v4 featuring native PostCSS parsing pipelines.
+- **Animation System:** Framer Motion for high-fidelity transactional transitions.
+- **Observability Platform:** Integrated `@vercel/analytics` telemetry suite tracking user interactions and operational metrics.
+
+---
+
+## Operational Capabilities Engineered
+
+### 1. Venture Conceptualization
+
+Structuring raw vision blocks into concrete tech specs. Designing cross-platform architecture models, token economies, and functional business requirements logic.
+
+### 2. Multi-Surface Engineering & Cloud Deployment
+
+Building modular, typesafe software packages using Next.js, Node.js, and React Native. Deploying robust system pipelines utilizing AWS, Google Cloud, Supabase Auth engines, and real-time backend systems.
+
+### 3. Business Formation Services
+
+Bridging software execution with physical corporate standing. Coordinating legal framework deployments, wholesale logistics networks, B2B digital catalogs, and financial settlement pathways.
+
+---
+
+## Local Development Lifecycle
+
+### 1. Install Project Dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
