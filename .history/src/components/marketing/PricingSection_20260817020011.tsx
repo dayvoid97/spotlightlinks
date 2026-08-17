@@ -14,7 +14,9 @@ export function PricingSection() {
     <section id="pricing" className="scroll-mt-24">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">Pricing</p>
-        <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">One honest price.</h2>
+        <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
+          One honest price. Multiple Additional Tiers
+        </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
           Spotlight Links has a montly subscription pricing model for its Answer Engine Discovery &
           Optimization services: <br />
@@ -28,7 +30,7 @@ export function PricingSection() {
           <div className="bg-brand-tint text-brand absolute right-5 top-5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide">
             Most popular
           </div>
-          <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">Starter Price</h2>
+
           <p className="text-ink text-sm font-semibold">{FLAGSHIP.name}</p>
           <div className="mt-2 flex items-baseline gap-1">
             <span className="text-ink text-5xl font-semibold">{FLAGSHIP.price}</span>

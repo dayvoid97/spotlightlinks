@@ -73,13 +73,12 @@ export const FLAGSHIP = {
   name: 'Starter Prober',
   price: '$49',
   cadence: '/ month',
-  tagline: 'Add two businesses. Four weekly audits upon request.',
+  tagline: 'Two businesses. Four audits each, every month. One flat price.',
   features: [
-    '50+ geo-targeted prompts',
     '2 managed assets — two businesses, sites, or locations',
     'Up to 4 full AI-visibility audits per asset, monthly',
     'ChatGPT, Google Gemini, Anthropic Claude & Perplexity',
-
+    '30+ geo-targeted prompts, sampled 3–5× each',
     'Mention, citation & #1-recommendation scoring',
     'Competitor leaderboard + prompt-by-prompt matrix',
     'Executive AI SWOT with prioritized fixes',
@@ -96,11 +95,7 @@ export interface ScaleTier {
 
 export const SCALE_TIERS: ScaleTier[] = [
   { name: 'Growth', price: '$199', blurb: 'More assets and more markets as you expand.' },
-  {
-    name: 'Scale',
-    price: '$299',
-    blurb: 'Unlimited managed assets for agencies and multi-location brands.',
-  },
+  { name: 'Scale', price: '$299', blurb: 'Unlimited managed assets for agencies and multi-location brands.' },
   {
     name: 'Enterprise',
     price: '$599',
@@ -193,13 +188,7 @@ export const COMPARE_ROWS: CompareRow[] = [
   },
   {
     feature: 'Multi-sample statistical confidence',
-    cells: [
-      { kind: 'yes' },
-      { kind: 'no' },
-      { kind: 'no' },
-      { kind: 'no' },
-      { kind: 'partial', note: 'Varies' },
-    ],
+    cells: [{ kind: 'yes' }, { kind: 'no' }, { kind: 'no' }, { kind: 'no' }, { kind: 'partial', note: 'Varies' }],
   },
   {
     feature: 'Actionable fixes + executive AI SWOT',
