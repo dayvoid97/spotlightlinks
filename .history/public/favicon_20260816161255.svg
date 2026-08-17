@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Spotlight Links">
+  <defs>
+    <clipPath id="d"><circle cx="256" cy="256" r="214"/></clipPath>
+    <path id="s" d="M330 176C326 130 250 114 208 144 166 174 178 222 230 248 290 278 308 302 302 336 294 376 220 390 176 356"/>
+  </defs>
+  <rect width="512" height="512" fill="#7B1913"/>
+  <circle cx="256" cy="256" r="214" fill="#FFFFFF"/>
+  <g clip-path="url(#d)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#s" transform="translate(24 20)" stroke="#E0802A" stroke-width="78"/>
+    <use href="#s" stroke="#141210" stroke-width="78"/>
+  </g>
+</svg>

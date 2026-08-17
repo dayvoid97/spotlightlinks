@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ==========================================================================
+     YIN: Dark Luxury Base Layers (Cullinan Interior Leather & Piano Black)
+     ========================================================================== */
+  --color-ink-950: #0a0808; /* Obsidian base */
+  --color-ink-900: #120e0e; /* Card background */
+  --color-ink-800: #1a1414; /* Hover/Elevated states */
+  --color-ink-700: #261e1e; /* Panel borders */
+  --color-ink-600: #382c2c; /* Subtle accents */
+  --color-ink-500: #544343; /* Muted text / icons */
+  --color-ink-border: rgba(217, 184, 118, 0.12); /* Warm champagne gold tint */
+
+  /* ==========================================================================
+     BLOOD RED: Primary Brand Statement (Crimson & Burgundy)
+     ========================================================================== */
+  --color-blood-900: #3b080a;
+  --color-blood-700: #5c0d11; /* Spotlight Links Maroon */
+  --color-blood-600: #7f1217; /* Active/Hover state */
+  --color-blood-500: #4a0404; /* Primary Blood Red */
+  --color-blood-glow: #e6232d; /* Neon crimson accent */
+
+  /* ==========================================================================
+     LAMBO & CULLINAN: Metallic Gold & Warm Saddle Amber
+     ========================================================================== */
+  --color-lambo-gold: #d1b876; /* Metallic champagne hood color */
+  --color-lambo-light: #e5cf93; /* Gold highlight */
+  --color-saddle-amber: #d9822b; /* Cullinan leather accent */
+  --color-saddle-dark: #a15914; /* Deep leather shadow */
+
+  /* ==========================================================================
+     YANG: High Contrast Monochrome
+     ========================================================================== */
+  --color-yang-white: #faf9f6; /* Warm pearl white */
+  --color-yang-muted: #c4bebe; /* Muted body text */
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink-950);
+  color: var(--color-yang-white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(163, 24, 31, 0.4); /* Blood red selection */
+  color: var(--color-yang-white);
+}
+
+/* Red-to-Gold Luxury Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-blood-glow), var(--color-lambo-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Dualistic Accent Bar */
+.gradient-bar {
+  background: linear-gradient(
+    90deg,
+    var(--color-blood-500),
+    var(--color-lambo-gold),
+    var(--color-saddle-amber)
+  );
+}
+
+/* Scrollbar styling */
+.thin-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 8px;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 8px var(--color-blood-glow);
+  }
+  50% {
+    opacity: 0.35;
+    box-shadow: none;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
