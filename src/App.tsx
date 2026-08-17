@@ -4,6 +4,8 @@ import { ProtectedRoute } from './components/ProtectedRoute'
 
 import HomePage from './pages/HomePage'
 import GetStartedPage from './pages/GetStartedPage'
+import BlogIndexPage from './pages/BlogIndexPage'
+import BlogPostPage from './pages/BlogPostPage'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
@@ -25,6 +27,8 @@ export default function App() {
       {/* Public — reachable whether or not anyone is signed in */}
       <Route path="/" element={<HomePage />} />
       <Route path="/get-started" element={<GetStartedPage />} />
+      <Route path="/blog" element={<BlogIndexPage />} />
+      <Route path="/blog/:slug" element={<BlogPostPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />

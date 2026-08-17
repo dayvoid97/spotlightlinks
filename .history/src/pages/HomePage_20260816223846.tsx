@@ -6,11 +6,12 @@ import clsx from 'clsx'
 import { useAuth } from '../context/auth-context'
 import { fetchBlogPosts } from '../lib/blog'
 import { BlogCard } from '../components/BlogCard'
-import { BrandLockup } from '../components/BrandLockup'
 import { ThemeToggle } from '../components/ThemeToggle'
 import { Button } from '../components/ui/Button'
 import { Spinner } from '../components/ui/Spinner'
 import { TrustStrip } from '../components/TrustStrip'
+
+const logo = 'logo.png'
 
 export default function HomePage() {
   const { user, loading } = useAuth()
@@ -36,20 +37,12 @@ function CtaButton({
   loading: boolean
   size?: 'sm' | 'md' | 'lg'
 }) {
-  if (loading) return <div className="bg-surface-2 h-9 w-28 animate-pulse rounded-lg" />
+  if (loading) return <div className=" h-9 w-32 animate-pulse rounded-lg" />
   return (
     <Link to={user ? '/dashboard' : '/get-started'}>
       <Button size={size}>
-        {user ? (
-          'Go to Dashboard'
-        ) : (
-          <>
-            {/* Full label on wider screens, trimmed on mobile so it never wraps. */}
-            <span className="sm:hidden">Get started</span>
-            <span className="hidden sm:inline">Get started free</span>
-          </>
-        )}
-        <ArrowRight className="size-3.5 shrink-0" />
+        {user ? 'Go to Dashboard' : 'Get started free'}
+        <ArrowRight className="size-3.5" />
       </Button>
     </Link>
   )
@@ -65,14 +58,20 @@ function SiteHeader({
   return (
     <header className="border-b">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-        <BrandLockup />
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex  items-center gap-2">
+          <div className=" flex size-12 items-center justify-center rounded-lg">
+            <img src={logo} alt="Spotlight Links Three Headed Snake Logo" />
+          </div>
+          <br />
+          <div className="leading-none">
+            <p className="text-ink text-xl font-semibold">Spotlight Links</p>
+            <p className="text-ink text-xs font-semibold">Let us spotlight your business</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
           <ThemeToggle />
           {!loading && !user && (
-            <Link
-              to="/login"
-              className="text-ink-50 hover:text-ink whitespace-nowrap text-sm font-medium"
-            >
+            <Link to="/login" className="text-ink-50 hover:text-ink text-sm font-medium">
               Log in
             </Link>
           )}

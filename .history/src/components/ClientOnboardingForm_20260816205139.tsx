@@ -98,7 +98,7 @@ export function ClientOnboardingForm({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-1.5">
-            <Sparkles className="text-brand size-3.5" /> Synthesize from a story
+            <Sparkles className="size-3.5 text-brand" /> Synthesize from a story
             <span className="text-ink-30 text-[11px] font-normal">· optional · free</span>
           </CardTitle>
         </CardHeader>
@@ -109,12 +109,7 @@ export function ClientOnboardingForm({
             onChange={(e) => set('storyText', e.target.value)}
             placeholder="Paste a paragraph about the business — history, services, location, known competitors — and Quasar will draft the intake fields below."
           />
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={handleSynthesize}
-            loading={synthesizing}
-          >
+          <Button type="button" variant="secondary" onClick={handleSynthesize} loading={synthesizing}>
             <Sparkles className="size-3.5" /> Synthesize fields
           </Button>
         </CardBody>

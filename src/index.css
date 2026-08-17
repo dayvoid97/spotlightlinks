@@ -508,6 +508,38 @@
   animation: pulse-dot 1.4s ease-in-out infinite;
 }
 
+/* Rendered markdown article body (BlogPostPage). The global base-layer element
+   styles already give blog typography (Playfair headings, Inter body, styled
+   blockquotes / code / tables); this just adds reading rhythm — heading top
+   spacing, image treatment, comfortable line length. */
+.blog-body {
+  font-size: var(--text-step-1);
+}
+.blog-body > :first-child {
+  margin-block-start: 0;
+}
+.blog-body h2,
+.blog-body h3,
+.blog-body h4 {
+  margin-block-start: var(--space-7);
+  margin-block-end: var(--space-3);
+}
+.blog-body p,
+.blog-body ul,
+.blog-body ol,
+.blog-body blockquote {
+  max-width: none;
+}
+.blog-body img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-line);
+  margin-block: var(--space-6);
+}
+.blog-body hr {
+  margin-block: var(--space-8);
+}
+
 @media (prefers-color-scheme: dark) {
   /* System default: dark unless the user has explicitly forced light. */
   :root:not([data-theme='light']) {

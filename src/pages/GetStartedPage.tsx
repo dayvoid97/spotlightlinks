@@ -4,13 +4,10 @@ import { ArrowLeft, Sparkles } from 'lucide-react'
 import { useAuth } from '../context/auth-context'
 import { saveOnboardingDraft, type OnboardingFormState } from '../lib/onboarding-draft'
 import { ClientOnboardingForm } from '../components/ClientOnboardingForm'
+import { BrandLockup } from '../components/BrandLockup'
 import { ThemeToggle } from '../components/ThemeToggle'
 import { Button } from '../components/ui/Button'
 import { FullPageSpinner } from '../components/ui/Spinner'
-
-// Absolute from the public root — this page lives at a nested path (/get-started),
-// so a relative "logo.png" would resolve to /get-started/logo.png and 404.
-const logo = '/logo.png'
 
 /**
  * Public onboarding funnel (route "/get-started").
@@ -48,16 +45,13 @@ export default function GetStartedPage() {
     <div className="bg-surface min-h-screen">
       <header className="border-line border-b">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="Spotlight Links" className="size-10" />
-            <div className="leading-none">
-              <p className="text-ink text-lg font-semibold">Spotlight Links</p>
-              <p className="text-ink-50 text-xs">Let us spotlight your business</p>
-            </div>
-          </Link>
-          <div className="flex items-center gap-3">
+          <BrandLockup />
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <ThemeToggle />
-            <Link to="/login" className="text-ink-50 hover:text-ink text-sm font-medium">
+            <Link
+              to="/login"
+              className="text-ink-50 hover:text-ink whitespace-nowrap text-sm font-medium"
+            >
               Log in
             </Link>
           </div>

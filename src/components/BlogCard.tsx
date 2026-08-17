@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { blogPostUrl, guessLocalImage, type BlogPost } from '../lib/blog'
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
+import { guessLocalImage, type BlogPost } from '../lib/blog'
 import { Badge } from './ui/Badge'
 
-/** One card in the homepage's blog grid — links out to the real post on spotlightlinks.com. */
+/** One card in a blog grid — links to the on-site reader at /blog/:slug. */
 export function BlogCard({ post }: { post: BlogPost }) {
   const [imageBroken, setImageBroken] = useState(false)
   const localImage = guessLocalImage(post.image)
@@ -11,10 +12,8 @@ export function BlogCard({ post }: { post: BlogPost }) {
   const primaryCategory = post.categories[0]
 
   return (
-    <a
-      href={blogPostUrl(post.slug)}
-      target="_blank"
-      rel="noreferrer"
+    <Link
+      to={`/blog/${post.slug}`}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface-2/60 transition hover:border-brand hover:bg-surface-2"
     >
       {showImage ? (
@@ -49,12 +48,10 @@ export function BlogCard({ post }: { post: BlogPost }) {
         {post.subtitle && <p className="line-clamp-2 text-xs text-ink-50">{post.subtitle}</p>}
 
         <div className="mt-auto flex items-center justify-between pt-2 text-[11px] text-ink-30">
-          <span>
-            {[post.date, post.readTime].filter(Boolean).join(' · ') || post.author}
-          </span>
-          <ArrowUpRight className="size-3.5 shrink-0 text-ink-30 transition group-hover:text-brand" />
+          <span>{[post.date, post.readTime].filter(Boolean).join(' · ') || post.author}</span>
+          <ArrowRight className="size-3.5 shrink-0 text-ink-30 transition group-hover:text-brand" />
         </div>
       </div>
-    </a>
+    </Link>
   )
 }

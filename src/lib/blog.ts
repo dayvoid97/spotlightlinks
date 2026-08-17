@@ -1,19 +1,22 @@
 /**
- * Reads the Spotlight Links blog copy shipped in `public/blogcopy/` — plain
+ * Reads the Spotlight Links blog copy shipped in `public/blog/` — plain
  * markdown files with YAML frontmatter, plus an `index.json` listing them.
- * These are local copies of posts that live for real at
- * spotlightlinks.com/blogsets/:slug — this app never renders the article
- * body, only the frontmatter, and links out to the real post for reading.
  *
- * There's no YAML/markdown parser dependency here on purpose: the
- * frontmatter block is small and hand-written, not user input, so a plain
- * line-based parser is enough and keeps this a zero-dependency read. It
- * handles the two shapes actually present in this folder: `category: "x"`
- * / `readTime: "y"` / `excerpt: "z"` (older posts), and `categories:` as a
- * YAML bullet list or an inline `["a", "b"]` array with `subtitle`/`image`
- * (newer posts). See docs/11-homepage-and-blog.md for the full field
- * reference this was read from.
+ * Two things happen here:
+ *   - The frontmatter is parsed by a small hand-written line parser (no YAML
+ *     dependency — the block is tiny and first-party, not user input). It
+ *     handles both shapes present in the folder: `category: "x"` /
+ *     `readTime: "y"` / `excerpt: "z"` (older posts), and `categories:` as a
+ *     YAML bullet list or inline `["a","b"]` array with `subtitle`/`image`.
+ *   - The article body is rendered to HTML with `marked` for the on-site
+ *     reader at /blog/:slug (BlogPostPage). The content is our own, so the
+ *     marked output is rendered directly; image sources are localized to
+ *     /mediasets and any that 404 hide themselves.
+ *
+ * Static `.md`/`.json` under `/blog/` and the SPA routes `/blog` + `/blog/:slug`
+ * (extension-less) coexist without clashing. See docs/11-homepage-and-blog.md.
  */
+import { marked } from 'marked'
 
 export interface BlogPost {
   slug: string
@@ -91,7 +94,7 @@ export async function fetchBlogPosts(): Promise<BlogPost[]> {
 
   const posts = await Promise.all(
     files.map(async (filename): Promise<BlogPost | null> => {
-      const res = await fetch(`/blogcopy/${filename}`)
+      const res = await fetch(`/blog/${filename}`)
       if (!res.ok) return null
       const raw = await res.text()
       const fm = parseFrontmatter(raw)
@@ -137,4 +140,85 @@ export function guessLocalImage(rawPath: string | null): string | null {
 
 export function blogPostUrl(slug: string): string {
   return `https://spotlightlinks.com/blog/${slug}`
+}
+
+/** Strip the leading `---\n…\n---` frontmatter block, returning just the body. */
+function stripFrontmatter(raw: string): string {
+  return raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '')
+}
+
+/**
+ * Drop a single leading `# Heading` from the body. Most posts repeat their
+ * title as an H1 at the top of the markdown; since BlogPostPage renders the
+ * frontmatter title as the page heading, that would double it.
+ */
+function stripLeadingH1(body: string): string {
+  return body.replace(/^\s*#\s+.*(?:\r?\n|$)/, '')
+}
+
+/** Site-relative image paths → local /mediasets copy (basename match); http(s)/data left as-is. */
+function localizeImgSrc(src: string): string {
+  if (/^(https?:)?\/\//i.test(src) || src.startsWith('data:')) return src
+  const basename = src.split('/').pop()
+  return basename ? `/mediasets/${basename}` : src
+}
+
+/**
+ * Post-process marked's HTML: point images at their local copies and have any
+ * that 404 remove themselves (most article images live on spotlightlinks.com
+ * and weren't copied here), and open external links in a new tab.
+ */
+function enhanceArticleHtml(html: string): string {
+  return html
+    .replace(/<img\b[^>]*>/gi, (tag) => {
+      const src = tag.match(/\ssrc="([^"]*)"/i)
+      if (!src) return tag
+      let out = tag.replace(/\ssrc="[^"]*"/i, ` src="${localizeImgSrc(src[1])}"`)
+      if (!/\sloading=/i.test(out)) out = out.replace(/<img/i, '<img loading="lazy"')
+      if (!/\sonerror=/i.test(out))
+        out = out.replace(/<img/i, `<img onerror="this.style.display='none'"`)
+      return out
+    })
+    .replace(/<a\b([^>]*?)href="(https?:\/\/[^"]*)"([^>]*)>/gi, (_m, pre, href, post) => {
+      const attrs = `${pre}${post}`
+      const rel = /\srel=/i.test(attrs) ? '' : ' rel="noreferrer"'
+      const target = /\starget=/i.test(attrs) ? '' : ' target="_blank"'
+      return `<a${pre}href="${href}"${post}${target}${rel}>`
+    })
+}
+
+export interface BlogPostDetail {
+  post: BlogPost
+  /** Rendered, image-localized article HTML, safe to inject (first-party content). */
+  html: string
+}
+
+/** Fetch and render a single post for the on-site reader (/blog/:slug). */
+export async function fetchBlogPost(slug: string): Promise<BlogPostDetail | null> {
+  const res = await fetch(`/blog/${slug}.md`)
+  if (!res.ok) return null
+  const raw = await res.text()
+  const fm = parseFrontmatter(raw)
+
+  const categories = Array.isArray(fm.categories)
+    ? fm.categories
+    : typeof fm.category === 'string'
+      ? [fm.category]
+      : []
+
+  const post: BlogPost = {
+    slug,
+    title: toStringField(fm.title) ?? slug.replace(/-/g, ' '),
+    subtitle: toStringField(fm.subtitle) ?? toStringField(fm.excerpt),
+    date: toStringField(fm.date),
+    author: toStringField(fm.author),
+    categories,
+    readTime: toStringField(fm.readTime),
+    image: toStringField(fm.image),
+  }
+
+  const body = stripLeadingH1(stripFrontmatter(raw))
+  const html = enhanceArticleHtml(marked.parse(body, { gfm: true, async: false }))
+
+  return { post, html }
 }

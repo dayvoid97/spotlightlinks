@@ -39,14 +39,42 @@ for depth rather than a hard image edge.
 
 ## The blog section
 
-### Where the content actually lives
+### Where the content lives, and the on-site reader
 
-`public/blogcopy/*.md` are local copies of posts that are live at
-`spotlightlinks.com/blogsets/:slug` — `blogPostUrl()` in `src/lib/blog.ts` builds that exact URL,
-and every `<BlogCard>` links out to it in a new tab rather than rendering the article body inside
-this app. There's no in-app blog reader here on purpose: the content already has a canonical home,
-and duplicating a markdown renderer plus routing for it would just be a second copy of something
-that already works.
+`public/blog/*.md` are the posts — plain markdown with YAML frontmatter — plus `index.json`
+listing them. They're served as static files, and the app renders them itself:
+
+- **`/blog`** (`BlogIndexPage`) — the index: hero, category filter, a grid of `<BlogCard>`s.
+- **`/blog/:slug`** (`BlogPostPage`) — the on-site reader that renders the full article body.
+
+`<BlogCard>` links **internally** (React Router `Link` to `/blog/:slug`), not out to
+spotlightlinks.com. (`blogPostUrl()` still exists in `src/lib/blog.ts` for a canonical external URL
+if ever needed, but nothing routes through it now.)
+
+Static `.md`/`.json` under `/blog/` and the extension-less SPA routes `/blog` and `/blog/:slug`
+coexist without clashing: the dev/prod static layer serves a request only when a real file matches
+(`/blog/foo.md`, `/blog/index.json`), and everything else (`/blog`, `/blog/some-slug`) falls
+through to the SPA. So `BlogPostPage` fetches `/blog/${slug}.md` as a static asset while the router
+owns the pretty URL.
+
+### Rendering the article body
+
+`fetchBlogPost(slug)` (in `src/lib/blog.ts`) fetches the `.md`, strips the frontmatter block, drops
+a single leading `# Heading` (most posts repeat their title as an H1 — the page renders the
+frontmatter title itself, so this avoids doubling it), and runs the rest through **`marked`**
+(the one added dependency — pure JS, no native binaries). The content is first-party, so the
+rendered HTML is injected directly.
+
+It reads as a **blog article, not console UI**, for free: the design system's base-layer element
+styles in `index.css` (`h1`–`h6` in Playfair, Inter body, styled blockquotes / code / tables /
+links) already _are_ blog typography, because they're plain element selectors. `BlogPostPage` wraps
+the body in a `.blog-body` container that adds reading rhythm (heading top-spacing, image
+treatment, wider measure). The public pages use a shared `PublicHeader`/`PublicFooter`
+(`src/components/PublicChrome.tsx`) so `/`, `/blog`, and an article feel like one site.
+
+Two HTML post-processing passes run on the rendered output (`enhanceArticleHtml`): image `src`s are
+localized to `/mediasets/<basename>` with an inline `onerror` that hides any that 404 (see below),
+and external links get `target="_blank" rel="noreferrer"`.
 
 ### Parsing frontmatter without a YAML library
 
