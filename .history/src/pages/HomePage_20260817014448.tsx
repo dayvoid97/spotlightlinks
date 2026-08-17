@@ -52,11 +52,11 @@ function ComparisonTeaser() {
           Why Spotlight Links
         </p>
         <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
-          VALUE PROPOSITION: PURPOSE BUILT WITH NEW YORK CITY IN MIND
+          A new discipline needs a purpose-built tool
         </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
-          Spotlight Links is a AI-native venture studio building state of the art AEO and GEO
-          technology from the ground up. HERE IS OUR VALUE PROPOSIITON
+          We're a New York, AI-native team building for AEO and GEO from the ground up — not bolting
+          an AI tab onto a decade-old SEO suite. Here's what that gets you.
         </p>
       </div>
 
@@ -104,7 +104,7 @@ function CtaButton({
           <>
             {/* Full label on wider screens, trimmed on mobile so it never wraps. */}
             <span className="sm:hidden">Get started</span>
-            <span className="hidden sm:inline">Click Here To Get Started</span>
+            <span className="hidden sm:inline">Get started free</span>
           </>
         )}
         <ArrowRight className="size-3.5 shrink-0" />
@@ -164,8 +164,13 @@ function Hero({ user, loading }: { user: ReturnType<typeof useAuth>['user']; loa
           <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl">
             Enter your
             <br />
-            <span className="text-emerald-800">Business Name and Zip Code</span> to begin
+            <span className="text-brand">Business Name and Zip Code</span> to begin
           </h1>
+          <p className="text-ink-50 mt-5 max-w-2xl text-base">
+            to begin.
+            <span className="font-bold text-emerald-800 ">Business Name and Zip Code </span>. to
+            begin.
+          </p>
 
           <div className="mt-8 flex items-center justify-center gap-3">
             <CtaButton user={user} loading={loading} size="lg" />

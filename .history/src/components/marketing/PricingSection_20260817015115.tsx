@@ -19,10 +19,8 @@ export function PricingSection() {
         </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
           Every Spotlight Links Probe asks questions about your business to the state of the art AI
-          models. Spotlight Links comes with a montly subscription pricing model for its Answer
-          Engine Discovery & Optimization service: <br />
-          <span className="text-ink font-medium"> $49 a month</span>,<br /> Add Two Clients,
-          automatic weekly audit score and report upon request.
+          models. Simle Pricing Structure: <span className="text-ink font-medium">$49 a month</span>
+          , two businesses, four audits each. No contract, no sales call.
         </p>
       </div>
 

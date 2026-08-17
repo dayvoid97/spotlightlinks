@@ -52,7 +52,7 @@ function ComparisonTeaser() {
           Why Spotlight Links
         </p>
         <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
-          VALUE PROPOSITION: PURPOSE BUILT WITH NEW YORK CITY IN MIND
+          Purpose Built in New York City. VALUE PROPOSITION
         </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
           Spotlight Links is a AI-native venture studio building state of the art AEO and GEO
