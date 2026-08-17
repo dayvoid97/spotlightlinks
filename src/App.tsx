@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import GetStartedPage from './pages/GetStartedPage'
 import BlogIndexPage from './pages/BlogIndexPage'
 import BlogPostPage from './pages/BlogPostPage'
+import ComparePage from './pages/ComparePage'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/get-started" element={<GetStartedPage />} />
       <Route path="/blog" element={<BlogIndexPage />} />
       <Route path="/blog/:slug" element={<BlogPostPage />} />
+      <Route path="/compare" element={<ComparePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />

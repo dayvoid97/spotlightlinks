@@ -16,9 +16,17 @@ export function PublicHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <BrandLockup />
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-          <Link to="/blog" className="text-ink-50 hover:text-ink hidden text-sm font-medium sm:block">
-            Blog
-          </Link>
+          <nav className="mr-1 hidden items-center gap-4 md:flex">
+            <Link to="/#pricing" className="text-ink-50 hover:text-ink text-sm font-medium">
+              Pricing
+            </Link>
+            <Link to="/compare" className="text-ink-50 hover:text-ink text-sm font-medium">
+              Compare
+            </Link>
+            <Link to="/blog" className="text-ink-50 hover:text-ink text-sm font-medium">
+              Blog
+            </Link>
+          </nav>
           <ThemeToggle />
           {!loading && !user && (
             <Link

@@ -110,6 +110,7 @@ feature doc is relevant.
 11. [Routes intentionally not wired up](docs/10-not-wired-up.md)
 12. [Homepage & blog section](docs/11-homepage-and-blog.md)
 13. [Theming (light / dark / system)](docs/12-theming.md)
+14. [Marketing pages (pricing, FAQ, comparison)](docs/13-marketing-pages.md)
 
 ## Verifying changes
 

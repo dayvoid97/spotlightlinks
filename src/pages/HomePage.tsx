@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowRight } from 'lucide-react'
 import clsx from 'clsx'
@@ -11,20 +11,78 @@ import { ThemeToggle } from '../components/ThemeToggle'
 import { Button } from '../components/ui/Button'
 import { Spinner } from '../components/ui/Spinner'
 import { TrustStrip } from '../components/TrustStrip'
+import { PricingSection } from '../components/marketing/PricingSection'
+import { FaqSection } from '../components/marketing/FaqSection'
+import { Differentiators } from '../components/marketing/Differentiators'
 
 export default function HomePage() {
   const { user, loading } = useAuth()
   useCheckoutRedirect()
+  useHashScroll()
 
   return (
     <div className="bg-surface min-h-screen">
       <SiteHeader user={user} loading={loading} />
       <Hero user={user} loading={loading} />
       <TrustStrip />
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="py-16 sm:py-20">
+          <PricingSection />
+        </div>
+        <div className="border-line border-t py-16 sm:py-20">
+          <ComparisonTeaser />
+        </div>
+        <div className="border-line border-t py-16 sm:py-20">
+          <FaqSection />
+        </div>
+      </div>
+
       <BlogSection />
       <SiteFooter />
     </div>
   )
+}
+
+function ComparisonTeaser() {
+  return (
+    <section>
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">
+          Why Spotlight Links
+        </p>
+        <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
+          A new discipline needs a purpose-built tool
+        </h2>
+        <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
+          We're a New York, AI-native team building for AEO and GEO from the ground up — not bolting
+          an AI tab onto a decade-old SEO suite. Here's what that gets you.
+        </p>
+      </div>
+
+      <div className="mt-10">
+        <Differentiators />
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Link to="/compare">
+          <Button variant="secondary" size="lg">
+            See the full comparison <ArrowRight className="size-4" />
+          </Button>
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+/** Smooth-scroll to an in-page section when the URL carries a #hash (e.g. /#pricing). */
+function useHashScroll() {
+  const { hash } = useLocation()
+  useEffect(() => {
+    if (!hash) return
+    const el = document.getElementById(hash.slice(1))
+    if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth' }))
+  }, [hash])
 }
 
 function CtaButton({
@@ -67,11 +125,22 @@ function SiteHeader({
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
         <BrandLockup />
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <nav className="mr-1 hidden items-center gap-4 md:flex">
+            <a href="#pricing" className="text-ink-50 hover:text-ink text-sm font-medium">
+              Pricing
+            </a>
+            <Link to="/compare" className="text-ink-50 hover:text-ink text-sm font-medium">
+              Compare
+            </Link>
+            <Link to="/blog" className="text-ink-50 hover:text-ink text-sm font-medium">
+              Blog
+            </Link>
+          </nav>
           <ThemeToggle />
           {!loading && !user && (
             <Link
               to="/login"
-              className="text-ink-50 hover:text-ink whitespace-nowrap text-sm font-medium"
+              className="text-ink-50 hover:text-ink hidden whitespace-nowrap text-sm font-medium sm:inline"
             >
               Log in
             </Link>
