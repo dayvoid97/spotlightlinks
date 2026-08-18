@@ -154,29 +154,45 @@ function SiteHeader({
 
 function Hero({ user, loading }: { user: ReturnType<typeof useAuth>['user']; loading: boolean }) {
   return (
-    <section className="relative overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="bg-brand/20 pointer-events-none absolute -left-32 -top-32 size-96 rounded-full blur-[120px]" />
-      <div className="bg-accent/10 pointer-events-none absolute -bottom-32 right-0 size-96 rounded-full blur-[120px]" />
+    <section className="relative overflow-hidden py-12 sm:py-20">
+      {/* Ambient background glows */}
+      <div className="bg-emerald-500/10 pointer-events-none absolute -left-32 -top-32 size-[28rem] rounded-full blur-[128px]" />
+      <div className="bg-rose-500/10 pointer-events-none absolute -bottom-32 -right-32 size-[28rem] rounded-full blur-[128px]" />
 
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 md:py-28">
-        <div className="flex max-w-2xl flex-col items-center">
-          <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl md:text-6xl">
-            <span className="text-emerald-800">
-              <span className="text-red-800">THE AI TOOLKIT </span> for growing your business.
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-800/20 bg-emerald-100/80 px-3.5 py-1 text-xs font-semibold text-emerald-900 shadow-sm backdrop-blur-sm dark:bg-emerald-950/40 dark:text-emerald-300">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
             </span>
+            Next-Gen AI Growth Suite
+          </div>
+
+          {/* Main Heading - Forced dark text for light theme */}
+          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl sm:leading-tight dark:text-white">
+            Spotlight Links is{' '}
+            <span className="bg-gradient-to-r from-red-600 to-rose-600 bg-clip-text text-transparent">
+              THE AI TOOLKIT
+            </span>{' '}
+            for growing your business.
           </h1>
 
-          <p className="text-muted-foreground mt-6 text-lg sm:text-xl">
+          {/* Subtitle */}
+          <p className="mt-6 text-lg font-medium text-slate-600 sm:text-xl dark:text-slate-300 max-w-2xl leading-relaxed">
             Enhance your presence, recommendations, and growth across modern AI search engines.
           </p>
 
-          <p className="text-ink/80 mt-8 text-sm font-medium tracking-wide uppercase">
-            Enter your business name and zip code to begin
-          </p>
+          {/* Call to Action Container */}
+          <div className="mt-10 flex flex-col items-center gap-3 w-full max-w-md">
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              Enter your business name &amp; zip code to begin
+            </p>
 
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <CtaButton user={user} loading={loading} size="lg" />
+            <div className="mt-1 flex w-full justify-center">
+              <CtaButton user={user} loading={loading} size="lg" />
+            </div>
           </div>
         </div>
       </div>

@@ -417,12 +417,7 @@ export default function ProbeTab({ client }: { client: ClientSummary }) {
 
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 {complete.downloadUrls?.pdf && (
-                  <a
-                    href={`${API_BASE_URL}/api/reports/${client.slug}/export?format=html`}
-                    className="bg-brand text-white flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium hover:opacity-90"
-                  >
-                    <Download className="size-3.5" /> Quick report (PDF)
-                  </a>
+                  
                 )}
                 <a
                   href={`${API_BASE_URL}${complete.publicReportUrl}`}

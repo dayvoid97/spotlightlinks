@@ -181,7 +181,6 @@ export function ClientOnboardingForm({
                 <Input
                   id="radiusMiles"
                   type="number"
-                  placeholder="5"
                   value={form.radiusMiles}
                   onChange={(e) => set('radiusMiles', e.target.value)}
                 />

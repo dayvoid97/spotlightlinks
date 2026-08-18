@@ -7,6 +7,7 @@ import type { ClientSummary } from '../../../lib/types'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../components/ui/Card'
 import { Button } from '../../../components/ui/Button'
 import { Alert } from '../../../components/ui/Alert'
+import { ReminderCard } from '../../../components/ReminderCard'
 import { useToast } from '../../../context/toast-context'
 
 /**
@@ -77,6 +78,8 @@ export default function SettingsTab({ client }: { client: ClientSummary }) {
           </Button>
         </CardBody>
       </Card>
+
+      <ReminderCard client={client} />
 
       <Card className="border-red-500/20">
         <CardHeader>

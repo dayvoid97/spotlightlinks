@@ -155,27 +155,33 @@ function SiteHeader({
 function Hero({ user, loading }: { user: ReturnType<typeof useAuth>['user']; loading: boolean }) {
   return (
     <section className="relative overflow-hidden">
-      {/* Ambient background glow */}
+      {/* Ambient glow, matching the ink/violet/cyan palette used across the app */}
       <div className="bg-brand/20 pointer-events-none absolute -left-32 -top-32 size-96 rounded-full blur-[120px]" />
       <div className="bg-accent/10 pointer-events-none absolute -bottom-32 right-0 size-96 rounded-full blur-[120px]" />
-
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 md:py-28">
-        <div className="flex max-w-2xl flex-col items-center">
-          <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl md:text-6xl">
-            <span className="text-emerald-800">
-              <span className="text-red-800">THE AI TOOLKIT </span> for growing your business.
-            </span>
+      <div className="relative mx-auto flex max-w-4xl items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 md:py-28">
+        <div className="flex flex-col items-center">
+          <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl">
+            Spotlight Links
+            <br />
+            <span className="text-emerald-800">Google &AI Engines</span>& AI says about your
+            business
           </h1>
 
-          <p className="text-muted-foreground mt-6 text-lg sm:text-xl">
-            Enhance your presence, recommendations, and growth across modern AI search engines.
-          </p>
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <CtaButton user={user} loading={loading} size="lg" />
+          </div>
+        </div>
+      </div>
 
-          <p className="text-ink/80 mt-8 text-sm font-medium tracking-wide uppercase">
-            Enter your business name and zip code to begin
-          </p>
+      <div className="relative mx-auto flex max-w-4xl items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 md:py-28">
+        <div className="flex flex-col items-center">
+          <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl">
+            Enter your
+            <br />
+            <span className="text-emerald-800">Business Name and Zip Code</span> to begin
+          </h1>
 
-          <div className="mt-4 flex items-center justify-center gap-3">
+          <div className="mt-8 flex items-center justify-center gap-3">
             <CtaButton user={user} loading={loading} size="lg" />
           </div>
         </div>

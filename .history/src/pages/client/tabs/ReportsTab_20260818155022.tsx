@@ -55,8 +55,7 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
   }
 
   if (isLoading) return <FullPageSpinner label="Loading analytics…" />
-  if (error || !data)
-    return <Alert tone="error">No report data yet. Run a probe cycle first.</Alert>
+  if (error || !data) return <Alert tone="error">No report data yet. Run a probe cycle first.</Alert>
   if (data.metrics.totalRuns === 0) {
     return (
       <Alert tone="info" title="No scored runs yet">
@@ -77,10 +76,10 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
         <Card>
           <CardBody className="flex flex-col gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
-              <History className="text-brand size-4" />
+              <History className="size-4 text-brand" />
               <div>
-                <p className="text-ink text-sm font-medium">Report timeline</p>
-                <p className="text-ink-30 text-[11px]">
+                <p className="text-sm font-medium text-ink">Report timeline</p>
+                <p className="text-[11px] text-ink-30">
                   {history.length} probe cycles stored · viewing{' '}
                   {isLatest ? 'the freshest report' : 'an earlier report'}
                 </p>
@@ -123,23 +122,19 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
             <Badge tone="violet">{shownSummary.statusBadge}</Badge>
           </CardHeader>
           <CardBody className="space-y-3 pt-3">
-            <p className="text-ink-70 text-sm">{shownSummary.executiveSummary}</p>
+            <p className="text-sm text-ink-70">{shownSummary.executiveSummary}</p>
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-ink-50 mb-1 text-xs font-medium uppercase tracking-wide">
-                  Takeaways
-                </p>
-                <ul className="text-ink-50 space-y-1 text-sm">
+                <p className="mb-1 text-xs font-medium uppercase tracking-wide text-ink-50">Takeaways</p>
+                <ul className="space-y-1 text-sm text-ink-50">
                   {shownSummary.takeaways.map((t, i) => (
                     <li key={i}>• {t}</li>
                   ))}
                 </ul>
               </div>
               <div>
-                <p className="text-ink-50 mb-1 text-xs font-medium uppercase tracking-wide">
-                  Recommended actions
-                </p>
-                <ul className="text-ink-50 space-y-1 text-sm">
+                <p className="mb-1 text-xs font-medium uppercase tracking-wide text-ink-50">Recommended actions</p>
+                <ul className="space-y-1 text-sm text-ink-50">
                   {shownSummary.recommendedActions.map((t, i) => (
                     <li key={i}>• {t}</li>
                   ))}
@@ -150,10 +145,10 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
         </Card>
       )}
 
-      <Card className="border-brand/40 bg-brand-tint/30 ring-brand/30 ring-1">
+      <Card className="border-brand/40 bg-brand-tint/30 ring-1 ring-brand/30">
         <CardHeader className="flex items-center justify-between">
-          <CardTitle className="text-brand flex items-center gap-1.5">
-            <Sparkles className="text-brand size-4" /> Strategic SWOT
+          <CardTitle className="flex items-center gap-1.5 text-brand">
+            <Sparkles className="size-4 text-brand" /> Strategic SWOT
           </CardTitle>
           {!swot && (
             <Button size="sm" onClick={generateSwot} loading={swotLoading}>
@@ -163,7 +158,7 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
         </CardHeader>
         {!swot ? (
           <CardBody className="pt-2">
-            <p className="text-ink-50 text-sm">
+            <p className="text-sm text-ink-50">
               Generate an executive strengths / weaknesses / opportunities / threats brief from this
               client's live visibility data.
             </p>
@@ -174,7 +169,7 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
             <SwotBlock title="Weaknesses" tone="warning" items={swot.weaknesses} />
             <SwotBlock title="Opportunities" tone="info" items={swot.opportunities} />
             <SwotBlock title="Threats" tone="danger" items={swot.threats} />
-            <p className="bg-surface-2/60 text-ink-70 sm:col-span-2 rounded-lg p-3 text-sm">
+            <p className="sm:col-span-2 rounded-lg bg-surface-2/60 p-3 text-sm text-ink-70">
               {swot.strategicVerdict}
             </p>
           </CardBody>
@@ -191,7 +186,7 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
           <CardBody className="space-y-2 pt-3">
             {Object.entries(data.engineStats).map(([engine, s]) => (
               <div key={engine} className="flex items-center justify-between text-sm">
-                <span className="text-ink-70 capitalize">{engine}</span>
+                <span className="capitalize text-ink-70">{engine}</span>
                 <span className="text-ink-50">
                   {s.mentioned}/{s.total} mentioned · {s.cited} cited
                 </span>
@@ -206,7 +201,7 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
           </CardHeader>
           <CardBody className="space-y-2 pt-3">
             {data.competitorsLeaderboard.length === 0 && (
-              <p className="text-ink-50 text-sm">No competitors surfaced yet.</p>
+              <p className="text-sm text-ink-50">No competitors surfaced yet.</p>
             )}
             {data.competitorsLeaderboard.slice(0, 8).map((c) => (
               <div key={c.name} className="flex items-center justify-between text-sm">
@@ -242,9 +237,9 @@ export default function ReportsTab({ client }: { client: ClientSummary }) {
         </CardBody>
       </Card>
 
-      <div className="border-line flex flex-wrap items-center gap-3 border-t pt-4">
+      <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
         <a
-          href={`${API_BASE_URL}/api/reports/${client.slug}/export?format=html${cycleParam}`}
+          href={`${API_BASE_URL}/api/reports/${client.slug}/export?format=pdf${cycleParam}`}
           className="bg-brand text-white flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium hover:opacity-90"
         >
           <Download className="size-3.5" /> Quick report (PDF)
@@ -279,7 +274,7 @@ function MetricCard({ label, value }: { label: string; value: string }) {
     <Card>
       <CardBody className="pt-5 text-center">
         <p className="text-brand text-2xl font-bold">{value}</p>
-        <p className="text-ink-50 mt-1 text-xs">{label}</p>
+        <p className="mt-1 text-xs text-ink-50">{label}</p>
       </CardBody>
     </Card>
   )
@@ -299,7 +294,7 @@ function SwotBlock({
       <Badge tone={tone} className="mb-1.5">
         {title}
       </Badge>
-      <ul className="text-ink-50 space-y-1 text-sm">
+      <ul className="space-y-1 text-sm text-ink-50">
         {items.map((it, i) => (
           <li key={i}>• {it}</li>
         ))}
@@ -311,41 +306,37 @@ function SwotBlock({
 function KeywordRow({ row }: { row: ReportData['keywordMatrix'][number] }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border-line bg-surface-2/40 rounded-lg border">
+    <div className="rounded-lg border border-line bg-surface-2/40">
       <button
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left"
       >
         <div className="min-w-0">
-          <p className="text-ink truncate text-sm">{row.text}</p>
-          <p className="text-ink-30 text-[11px]">
+          <p className="truncate text-sm text-ink">{row.text}</p>
+          <p className="text-[11px] text-ink-30">
             {row.intent.replace(/_/g, ' ')} · {row.locale}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <Badge
-            tone={
-              row.mentionedRate >= 50 ? 'success' : row.mentionedRate > 0 ? 'warning' : 'danger'
-            }
-          >
+          <Badge tone={row.mentionedRate >= 50 ? 'success' : row.mentionedRate > 0 ? 'warning' : 'danger'}>
             {row.mentionedRate}%
           </Badge>
-          <ChevronDown className={`text-ink-30 size-3.5 transition ${open ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`size-3.5 text-ink-30 transition ${open ? 'rotate-180' : ''}`} />
         </div>
       </button>
       {open && (
-        <div className="border-line space-y-2 border-t px-3 py-2.5">
+        <div className="space-y-2 border-t border-line px-3 py-2.5">
           {Object.entries(row.engines).map(([engine, runs]) => (
             <div key={engine}>
-              <p className="text-ink-50 mb-1 text-xs font-medium capitalize">{engine}</p>
+              <p className="mb-1 text-xs font-medium capitalize text-ink-50">{engine}</p>
               {runs.map((r) => (
-                <p key={r.runId} className="text-ink-50 mb-1 text-[12px]">
+                <p key={r.runId} className="mb-1 text-[12px] text-ink-50">
                   <span className={r.mentioned ? 'text-emerald-400' : 'text-ink-30'}>
                     {r.mentioned ? '✓ mentioned' : '— not mentioned'}
                   </span>
                   {r.cited && <span className="ml-2 text-cyan-400">✓ cited</span>}
-                  {r.rank && <span className="text-ink-30 ml-2">rank #{r.rank}</span>}
-                  <span className="text-ink-30 ml-2 block">{r.answerSnippet}</span>
+                  {r.rank && <span className="ml-2 text-ink-30">rank #{r.rank}</span>}
+                  <span className="ml-2 block text-ink-30">{r.answerSnippet}</span>
                 </p>
               ))}
             </div>

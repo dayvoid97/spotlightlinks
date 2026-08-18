@@ -177,11 +177,10 @@ export function ClientOnboardingForm({
                 />
               </div>
               <div>
-                <Label htmlFor="radiusMiles">Please double check your service radius (mi)</Label>
+                <Label htmlFor="radiusMiles">Service radius (mi)</Label>
                 <Input
                   id="radiusMiles"
                   type="number"
-                  placeholder="5"
                   value={form.radiusMiles}
                   onChange={(e) => set('radiusMiles', e.target.value)}
                 />

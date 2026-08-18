@@ -82,7 +82,7 @@ export default function GetStartedPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl space-y-8 px-4 py-2 sm:px-6 sm:py-12">
+      <main className="mx-auto max-w-3xl space-y-8 px-4 py-8 sm:px-6 sm:py-12">
         <Link
           to="/"
           className="text-ink-50 hover:text-ink inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
@@ -108,7 +108,7 @@ export default function GetStartedPage() {
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <Zap className="text-brand size-4 shrink-0" />
-              <span>Instant Setup. Please ensure you put in valid zip code.</span>
+              <span>Free instant AI setup</span>
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <ShieldCheck className="text-brand size-4 shrink-0" />

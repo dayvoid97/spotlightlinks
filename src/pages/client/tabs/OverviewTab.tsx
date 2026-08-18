@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { Save } from 'lucide-react'
+import { Save, Plus, Trash2, ChevronDown } from 'lucide-react'
 import { api, ApiError } from '../../../lib/api'
 import type { ClientFile, ClientSummary, Prompt } from '../../../lib/types'
 import { Card, CardBody, CardHeader, CardTitle } from '../../../components/ui/Card'
@@ -31,6 +31,37 @@ export default function OverviewTab({ client, prompts, fileContent }: Props) {
   const [locales, setLocales] = useState((fileContent?.locales as string[] | undefined)?.join(', ') ?? '')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [newPrompt, setNewPrompt] = useState('')
+  const [addingPrompt, setAddingPrompt] = useState(false)
+
+  const canManage = client.isOwner
+  const customerPrompts = prompts.filter((p) => p.source === 'customer_suggest')
+
+  async function addPrompt() {
+    const text = newPrompt.trim()
+    if (!text) return
+    setAddingPrompt(true)
+    try {
+      await api.post(`/api/clients/${client.slug}/prompts`, { text })
+      setNewPrompt('')
+      toast.push('Prompt added — it will be probed first on the next cycle.')
+      queryClient.invalidateQueries({ queryKey: ['client', client.slug] })
+    } catch (err) {
+      toast.push(err instanceof ApiError ? err.message : 'Could not add prompt.', 'error')
+    } finally {
+      setAddingPrompt(false)
+    }
+  }
+
+  async function removePrompt(id: string) {
+    try {
+      await api.delete(`/api/clients/${client.slug}/prompts/${id}`)
+      toast.push('Prompt removed.')
+      queryClient.invalidateQueries({ queryKey: ['client', client.slug] })
+    } catch (err) {
+      toast.push(err instanceof ApiError ? err.message : 'Could not remove prompt.', 'error')
+    }
+  }
 
   async function save() {
     setSaving(true)
@@ -49,8 +80,6 @@ export default function OverviewTab({ client, prompts, fileContent }: Props) {
       setSaving(false)
     }
   }
-
-  const promptsByIntent = groupBy(prompts, (p) => p.intent)
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
@@ -83,28 +112,70 @@ export default function OverviewTab({ client, prompts, fileContent }: Props) {
           <CardHeader>
             <CardTitle>Prompt set ({prompts.length})</CardTitle>
           </CardHeader>
-          <CardBody className="pt-3">
+          <CardBody className="space-y-4 pt-3">
+            {canManage && (
+              <div>
+                <Label htmlFor="new-prompt">Add your own prompt</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="new-prompt"
+                    value={newPrompt}
+                    onChange={(e) => setNewPrompt(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && addPrompt()}
+                    placeholder="e.g. best halal döner near Sunnyside"
+                  />
+                  <Button onClick={addPrompt} loading={addingPrompt} disabled={!newPrompt.trim()}>
+                    <Plus className="size-3.5" /> Add
+                  </Button>
+                </div>
+                <p className="mt-1.5 text-[11px] text-ink-30">
+                  Your prompts are probed first every cycle, ahead of the generated set.
+                </p>
+              </div>
+            )}
+
+            {customerPrompts.length > 0 && (
+              <div>
+                <p className="mb-1.5 flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-brand">
+                  Your prompts · {customerPrompts.length}
+                  <Badge tone="violet">probed first</Badge>
+                </p>
+                <ul className="space-y-1.5">
+                  {customerPrompts.map((p) => (
+                    <li
+                      key={p.id}
+                      className="flex items-center justify-between gap-2 rounded-lg border border-brand/30 bg-brand-tint/20 px-3 py-2 text-sm text-ink-70"
+                    >
+                      <span>
+                        {p.text}
+                        <span className="ml-2 text-xs text-ink-30">({p.locale})</span>
+                      </span>
+                      {canManage && (
+                        <button
+                          onClick={() => removePrompt(p.id)}
+                          className="shrink-0 text-ink-30 hover:text-red-400"
+                          aria-label="Remove prompt"
+                        >
+                          <Trash2 className="size-3.5" />
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {prompts.length === 0 ? (
               <p className="text-sm text-ink-50">No prompts generated yet.</p>
             ) : (
-              <div className="space-y-4">
-                {Object.entries(promptsByIntent).map(([intent, list]) => (
-                  <div key={intent}>
-                    <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-ink-50">
-                      {intent.replace(/_/g, ' ')} · {list.length}
-                    </p>
-                    <ul className="space-y-1.5">
-                      {list.map((p) => (
-                        <li
-                          key={p.id}
-                          className="rounded-lg border border-line bg-surface-2/50 px-3 py-2 text-sm text-ink-70"
-                        >
-                          {p.text}
-                          <span className="ml-2 text-xs text-ink-30">({p.locale})</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="space-y-2">
+                {Object.entries(
+                  groupBy(
+                    dedupePrompts(prompts.filter((p) => p.source !== 'customer_suggest')),
+                    (p) => p.intent
+                  )
+                ).map(([intent, list]) => (
+                  <PromptGroup key={intent} intent={intent} list={list} />
                 ))}
               </div>
             )}
@@ -129,6 +200,52 @@ export default function OverviewTab({ client, prompts, fileContent }: Props) {
       </div>
     </div>
   )
+}
+
+/** Collapsible intent group. Starts collapsed since a set can run to dozens. */
+function PromptGroup({ intent, list }: { intent: string; list: Prompt[] }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="rounded-lg border border-line bg-surface-2/30">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full items-center justify-between px-3 py-2 text-left"
+      >
+        <span className="text-xs font-medium uppercase tracking-wide text-ink-50">
+          {intent.replace(/_/g, ' ')} · {list.length}
+        </span>
+        <ChevronDown
+          className={`size-3.5 text-ink-30 transition ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+      {open && (
+        <ul className="space-y-1.5 border-t border-line px-3 py-2.5">
+          {list.map((p) => (
+            <li
+              key={p.id}
+              className="rounded-lg border border-line bg-surface-2/50 px-3 py-2 text-sm text-ink-70"
+            >
+              {p.text}
+              <span className="ml-2 text-xs text-ink-30">({p.locale})</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+/** Drop exact-duplicate prompts (same text + locale). */
+function dedupePrompts(list: Prompt[]): Prompt[] {
+  const seen = new Set<string>()
+  const out: Prompt[] = []
+  for (const p of list) {
+    const key = `${p.text.trim().toLowerCase()}@${p.locale.trim().toLowerCase()}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    out.push(p)
+  }
+  return out
 }
 
 function Row({ label, value }: { label: string; value: ReactNode }) {

@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, Sparkles, ShieldCheck, Zap, Clock, AlertTriangle } from 'lucide-react'
+import { ArrowLeft, Sparkles, ShieldCheck, Zap, Clock } from 'lucide-react'
 import { useAuth } from '../context/auth-context'
 import { saveOnboardingDraft, type OnboardingFormState } from '../lib/onboarding-draft'
 import { ClientOnboardingForm } from '../components/ClientOnboardingForm'
@@ -9,18 +9,22 @@ import { ThemeToggle } from '../components/ThemeToggle'
 import { Button } from '../components/ui/Button'
 import { FullPageSpinner } from '../components/ui/Spinner'
 
-// Configuration for front-end rate limiting
-const MAX_REQUESTS = 5 // Max allowed requests
-const WINDOW_MS = 60 * 1000 // In 1 minute (60,000 ms)
-
+/**
+ * Public onboarding funnel (route "/get-started").
+ *
+ * Logged-out visitors can fill in the whole client-context form and use the
+ * free AI synthesize step. Only the final generate is gated: on submit, their
+ * intake is parked (sessionStorage) and a sign-up prompt appears. After they
+ * create an account (or log in), NewClientPage rehydrates the draft so they
+ * pick up exactly where they left off.
+ *
+ * Logged-in visitors don't belong here — they're bounced to the real authed
+ * flow at /clients/new. See docs/03-client-onboarding.md.
+ */
 export default function GetStartedPage() {
   const { user, loading } = useAuth()
   const navigate = useNavigate()
   const [promptSignup, setPromptSignup] = useState(false)
-
-  // Rate limiter state
-  const requestTimestamps = useRef<number[]>([])
-  const [rateLimitError, setRateLimitError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!loading && user) navigate('/clients/new', { replace: true })
@@ -28,38 +32,12 @@ export default function GetStartedPage() {
 
   if (loading || user) return <FullPageSpinner label="Loading…" />
 
-  function checkRateLimit(): boolean {
-    const now = Date.now()
-    // Filter out timestamps outside the current window
-    const recentRequests = requestTimestamps.current.filter(
-      (timestamp) => now - timestamp < WINDOW_MS
-    )
-
-    if (recentRequests.length >= MAX_REQUESTS) {
-      setRateLimitError(
-        'You have made too many synthesis requests in a short time. Please wait a minute before trying again.'
-      )
-      return false
-    }
-
-    // Record new request timestamp
-    recentRequests.push(now)
-    requestTimestamps.current = recentRequests
-    setRateLimitError(null)
-    return true
-  }
-
   function handleGenerate(form: OnboardingFormState) {
-    // 1. Check rate limit before processing
-    if (!checkRateLimit()) {
-      return
-    }
-
-    // 2. Park the intake and ask them to sign up
+    // No account yet — park the intake and ask them to sign up rather than
+    // firing a generate call that would just 401.
     saveOnboardingDraft(form)
     setPromptSignup(true)
-
-    // Smooth scroll to the bottom prompt
+    // Bring the prompt into view; it renders just above the submit button.
     requestAnimationFrame(() =>
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     )
@@ -82,7 +60,7 @@ export default function GetStartedPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl space-y-8 px-4 py-2 sm:px-6 sm:py-12">
+      <main className="mx-auto max-w-3xl space-y-8 px-4 py-8 sm:px-6 sm:py-12">
         <Link
           to="/"
           className="text-ink-50 hover:text-ink inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
@@ -92,6 +70,10 @@ export default function GetStartedPage() {
 
         {/* Hero & Intro */}
         <div className="space-y-4">
+          <div className="border-line bg-surface-raised text-ink-70 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium">
+            <Sparkles className="text-brand size-3.5" /> Free AI Business Synthesis
+          </div>
+
           <h1 className="text-ink text-3xl font-bold tracking-tight sm:text-4xl">
             Build your business profile
           </h1>
@@ -101,6 +83,7 @@ export default function GetStartedPage() {
             drop in a quick description and let our AI draft the details for you automatically.
           </p>
 
+          {/* Quick reassurance indicators */}
           <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-3">
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <Clock className="text-brand size-4 shrink-0" />
@@ -108,7 +91,7 @@ export default function GetStartedPage() {
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <Zap className="text-brand size-4 shrink-0" />
-              <span>Instant Setup. Please ensure you put in valid zip code.</span>
+              <span>Free instant AI setup</span>
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <ShieldCheck className="text-brand size-4 shrink-0" />
@@ -117,14 +100,6 @@ export default function GetStartedPage() {
           </div>
         </div>
 
-        {/* Rate Limit Warning Banner */}
-        {rateLimitError && (
-          <div className="border-brand bg-brand-tint text-ink flex items-center gap-3 rounded-xl border p-4 text-sm font-medium">
-            <AlertTriangle className="text-brand size-5 shrink-0" />
-            <span>{rateLimitError}</span>
-          </div>
-        )}
-
         {/* Form Container */}
         <div className="border-line bg-surface-raised rounded-xl border p-4 shadow-sm sm:p-6">
           <ClientOnboardingForm
@@ -132,7 +107,7 @@ export default function GetStartedPage() {
             submitting={false}
             onSubmit={handleGenerate}
             onChange={(form) => {
-              if (rateLimitError) setRateLimitError(null)
+              // Keep the parked draft current if they keep editing after the prompt appears.
               if (promptSignup) saveOnboardingDraft(form)
             }}
             banner={promptSignup ? <SignupPrompt /> : null}

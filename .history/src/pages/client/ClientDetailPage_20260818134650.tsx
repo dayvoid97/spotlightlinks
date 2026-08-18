@@ -100,7 +100,7 @@ export default function ClientDetailPage() {
           rel="noreferrer"
           className="border-line bg-surface-2 text-ink-70 hover:bg-surface-2 flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm"
         >
-          View full expanded report <ExternalLink className="size-3.5" />
+          Public report <ExternalLink className="size-3.5" />
         </a>
       </div>
 

@@ -108,7 +108,7 @@ export default function GetStartedPage() {
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <Zap className="text-brand size-4 shrink-0" />
-              <span>Instant Setup. Please ensure you put in valid zip code.</span>
+              <span>Free instant AI setup</span>
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <ShieldCheck className="text-brand size-4 shrink-0" />

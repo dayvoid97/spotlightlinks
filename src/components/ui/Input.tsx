@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, type TextareaHTMLAttributes, type LabelHTMLAttributes, forwardRef } from 'react'
+import { type InputHTMLAttributes, type TextareaHTMLAttributes, type LabelHTMLAttributes, type SelectHTMLAttributes, forwardRef } from 'react'
 import clsx from 'clsx'
 
 export function Label({ className, ...rest }: LabelHTMLAttributes<HTMLLabelElement>) {
@@ -19,6 +19,13 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
   )
 )
 Input.displayName = 'Input'
+
+export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSelectElement>>(
+  ({ className, ...rest }, ref) => (
+    <select ref={ref} className={clsx(fieldClasses, className)} {...rest} />
+  )
+)
+Select.displayName = 'Select'
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
   ({ className, ...rest }, ref) => (

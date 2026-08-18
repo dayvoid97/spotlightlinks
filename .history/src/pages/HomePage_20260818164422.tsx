@@ -162,9 +162,9 @@ function Hero({ user, loading }: { user: ReturnType<typeof useAuth>['user']; loa
       <div className="relative mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 md:py-28">
         <div className="flex max-w-2xl flex-col items-center">
           <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl md:text-6xl">
-            <span className="text-emerald-800">
-              <span className="text-red-800">THE AI TOOLKIT </span> for growing your business.
-            </span>
+            We're not just what AI says about you.
+            <br />
+            <span className="text-emerald-800">We're the AI-native toolkit for your business.</span>
           </h1>
 
           <p className="text-muted-foreground mt-6 text-lg sm:text-xl">

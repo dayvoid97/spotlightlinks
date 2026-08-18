@@ -72,6 +72,11 @@ export interface ClientSummary {
   deletedAt: string | null
   subduedUntil: string | null
   subscriptionStatus: string
+  reminderEnabled?: boolean
+  reminderPhone?: string | null
+  reminderDay?: number | null
+  reminderHour?: number | null
+  reminderTimezone?: string | null
   createdAt: string
   isOwner: boolean
   promptCount: number
@@ -101,6 +106,7 @@ export interface Prompt {
   text: string
   intent: string
   locale: string
+  source?: 'generative_suggest' | 'customer_suggest' | string
   runs: number | null
   active: boolean
   createdAt: string
@@ -251,20 +257,34 @@ export interface ReportData {
   publicReportUrl: string
   downloadUrls: { html: string; pdf?: string; docx?: string; rtf?: string } | null
   latestReport: unknown
+  reportHistory: ReportSnapshot[]
   aiSummary: AiSummary
-  metrics: {
-    totalRuns: number
-    mentionedCount: number
-    citedCount: number
-    rankOneCount: number
-    mentionRate: number
-    citationRate: number
-  }
+  metrics: ReportMetrics
   engineStats: Record<string, EngineStat>
   localeStats: Record<string, EngineStat>
   competitorsLeaderboard: { name: string; count: number }[]
   topSources: { domain: string; count: number }[]
   keywordMatrix: KeywordMatrixRow[]
+}
+
+export interface ReportMetrics {
+  totalRuns: number
+  mentionedCount: number
+  citedCount: number
+  rankOneCount: number
+  mentionRate: number
+  citationRate: number
+}
+
+/** One stored per-cycle report snapshot from GET /api/reports/:slug. */
+export interface ReportSnapshot {
+  id: string
+  cycleId: string
+  score: number
+  aiSummary: AiSummary | null
+  metrics: ReportMetrics | null
+  documentUrls: { html: string; pdf?: string; docx?: string; rtf?: string } | null
+  createdAt: string
 }
 
 export interface SwotResult {

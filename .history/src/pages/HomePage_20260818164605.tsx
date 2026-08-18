@@ -163,7 +163,8 @@ function Hero({ user, loading }: { user: ReturnType<typeof useAuth>['user']; loa
         <div className="flex max-w-2xl flex-col items-center">
           <h1 className="text-ink text-4xl font-semibold leading-[1.1] sm:text-5xl md:text-6xl">
             <span className="text-emerald-800">
-              <span className="text-red-800">THE AI TOOLKIT </span> for growing your business.
+              Spotlight Links is <span className="text-red-800">THE </span> AI-native toolkit for
+              your business.
             </span>
           </h1>
 

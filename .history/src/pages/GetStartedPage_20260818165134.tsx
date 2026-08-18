@@ -82,7 +82,7 @@ export default function GetStartedPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl space-y-8 px-4 py-2 sm:px-6 sm:py-12">
+      <main className="mx-auto max-w-3xl space-y-8 px-4 py-8 sm:px-6 sm:py-12">
         <Link
           to="/"
           className="text-ink-50 hover:text-ink inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
@@ -92,6 +92,10 @@ export default function GetStartedPage() {
 
         {/* Hero & Intro */}
         <div className="space-y-4">
+          <div className="border-line bg-surface-raised text-ink-70 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium">
+            <Sparkles className="text-brand size-3.5" /> Free AI Business Synthesis
+          </div>
+
           <h1 className="text-ink text-3xl font-bold tracking-tight sm:text-4xl">
             Build your business profile
           </h1>
@@ -108,7 +112,7 @@ export default function GetStartedPage() {
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <Zap className="text-brand size-4 shrink-0" />
-              <span>Instant Setup. Please ensure you put in valid zip code.</span>
+              <span>Free instant AI setup</span>
             </div>
             <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
               <ShieldCheck className="text-brand size-4 shrink-0" />
