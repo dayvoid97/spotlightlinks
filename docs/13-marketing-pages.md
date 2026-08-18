@@ -18,9 +18,9 @@ samples per prompt across the answer engines, 300+ live calls per audit, 95% Wil
 confidence (a "99.4% confident" read), ~10-minute run, and the reporting/export surface from
 [docs/05](05-reports-and-analytics.md).
 
-## The $49 pricing story
+## The $79 pricing story
 
-The public pitch, per product direction: **$49/month → 2 managed assets, each audited up to 4×
+The public pitch, per product direction: **$79/month → 2 managed assets, each audited up to 4×
 a month.** Two businesses (or sites, or locations — a name plus a ZIP code), watched and
 re-audited so the owner sees what's working, what isn't, and stays ahead as features ship. The
 framing leans on "nothing here is free" — an audit really does fire 300+ paid model calls — to
@@ -35,6 +35,18 @@ as a compact ladder beneath the flagship, the last unlocking done-for-you AEO co
 > backend `PLANS` in `checkout.routes.ts` (which is out of scope for this frontend project) to
 > match the pitch. The number lives in exactly one place on the frontend: `FLAGSHIP` in
 > `src/lib/marketing.ts`.
+
+> **Price drift with the backend.** Public copy is $79/month. `BillingPage` does not use that
+> number at all — it renders `plan.priceDollars` straight from `GET /api/checkout/plans`. If the
+> backend `PLANS` constant in `checkout.routes.ts` still returns `49` for `starter_49`, a visitor
+> reads $79 on the homepage and is charged $49 at checkout. The backend is the source of truth for
+> what a customer actually pays; update it there. Note the plan *id* `starter_49` is an API enum,
+> not a price — renaming it would break the contract, and it is never shown to a crawler.
+
+> **Structured-data prices.** The JSON-LD `Offer` blocks in `index.html` restate all four tier
+> prices for crawlers that never execute our JS. They are hand-maintained — change a price in
+> `src/lib/marketing.ts` and you must change it in `index.html` too, or answer engines will keep
+> quoting the stale one long after the site looks correct.
 
 ## The comparison (`/compare`)
 
@@ -53,7 +65,7 @@ serves a different primary use case. This keeps it honest and defensible — no 
 claims about a competitor.
 
 The four differentiators (`Differentiators`) carry the positioning: purpose-built for AI answers,
-priced for real businesses ($49), local by default (ZIP-level), and measured not guessed
+priced for real businesses ($79), local by default (ZIP-level), and measured not guessed
 (Wilson-score confidence). The "New York, AI-native team" story is told in the comparison teaser
 intro and the closing FAQ ("Who is behind Spotlight Links?").
 

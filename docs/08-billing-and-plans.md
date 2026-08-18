@@ -16,6 +16,12 @@ on the backend needs zero frontend changes to take effect.
 | `scale_299` | $299/mo | Unlimited | No |
 | `enterprise_599` | $599/mo | Unlimited | Yes — unlocks [Facts](06-facts-harvesting.md) & [Assets](07-content-assets.md) |
 
+> **This table records what the backend returns, not what the site advertises.** Public marketing
+> copy is now **$79/mo** for the starter tier (see [docs/13](13-marketing-pages.md)). Because this
+> page renders `plan.priceDollars` from the API verbatim, the starter row above must be changed in
+> `xsl-backend`'s `PLANS` constant — until it is, marketing says $79 and checkout charges $49.
+> The plan *id* `starter_49` is a stable API enum and should **not** be renamed; it is not a price.
+
 ## Two different "upgrade" endpoints, on purpose
 
 `BillingPage.tsx` puts both on every plan card, and they're not redundant:

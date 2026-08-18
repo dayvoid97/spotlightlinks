@@ -62,6 +62,6 @@ Alongside your score, Spotlight Links generates a **SWOT Analysis** (Strengths, 
 
 ---
 
-## Get Your $49 AI Visibility Audit Today
+## Get Your $79 AI Visibility Audit Today
 
-Ready to find out if AI search assistants are recommending your business or stealing your market share? Run a full $49 AI visibility audit on Spotlight Links today and receive your complete executive report in under 10 minutes.
+Ready to find out if AI search assistants are recommending your business or stealing your market share? Run a full $79 AI visibility audit on Spotlight Links today and receive your complete executive report in under 10 minutes.

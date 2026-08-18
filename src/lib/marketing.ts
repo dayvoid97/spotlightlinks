@@ -14,11 +14,11 @@ export const FAQS: Faq[] = [
   },
   {
     q: 'How much does it cost?',
-    a: "It's $49 a month. Nothing in this world is free — a single audit fires 300+ live calls to frontier AI models, and that costs real money to run. For $49 you get two managed assets, each audited up to four times a month, plus every new feature we ship. No enterprise contract, no sales call.",
+    a: "It's $79 a month. Nothing in this world is free — a single audit fires 300+ live calls to frontier AI models, and that costs real money to run. For $79 you get two managed assets, each audited up to four times a month, plus every new feature we ship. No enterprise contract, no sales call.",
   },
   {
-    q: 'What is an "asset," and what exactly do I get for $49?',
-    a: 'An asset is one business you manage — a name plus a ZIP code (a company, a website, a location). $49 covers two assets, each audited up to four times per month. So you can keep two businesses under watch, see what is working and what is not across every audit, act on the recommendations, and stay ahead as the AI engines shift week to week.',
+    q: 'What is an "asset," and what exactly do I get for $79?',
+    a: 'An asset is one business you manage — a name plus a ZIP code (a company, a website, a location). $79 covers two assets, each audited up to four times per month. So you can keep two businesses under watch, see what is working and what is not across every audit, act on the recommendations, and stay ahead as the AI engines shift week to week.',
   },
   {
     q: 'Can I try it before paying?',
@@ -105,7 +105,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   },
   {
     title: 'Priced for real businesses',
-    body: 'Multi-engine AEO for $49 a month — not an annual enterprise contract. A two-location business can actually afford to stay visible.',
+    body: 'Multi-engine AEO for $79 a month — not an annual enterprise contract. A two-location business can actually afford to stay visible.',
   },
   {
     title: 'Local by default',
@@ -219,7 +219,7 @@ export const COMPARE_ROWS: CompareRow[] = [
   {
     feature: 'Indicative entry price',
     cells: [
-      { kind: 'text', text: '$49 / mo' },
+      { kind: 'text', text: '$79 / mo' },
       { kind: 'text', text: 'from ~$139 / mo' },
       { kind: 'text', text: 'Custom / enterprise' },
       { kind: 'text', text: '$$$ / mo' },
