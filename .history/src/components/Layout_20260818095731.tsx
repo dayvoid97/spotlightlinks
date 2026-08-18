@@ -14,7 +14,7 @@ const navItems = [
 export function Layout() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const logo = '/logo.png'
+  const logo = 'logo.png'
 
   return (
     <div className="bg-surface min-h-screen">

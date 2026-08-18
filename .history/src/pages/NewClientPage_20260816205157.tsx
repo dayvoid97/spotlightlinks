@@ -73,16 +73,13 @@ export default function NewClientPage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <Link
-        to="/dashboard"
-        className="text-ink-50 hover:text-ink-70 flex items-center gap-1.5 text-sm"
-      >
+      <Link to="/dashboard" className="flex items-center gap-1.5 text-sm text-ink-50 hover:text-ink-70">
         <ArrowLeft className="size-3.5" /> Back to dashboard
       </Link>
 
       <div>
-        <h1 className="text-ink text-xl font-semibold">Onboard a client</h1>
-        <p className="text-ink-50 text-sm">
+        <h1 className="text-xl font-semibold text-ink">Onboard a client</h1>
+        <p className="text-sm text-ink-50">
           Every field here becomes part of the question set Quasar asks AI engines on this
           business's behalf.
         </p>
