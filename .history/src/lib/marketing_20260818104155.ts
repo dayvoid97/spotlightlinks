@@ -1,3 +1,18 @@
+/**
+ * Marketing copy for the public surfaces (homepage pricing/FAQ/comparison and
+ * the /compare page). Kept in one place so those pages never drift apart.
+ *
+ * Product claims here are grounded in the docs and the company's own published
+ * blog copy (public/blog/how-spotlight-links-ai-audit-engine-works.md): 30+
+ * geo-targeted prompts, 3–5 samples per prompt across the answer engines,
+ * 300+ live calls per audit, 95% Wilson-score confidence, ~10-minute run.
+ *
+ * NOTE: the $49 offer described here ("2 assets · 4 audits each / month") is
+ * the marketing framing dictated for the public site. The authenticated
+ * BillingPage still renders the real plan objects from the backend
+ * (GET /api/checkout/plans) for actual purchase — see docs/08-billing-and-plans.md.
+ */
+
 export interface Faq {
   q: string
   a: string

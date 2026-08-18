@@ -4,7 +4,7 @@ import { FLAGSHIP, SCALE_TIERS } from '../../lib/marketing'
 import { Button } from '../ui/Button'
 
 /**
- * Marketing pricing block: the $79 flagship front and center, with the higher
+ * Marketing pricing block: the $49 flagship front and center, with the higher
  * tiers as a compact ladder beneath. Shared by the homepage and /compare.
  * Static copy on purpose — the real, purchasable plan objects live behind auth
  * on BillingPage (GET /api/checkout/plans). See src/lib/marketing.ts.
