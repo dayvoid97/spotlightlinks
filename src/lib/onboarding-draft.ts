@@ -15,6 +15,7 @@
 export interface OnboardingFormState {
   businessName: string
   description: string
+  domain: string
   zip: string
   categories: string
   competitors: string
@@ -27,6 +28,7 @@ export interface OnboardingFormState {
 export const emptyOnboardingForm: OnboardingFormState = {
   businessName: '',
   description: '',
+  domain: '',
   zip: '',
   categories: '',
   competitors: '',

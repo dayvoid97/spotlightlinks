@@ -116,6 +116,8 @@ export interface ClientFile {
   slug: string
   businessName?: string
   name?: string
+  /** See Intake.domain — this is what detect.ts matches citations against. */
+  domain?: string
   description?: string
   zip?: string
   categories?: string[]
@@ -135,6 +137,12 @@ export interface ClientFile {
 export interface Intake {
   businessName: string
   description: string
+  /**
+   * The client's own website. Not cosmetic: detect.ts decides `cited` by
+   * looking for this domain in an answer's citations, so a client without one
+   * scores a 0% citation rate by construction rather than by measurement.
+   */
+  domain?: string
   zip: string
   categories?: string[]
   competitors?: string[]
@@ -147,6 +155,7 @@ export interface Intake {
 
 export interface SynthesizedIntake {
   businessName: string
+  website?: string | null
   zip: string
   categories: string[]
   competitors: string[]
@@ -221,11 +230,12 @@ export interface KeywordMatrixEngineRun {
   model: string
   mentioned: boolean
   cited: boolean
+  /** Which of the client's names the detector matched. The receipt behind `mentioned`. */
+  matchedAlias: string | null
   rank: number | null
   competitors: string[]
   citations: { url: string; title?: string }[]
   answerSnippet: string
-  fullAnswer: string
   startedAt: string
 }
 
@@ -240,6 +250,13 @@ export interface KeywordMatrixRow {
   mentionedRate: number
   competitors: string[]
   engines: Record<string, KeywordMatrixEngineRun[]>
+}
+
+/** GET /api/reports/:slug/prompts/:promptId/runs — full answers for one question. */
+export interface PromptRunsResponse {
+  aliases: string[]
+  competitors: string[]
+  runs: (Omit<KeywordMatrixEngineRun, 'answerSnippet'> & { answerText: string })[]
 }
 
 export interface AiSummary {

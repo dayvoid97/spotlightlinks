@@ -71,6 +71,7 @@ export function ClientOnboardingForm({
         ...form,
         businessName: s.businessName || form.businessName,
         description: s.description || form.description,
+        domain: s.website || form.domain,
         zip: s.zip || form.zip,
         categories: s.categories?.join(', ') || form.categories,
         competitors: s.competitors?.join(', ') || form.competitors,
@@ -163,6 +164,30 @@ export function ClientOnboardingForm({
                 onChange={(e) => set('description', e.target.value)}
                 placeholder="2-3 sentences: what they do, who they serve, what makes them distinct."
               />
+            </div>
+
+            {/*
+              Not optional in effect, whatever the asterisks say. detect.ts
+              decides whether an answer *cited* the business by looking for this
+              domain among the answer's citations — with no domain the citation
+              rate is 0% by construction, and the report then reads that back as
+              a finding about the business rather than a gap in its own intake.
+            */}
+            <div>
+              <Label htmlFor="domain">Website</Label>
+              <Input
+                id="domain"
+                type="text"
+                inputMode="url"
+                value={form.domain}
+                onChange={(e) => set('domain', e.target.value)}
+                placeholder="rocknjoe.com"
+              />
+              <p className="text-ink-30 mt-1.5 text-[11px]">
+                How we tell whether an engine <em>linked</em> to this business or merely named it.
+                Leave it blank and the citation rate will read 0% no matter how often engines cite
+                the site.
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">

@@ -491,7 +491,7 @@ function KeywordMatrix({ rows, slug }: { rows: KeywordMatrixRow[]; slug: string 
           />
           <span className="min-w-0">
             <CardTitle>Keyword intelligence matrix ({rows.length})</CardTitle>
-            <span className="text-ink-30 mt-0.5 block text-[14px]">
+            <span className="text-ink-30 mt-0.5 block text-[11px]">
               {open
                 ? 'Every question probed, how often engines named you, and who took the ones you lost.'
                 : 'Collapsed — expand to see every question, engine by engine.'}

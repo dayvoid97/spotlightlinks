@@ -440,9 +440,10 @@ type SortKey = 'strongest' | 'weakest' | 'runs' | 'intent'
 
 const SORTS: { key: SortKey; label: string }[] = [
   { key: 'strongest', label: 'Strongest first' },
+  { key: 'weakest', label: 'Weakest first' },
+
   { key: 'runs', label: 'Most measured' },
   { key: 'intent', label: 'By intent' },
-  { key: 'weakest', label: 'Weakest first' },
 ]
 
 /**
@@ -491,7 +492,7 @@ function KeywordMatrix({ rows, slug }: { rows: KeywordMatrixRow[]; slug: string 
           />
           <span className="min-w-0">
             <CardTitle>Keyword intelligence matrix ({rows.length})</CardTitle>
-            <span className="text-ink-30 mt-0.5 block text-[14px]">
+            <span className="text-ink-30 mt-0.5 block text-[11px]">
               {open
                 ? 'Every question probed, how often engines named you, and who took the ones you lost.'
                 : 'Collapsed — expand to see every question, engine by engine.'}

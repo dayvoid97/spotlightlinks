@@ -46,6 +46,7 @@ export default function NewClientPage() {
       const intake: Intake = {
         businessName: form.businessName,
         description: form.description,
+        domain: form.domain.trim() || undefined,
         zip: form.zip,
         categories: splitList(form.categories),
         competitors: splitList(form.competitors),

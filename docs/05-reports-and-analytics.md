@@ -46,11 +46,33 @@ know which case it hit — the shape is identical either way.
 ### The keyword matrix
 
 `keywordMatrix` groups every scored run by prompt, and within each prompt by engine, giving you
-every individual run's `mentioned`/`cited`/`rank`/`competitors`/`answerSnippet`. `ReportsTab.tsx`
-renders this as a collapsible list (`KeywordRow`) — collapsed, you see the prompt text, intent,
-locale, and an aggregate mention-rate badge; expanded, every engine's individual runs with their
-answer snippets. This is the view for "why does this specific search not mention the client" —
-the raw answer text is right there.
+every individual run's `mentioned`/`cited`/`rank`/`competitors`/`citations`/`answerSnippet`.
+
+`ReportsTab.tsx` renders it as `KeywordMatrix` → `KeywordRow`. Collapsed, a row carries the
+question, its intent (with an `InfoTip` explaining what that kind of buyer is asking — copy lives
+in `src/lib/intents.ts`, keyed to the backend's `INTENTS` array in `generate.ts`), the market, a
+per-engine hit strip, the rivals that took the question, and the rate **with its denominator and
+Wilson interval**. Expanded, every engine's individual runs plus the URLs engines actually cited.
+
+Three rules this view is built on, each of which it previously broke:
+
+- **Never show a rate without its `n`.** `src/lib/stats.ts` is a hand-kept port of the backend's
+  `wilson()`. A bare "100%" from two runs and one from forty are different claims, and the interval
+  is what separates them. Rows wider than 45 points are labelled *needs more runs*.
+- **Default sort is Wilson upper bound ascending**, not rate ascending — "confidently losing this"
+  ranks above "might be losing this, n=2". Sorting on the rate alone puts a single unlucky run at
+  the top of the client's to-do list.
+- **`row.competitors` is re-tallied across runs** rather than rendered as the deduped set the API
+  sends. The set drops the frequency, and the frequency ("took this 4 of 6 times") is what turns a
+  name into a finding.
+
+`localeStats` feeds the **Market performance** card beside engine performance. Both use the same
+`RateRow` so a market and an engine are read the same way.
+
+`fullAnswer` used to ship on every run and was never displayed — a full cycle is up to 25 templates
+× 5 markets × 3 engines × 3 runs, so that was four figures' worth of complete LLM answers
+serialised into one response for nothing. It has been removed; `answerSnippet` is what the UI
+shows. Add a per-run endpoint if a future view needs the whole text.
 
 ## `POST /api/reports/:slug/swot`
 
