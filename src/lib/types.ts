@@ -153,15 +153,40 @@ export interface Intake {
   ownerEmail?: string
 }
 
+/**
+ * POST /api/clients/synthesize-bio's `synthesized` payload.
+ *
+ * Note the ZIP arrives nested under `address`, not at the top level — the flat
+ * `zip` below is kept optional only because older callers read it, and it is
+ * usually absent. Read it through `applySynthesizedIntake` in
+ * lib/onboarding-draft.ts rather than reaching for either field directly.
+ */
 export interface SynthesizedIntake {
   businessName: string
   website?: string | null
-  zip: string
+  /** Rarely present. The real value lives in `address.zip`. */
+  zip?: string
+  address?: {
+    street?: string | null
+    city?: string | null
+    state?: string | null
+    zip?: string | null
+  } | null
   categories: string[]
   competitors: string[]
+  /** Towns the business appears to serve, as inferred from the story. */
+  serviceTowns?: string[]
   description: string
   foundingYear?: number
   highlights: string[]
+  /** Google Places lookups behind `competitors`, when the backend resolved them. */
+  verifiedCompetitorsMeta?: Array<{
+    placeId: string
+    name: string
+    address: string
+    rating?: number
+    reviewCount?: number
+  }>
 }
 
 export interface ClientMedia {

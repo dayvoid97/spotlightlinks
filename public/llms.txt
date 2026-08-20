@@ -12,6 +12,58 @@
 - Scale — $299/month. Unlimited managed assets for agencies and multi-location brands.
 - Enterprise — $599/month. Adds done-for-you AEO content: schema, FAQs, and citation packets.
 
+## Service area
+
+Queens, New York City. Spotlight Links serves local and brick-and-mortar businesses across Queens, NYC — hardware stores, pizzerias, restaurants, takeout counters, and discount shops — with AI and search visibility audits scoped to their own ZIP code and surrounding neighborhoods.
+
+Neighborhoods served: Astoria, Jackson Heights, Elmhurst, Flushing, Woodside, Sunnyside, Ridgewood, Corona, Forest Hills, Long Island City.
+
+Every audit is geo-scoped to the client's own ZIP code, service radius, and adjacent markets rather than national keyword rankings.
+
+## Services
+
+### Answer Engine Optimization (AEO)
+
+Turn your real prices, timelines, and service facts into answers an AI can quote.
+
+AEO is the work of making your business answerable. We take what you actually charge, how long you actually take, what you actually serve, and the areas you actually cover, and publish them as structured, source-backed content an answer engine can lift into a reply without guessing. Then we measure whether it worked — by asking the engines the same buying questions your customers ask.
+
+- Buyer-intent prompt grid built for your niche and your city
+- Fact extraction: prices, hours, service radius, credentials, guarantees
+- FAQ and schema content written to be quoted, not skimmed
+- Mention, citation, and #1-recommendation scoring with 95% Wilson confidence
+- Competitor leaderboard showing who is winning the answer instead of you
+
+### Generative Engine Optimization (GEO)
+
+Configure your site so generative crawlers read you as a real, citable entity.
+
+GEO is the plumbing underneath AEO. A generative crawler has to be able to reach your pages, parse them without running JavaScript, and resolve them to one unambiguous business entity. We fix the crawl path, publish the entity graph, and give the models a plain-text copy of every page so a model never has to infer what you are.
+
+- robots.txt that names and admits every answer-engine crawler on purpose
+- JSON-LD entity graph — Organization, LocalBusiness, Service, Offer — served in static HTML
+- /llms.txt site map plus raw markdown alternates for every public page
+- Canonical, Open Graph, and sitemap hygiene so nothing reads as duplicate
+- Citation-path repair: the pages models land on when they look you up
+
+### Platform Development & Deployment
+
+Your project is running on localhost. We put it in production, on your domain, live.
+
+A working prototype is not a live business. Most of what we deploy was built fast — by a founder, a contractor, or an AI coding tool — and then stalled at the last mile: no domain, no database that survives a restart, no payments, no way to ship a change without breaking it. We take that repository and run the launch end to end: production hosting, custom domain and TLS, a real database with migrations and backups, secrets handled properly, deploys wired to your Git branch, and monitoring so you find out before your customers do. Every launch ships AI-readable from day one, because a site no answer engine can cite is a site that is only half live.
+
+- Repository audit and a written deployment plan before anything moves
+- Production hosting, custom domain, DNS, and TLS — on infrastructure you own
+- Managed database provisioning, migrations, and scheduled backups
+- Environment and secret management — nothing live-keyed in a Git repo
+- Continuous deploys from your Git branch, with a staging environment first
+- Auth, transactional email (SPF/DKIM/DMARC), and Stripe billing wired and tested
+- Error tracking, uptime checks, and consent-gated analytics on launch day
+- AI-readiness at launch: robots, sitemap, llms.txt, JSON-LD, machine-readable pages
+- Handover: you hold the accounts, the domain, and the repository. Always.
+
+Deployment work is scoped and quoted per project after a repository review, separately from the monthly AEO/GEO subscription. Typical launches run days, not quarters — the long pole is almost never the code, it is the accounts, domains, and data nobody set up yet.
+
 ## How it works
 
 Each audit builds a grid of 30+ real customer prompts tailored to your niche and city, samples
@@ -38,9 +90,9 @@ It's $79 a month. Nothing in this world is free — a single audit fires 300+ li
 
 An asset is one business you manage — a name plus a ZIP code (a company, a website, a location). $79 covers two assets, each audited up to four times per month. So you can keep two businesses under watch, see what is working and what is not across every audit, act on the recommendations, and stay ahead as the AI engines shift week to week.
 
-### Can I try it before paying?
+### What can I do before I subscribe?
 
-Yes. You can build your client context and use our AI synthesize step — which drafts your whole business profile from a paragraph — completely free. You only create an account when you are ready to run your first live audit.
+You can build your full business profile and run our AI synthesize step — which drafts the whole thing from a paragraph you write — before you subscribe. Running live audits is what the subscription pays for: every audit fires 300+ real calls to frontier models, and those calls cost us money the moment they run.
 
 ### Which AI engines do you check, and how accurate is it?
 
@@ -58,6 +110,10 @@ About ten minutes for a full cycle across all engines. You start it, keep the ta
 
 No — and anyone who guarantees that is selling snake oil. AI answers change, and no honest vendor controls them. What we guarantee is a rigorous, repeatable measurement and a concrete, prioritized plan for what to change. On our higher tiers, we also build the source-backed content — schema, FAQs, citation packets — that moves the needle.
 
+### Do you also build and launch the website or app itself?
+
+Yes — that is our Platform Development & Deployment service. If your site or app already works on localhost but is not live, we take the repository to production: hosting, custom domain and TLS, database with migrations and backups, secrets, continuous deploys from your Git branch, transactional email, billing, and monitoring. Every launch ships AI-readable — robots, sitemap, llms.txt, JSON-LD entity graph — so the engines can cite it from day one. It is scoped and quoted per project after a repository review, separately from the monthly subscription, and you keep ownership of the domain, the accounts, and the code.
+
 ### Is this built for local businesses?
 
 Yes. Everything is geo-aware: ZIP code, service radius, and neighboring markets. A local business sees exactly where it already wins and which nearby towns are handing the recommendation to a competitor — block by block, not just nationally.
@@ -69,12 +125,19 @@ A New York team building an AI-native business the hard way — shipping fast, p
 ## Pages
 
 - [Home](https://spotlightlinks.com/): What Spotlight Links does, pricing, and FAQ.
+- [About](https://spotlightlinks.com/about): The three services — AEO, GEO, and Platform Development & Deployment.
 - [Compare](https://spotlightlinks.com/compare): How we compare to Semrush, SimilarWeb, HubSpot, and Profound.
 - [Get started](https://spotlightlinks.com/get-started): Enter a business name and ZIP code to begin an audit.
 - [Blog](https://spotlightlinks.com/blog): Field notes on AEO/GEO, real costs, and case studies.
 
 ## Articles
 
+- [The Corner Store That Disappeared](https://spotlightlinks.com/blog/the-corner-store-that-disappeared): Most local businesses do not lose because someone made better food. They lose because they were never visible in the places their customers were looking — and nobody ever told them.
+- [Your Website Link on Google Maps Is Probably Broken](https://spotlightlinks.com/blog/your-google-maps-website-link-is-probably-broken): A five-minute check every local business owner should run today — and what a dead website link is quietly costing you in Google results and in AI recommendations.
+- [How to Get Your Business Recommended by Google Gemini](https://spotlightlinks.com/blog/get-your-business-recommended-by-gemini): A complete blueprint on how Google Gemini evaluates local service providers, extracts citation tokens, and ranks recommendations using real-time search grounding.
+- [How to Get Your Business Recommended by ChatGPT & OpenAI Search](https://spotlightlinks.com/blog/get-your-business-recommended-by-chatgpt): Behind the scenes of ChatGPT's citation selection, Bing index reliance, entity ranking, and how to capture recommendations for $79/month.
+- [The Complete Guide to Getting Recommended by AI Engines in 2026](https://spotlightlinks.com/blog/get-your-business-recommended-by-ai-engines): Cross-platform Answer Engine Optimization (AEO) strategy for ChatGPT, Google Gemini, Anthropic Claude, and Perplexity.
+- [The $100 or Less Tool to Get Your Business Recommended by AI](https://spotlightlinks.com/blog/under-100-dollar-tool-to-get-business-recommended-by-ai): Why spending $10,000/month on legacy SEO agencies is obsolete when a $79/month serial AI probing tool delivers 95% confidence scorecards and automated AEO fixes.
 - [How the Spotlight Links AI Audit Engine Works: Probing, Accuracy & Scoring Teardown](https://spotlightlinks.com/blog/how-spotlight-links-ai-audit-engine-works): A detailed technical teardown of how Spotlight Links benchmarks brand recommendations across ChatGPT, Google Gemini, Claude, and Perplexity in 10 minutes and under.
 - [How We Recovered 62% Missing AI Recommendation Share for Montclair Mud Clay Studio](https://spotlightlinks.com/blog/case-study-montclair-mud-clay-studio)
 - [Deploy It Yourself or Get Help? An Honest Guide for AI-First Builders](https://spotlightlinks.com/blog/deploy-yourself-or-hire-help-vibe-coder-guide): Some AI-built projects you should absolutely deploy yourself — and we tell you which ones. For the rest, here is what real deployment help looks like, what it costs, and the red flags that separate a partner from a hostage-taker.

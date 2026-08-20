@@ -16,11 +16,9 @@ export function PricingSection() {
         <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">Pricing</p>
         <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">One honest price.</h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
-          Spotlight Links has a montly subscription pricing model for its Answer Engine Discovery &
-          Optimization services: <br />
-          <span className="text-ink font-medium"> $79 a month</span>,<br /> Add up to two locations
-          / clients automatic weekly audit score and report upon request. Get notified on your phone
-          / email weekly.
+          One monthly subscription for Answer Engine discovery and optimization:{' '}
+          <span className="text-ink font-medium">$79 a month</span> for two locations or clients,
+          audited weekly on request, with the score and report delivered to your email or phone.
         </p>
       </div>
 
@@ -29,7 +27,6 @@ export function PricingSection() {
           <div className="bg-brand-tint text-brand absolute right-5 top-5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide">
             Most popular
           </div>
-          <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">Starter Price</h2>
           <p className="text-ink text-sm font-semibold">{FLAGSHIP.name}</p>
           <div className="mt-2 flex items-baseline gap-1">
             <span className="text-ink text-5xl font-semibold">{FLAGSHIP.price}</span>
@@ -52,7 +49,8 @@ export function PricingSection() {
             </Button>
           </Link>
           <p className="text-ink-30 mt-3 text-center text-xs">
-            Build your context and synthesize with AI free — pay when you run a live audit.
+            Build your profile and let AI draft it before you subscribe. The subscription is what
+            runs the live audits.
           </p>
         </div>
       </div>

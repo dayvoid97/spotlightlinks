@@ -17,6 +17,7 @@ const BLOG_DIR = join(ROOT, 'public', 'blog')
 /** Public marketing routes, in descending importance. */
 const STATIC_ROUTES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
+  { path: '/about', changefreq: 'monthly', priority: '0.9' },
   { path: '/compare', changefreq: 'monthly', priority: '0.9' },
   { path: '/get-started', changefreq: 'monthly', priority: '0.9' },
   { path: '/blog', changefreq: 'weekly', priority: '0.8' },
@@ -70,6 +71,69 @@ function readFaqs() {
   let m
   while ((m = re.exec(src)) !== null) out.push({ q: m[2], a: m[4] })
   return out
+}
+
+/**
+ * Service area, lifted from SERVICE_AREA in marketing.ts. A stated, named
+ * service area is the strongest local signal an answer engine can read, and
+ * llms.txt is the copy of the site those engines actually parse.
+ */
+function readServiceArea() {
+  const src = readFileSync(join(ROOT, 'src', 'lib', 'marketing.ts'), 'utf8')
+  const block = src.match(/export const SERVICE_AREA = \{([\s\S]*?)\n\}/)
+  if (!block) return null
+  const field = (key) => {
+    const m = block[1].match(new RegExp(`${key}:\\s*\n?\\s*(['"])([\\s\\S]*?)\\1,`))
+    return m ? m[2] : null
+  }
+  const hoods = block[1].match(/neighborhoods:\s*\[([\s\S]*?)\n\s*\]/)
+  return {
+    headline: field('headline'),
+    blurb: field('blurb'),
+    neighborhoods: hoods
+      ? [...hoods[1].matchAll(/(['"])([\s\S]*?)\1,/g)].map((m) => m[2])
+      : [],
+  }
+}
+
+/**
+ * Same trick as readFaqs, for the SERVICES array. Everything an answer engine
+ * needs to describe what we sell — including the deployment service it would
+ * otherwise never guess we offer — lifted into llms.txt as plain text.
+ */
+function readServices() {
+  const src = readFileSync(join(ROOT, 'src', 'lib', 'marketing.ts'), 'utf8')
+  const block = src.match(/export const SERVICES: Service\[\] = \[([\s\S]*?)\n\]/)
+  if (!block) return []
+
+  const field = (chunk, key) => {
+    const m = chunk.match(new RegExp(`${key}:\\s*\n?\\s*(['"])([\\s\\S]*?)\\1,`))
+    return m ? m[2] : null
+  }
+
+  // Split on the object boundary — each service starts with its slug.
+  return block[1]
+    .split(/\n  \{\n/)
+    .filter((chunk) => /slug:/.test(chunk))
+    .map((chunk) => {
+      const bulletBlock = chunk.match(/bullets:\s*\[([\s\S]*?)\n\s*\]/)
+      return {
+        name: field(chunk, 'name'),
+        abbr: field(chunk, 'abbr'),
+        short: field(chunk, 'short'),
+        summary: field(chunk, 'summary'),
+        bullets: bulletBlock
+          ? [...bulletBlock[1].matchAll(/(['"])([\s\S]*?)\1,/g)].map((m) => m[2])
+          : [],
+      }
+    })
+    .filter((s) => s.name && s.summary)
+}
+
+function readDeploymentNote() {
+  const src = readFileSync(join(ROOT, 'src', 'lib', 'marketing.ts'), 'utf8')
+  const m = src.match(/export const DEPLOYMENT_NOTE =\s*\n?\s*(['"])([\s\S]*?)\1/)
+  return m ? m[2] : ''
 }
 
 const slugs = JSON.parse(readFileSync(join(BLOG_DIR, 'index.json'), 'utf8')).map((f) =>
@@ -137,6 +201,27 @@ const llms = `# Spotlight Links
 - Scale — $299/month. Unlimited managed assets for agencies and multi-location brands.
 - Enterprise — $599/month. Adds done-for-you AEO content: schema, FAQs, and citation packets.
 
+## Service area
+
+${(() => {
+  const area = readServiceArea()
+  if (!area) return ''
+  return `${area.headline}. ${area.blurb}\n\nNeighborhoods served: ${area.neighborhoods.join(', ')}.\n\nEvery audit is geo-scoped to the client's own ZIP code, service radius, and adjacent markets rather than national keyword rankings.`
+})()}
+
+## Services
+
+${readServices()
+  .map(
+    (s) =>
+      `### ${s.abbr ? `${s.name} (${s.abbr})` : s.name}\n\n${s.short}\n\n${s.summary}\n\n${s.bullets
+        .map((b) => `- ${b}`)
+        .join('\n')}`,
+  )
+  .join('\n\n')}
+
+${readDeploymentNote()}
+
 ## How it works
 
 Each audit builds a grid of 30+ real customer prompts tailored to your niche and city, samples
@@ -154,6 +239,7 @@ ${readFaqs()
 ## Pages
 
 - [Home](${ORIGIN}/): What Spotlight Links does, pricing, and FAQ.
+- [About](${ORIGIN}/about): The three services — AEO, GEO, and Platform Development & Deployment.
 - [Compare](${ORIGIN}/compare): How we compare to Semrush, SimilarWeb, HubSpot, and Profound.
 - [Get started](${ORIGIN}/get-started): Enter a business name and ZIP code to begin an audit.
 - [Blog](${ORIGIN}/blog): Field notes on AEO/GEO, real costs, and case studies.
@@ -169,5 +255,5 @@ writeFileSync(join(ROOT, 'public', 'llms.txt'), llms)
 
 console.log(
   `sitemap.xml — ${urls.length} URLs (${posts.length} posts), newest ${newest}\n` +
-    `llms.txt — ${posts.length} articles, ${readFaqs().length} FAQs`,
+    `llms.txt — ${posts.length} articles, ${readFaqs().length} FAQs, ${readServices().length} services`,
 )

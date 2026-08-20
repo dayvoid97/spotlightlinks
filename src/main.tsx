@@ -7,6 +7,7 @@ import App from './App.tsx'
 import { ThemeProvider } from './context/theme-context'
 import { AuthProvider } from './context/auth-context'
 import { ToastProvider } from './context/toast-context'
+import { BlogReaderProvider } from './context/blog-reader-context'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,11 +23,13 @@ createRoot(document.getElementById('root')!).render(
     <ThemeProvider>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <ToastProvider>
-            <AuthProvider>
-              <App />
-            </AuthProvider>
-          </ToastProvider>
+          <BlogReaderProvider>
+            <ToastProvider>
+              <AuthProvider>
+                <App />
+              </AuthProvider>
+            </ToastProvider>
+          </BlogReaderProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </ThemeProvider>

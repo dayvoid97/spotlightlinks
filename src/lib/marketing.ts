@@ -21,8 +21,8 @@ export const FAQS: Faq[] = [
     a: 'An asset is one business you manage — a name plus a ZIP code (a company, a website, a location). $79 covers two assets, each audited up to four times per month. So you can keep two businesses under watch, see what is working and what is not across every audit, act on the recommendations, and stay ahead as the AI engines shift week to week.',
   },
   {
-    q: 'Can I try it before paying?',
-    a: 'Yes. You can build your client context and use our AI synthesize step — which drafts your whole business profile from a paragraph — completely free. You only create an account when you are ready to run your first live audit.',
+    q: 'What can I do before I subscribe?',
+    a: 'You can build your full business profile and run our AI synthesize step — which drafts the whole thing from a paragraph you write — before you subscribe. Running live audits is what the subscription pays for: every audit fires 300+ real calls to frontier models, and those calls cost us money the moment they run.',
   },
   {
     q: 'Which AI engines do you check, and how accurate is it?',
@@ -39,6 +39,10 @@ export const FAQS: Faq[] = [
   {
     q: 'Do you guarantee I will be recommended by AI?',
     a: 'No — and anyone who guarantees that is selling snake oil. AI answers change, and no honest vendor controls them. What we guarantee is a rigorous, repeatable measurement and a concrete, prioritized plan for what to change. On our higher tiers, we also build the source-backed content — schema, FAQs, citation packets — that moves the needle.',
+  },
+  {
+    q: 'Do you also build and launch the website or app itself?',
+    a: 'Yes — that is our Platform Development & Deployment service. If your site or app already works on localhost but is not live, we take the repository to production: hosting, custom domain and TLS, database with migrations and backups, secrets, continuous deploys from your Git branch, transactional email, billing, and monitoring. Every launch ships AI-readable — robots, sitemap, llms.txt, JSON-LD entity graph — so the engines can cite it from day one. It is scoped and quoted per project after a repository review, separately from the monthly subscription, and you keep ownership of the domain, the accounts, and the code.',
   },
   {
     q: 'Is this built for local businesses?',
@@ -116,6 +120,115 @@ export const DIFFERENTIATORS: Differentiator[] = [
     body: '300+ live calls, 3–5 samples per prompt, Wilson-score confidence. A number you can defend to a client — not a vibe or a single screenshot.',
   },
 ]
+
+/* ── Service area ──────────────────────────────────────────────────────────
+ * Where we actually have customers on the ground. Rendered by QueensBanner,
+ * quoted in the homepage machine view, and written into /llms.txt — a stated
+ * service area is the single strongest local-citation signal an answer engine
+ * can pick up, so it lives in one place and reaches every surface.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export const SERVICE_AREA = {
+  headline: 'Queens, New York City',
+  blurb:
+    'Spotlight Links serves local and brick-and-mortar businesses across Queens, NYC — hardware stores, pizzerias, restaurants, takeout counters, and discount shops — with AI and search visibility audits scoped to their own ZIP code and surrounding neighborhoods.',
+  neighborhoods: [
+    'Astoria',
+    'Jackson Heights',
+    'Elmhurst',
+    'Flushing',
+    'Woodside',
+    'Sunnyside',
+    'Ridgewood',
+    'Corona',
+    'Forest Hills',
+    'Long Island City',
+  ] as string[],
+}
+
+/* ── Services ──────────────────────────────────────────────────────────────
+ * The three things we actually sell. Rendered on /about and the homepage, and
+ * lifted verbatim into public/llms.txt by scripts/generate-sitemap.mjs — the
+ * answer engines quote this copy, so it is written to be quotable: concrete
+ * nouns, no adjectives we cannot back up.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export interface Service {
+  slug: string
+  name: string
+  abbr?: string
+  /**
+   * Owner-facing one-liner for the homepage. No engine names, no acronyms —
+   * the homepage's reader runs a pizzeria, not a marketing department. The
+   * technical framing lives in `short`/`summary`, which serve /about and the
+   * machine-readable copy in /llms.txt.
+   */
+  plain: string
+  short: string
+  summary: string
+  bullets: string[]
+}
+
+export const SERVICES: Service[] = [
+  {
+    slug: 'aeo',
+    name: 'Answer Engine Optimization',
+    abbr: 'AEO',
+    plain:
+      'Make sure the real facts about your shop — what you charge, when you open, what you actually do — are the ones getting quoted back to customers.',
+    short: 'Turn your real prices, timelines, and service facts into answers an AI can quote.',
+    summary:
+      'AEO is the work of making your business answerable. We take what you actually charge, how long you actually take, what you actually serve, and the areas you actually cover, and publish them as structured, source-backed content an answer engine can lift into a reply without guessing. Then we measure whether it worked — by asking the engines the same buying questions your customers ask.',
+    bullets: [
+      'Buyer-intent prompt grid built for your niche and your city',
+      'Fact extraction: prices, hours, service radius, credentials, guarantees',
+      'FAQ and schema content written to be quoted, not skimmed',
+      'Mention, citation, and #1-recommendation scoring with 95% Wilson confidence',
+      'Competitor leaderboard showing who is winning the answer instead of you',
+    ],
+  },
+  {
+    slug: 'geo',
+    name: 'Generative Engine Optimization',
+    abbr: 'GEO',
+    plain:
+      'Fix the technical side of your website so Google and the AI assistants can read it, trust it, and know it is really you.',
+    short: 'Configure your site so generative crawlers read you as a real, citable entity.',
+    summary:
+      'GEO is the plumbing underneath AEO. A generative crawler has to be able to reach your pages, parse them without running JavaScript, and resolve them to one unambiguous business entity. We fix the crawl path, publish the entity graph, and give the models a plain-text copy of every page so a model never has to infer what you are.',
+    bullets: [
+      'robots.txt that names and admits every answer-engine crawler on purpose',
+      'JSON-LD entity graph — Organization, LocalBusiness, Service, Offer — served in static HTML',
+      '/llms.txt site map plus raw markdown alternates for every public page',
+      'Canonical, Open Graph, and sitemap hygiene so nothing reads as duplicate',
+      'Citation-path repair: the pages models land on when they look you up',
+    ],
+  },
+  {
+    slug: 'platform-development-and-deployment',
+    name: 'Platform Development & Deployment',
+    plain:
+      'Website broken, half-finished, or never really launched? We build it and put it live on a domain you own.',
+    short: 'Your project is running on localhost. We put it in production, on your domain, live.',
+    summary:
+      'A working prototype is not a live business. Most of what we deploy was built fast — by a founder, a contractor, or an AI coding tool — and then stalled at the last mile: no domain, no database that survives a restart, no payments, no way to ship a change without breaking it. We take that repository and run the launch end to end: production hosting, custom domain and TLS, a real database with migrations and backups, secrets handled properly, deploys wired to your Git branch, and monitoring so you find out before your customers do. Every launch ships AI-readable from day one, because a site no answer engine can cite is a site that is only half live.',
+    bullets: [
+      'Repository audit and a written deployment plan before anything moves',
+      'Production hosting, custom domain, DNS, and TLS — on infrastructure you own',
+      'Managed database provisioning, migrations, and scheduled backups',
+      'Environment and secret management — nothing live-keyed in a Git repo',
+      'Continuous deploys from your Git branch, with a staging environment first',
+      'Auth, transactional email (SPF/DKIM/DMARC), and Stripe billing wired and tested',
+      'Error tracking, uptime checks, and consent-gated analytics on launch day',
+      'AI-readiness at launch: robots, sitemap, llms.txt, JSON-LD, machine-readable pages',
+      'Handover: you hold the accounts, the domain, and the repository. Always.',
+    ],
+  },
+]
+
+/** Deployment engagements are scoped per project — they are not the $79 subscription. */
+export const DEPLOYMENT_NOTE =
+  'Deployment work is scoped and quoted per project after a repository review, separately from the monthly AEO/GEO subscription. Typical launches run days, not quarters — the long pole is almost never the code, it is the accounts, domains, and data nobody set up yet.'
 
 /* ── Comparison matrix ─────────────────────────────────────────────────────── */
 

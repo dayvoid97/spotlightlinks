@@ -1,22 +1,60 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useMemo, useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Sparkles, ShieldCheck, Zap, Clock, AlertTriangle } from 'lucide-react'
 import { useAuth } from '../context/auth-context'
-import { saveOnboardingDraft, type OnboardingFormState } from '../lib/onboarding-draft'
+import {
+  loadOnboardingDraft,
+  saveOnboardingDraft,
+  type OnboardingFormState,
+} from '../lib/onboarding-draft'
 import { ClientOnboardingForm } from '../components/ClientOnboardingForm'
 import { BrandLockup } from '../components/BrandLockup'
 import { ThemeToggle } from '../components/ThemeToggle'
 import { Button } from '../components/ui/Button'
 import { FullPageSpinner } from '../components/ui/Spinner'
+import { useBlogReaderMode } from '../context/blog-reader-context'
+import { MachinePageView, type PageMachineMetadata } from '../components/MachinePageView'
 
 // Configuration for front-end rate limiting
 const MAX_REQUESTS = 5 // Max allowed requests
 const WINDOW_MS = 60 * 1000 // In 1 minute (60,000 ms)
 
+const getStartedMachineMetadata: PageMachineMetadata = {
+  path: '/get-started',
+  title: 'Build Your Business Profile — Spotlight Links AI Visibility Audit Intake',
+  h1: 'Build your business profile',
+  description:
+    'Customize Spotlight Links for your business entity. Input your business name, ZIP code, and brief bio to trigger an instant multi-engine AI audit.',
+  canonical: 'https://spotlightlinks.com/get-started',
+  schemas: ['WebPage', 'ContactPage', 'EntryPoint'],
+  summary: `The Get Started profile builder collects core business entity attributes (Business Name, ZIP Code, and 1-2 sentence Business Description/Bio) to initialize an Answer Engine Optimization (AEO) audit set. Runs 300+ live serial probes across ChatGPT, Gemini, Claude, and Perplexity to generate a 95% Wilson-score recommendation scorecard.`,
+  sections: [
+    {
+      title: 'Profile Onboarding Requirements',
+      content: `1. Business Name: Official legal or trade name of the business entity.\n2. ZIP Code: Target service location or headquarters postal code.\n3. Business Description / Bio: 1–2 sentences summarizing offerings, target audience, and key differentiators.\n4. Profile building and AI synthesis are available before subscribing; running live audits requires an active plan.`,
+    },
+    {
+      title: 'Multi-Engine Audit Process',
+      content: `- Step 1: Input business details and location parameters.\n- Step 2: System generates 30+ tailored customer buyer-intent prompts.\n- Step 3: Executes 300+ live serial probes across OpenAI ChatGPT, Google Gemini, Anthropic Claude, and Perplexity AI.\n- Step 4: Delivers Executive AI SWOT scorecard and 95% confidence intervals.\n- Step 5: Activate the $79/mo Starter Prober to run live audits and ongoing automated monitoring.`,
+    },
+  ],
+}
+
 export default function GetStartedPage() {
   const { user, loading } = useAuth()
   const navigate = useNavigate()
+  const { isMachine } = useBlogReaderMode()
   const [promptSignup, setPromptSignup] = useState(false)
+
+  /**
+   * Whatever the homepage hero collected, already run through
+   * POST /api/clients/synthesize-bio there — so the grid below arrives filled
+   * in rather than blank. This page is the other half of that handoff and was
+   * not reading it at all. Captured once so later edits are not stomped
+   * by a re-read of sessionStorage. Not cleared here: NewClientPage still needs
+   * it on the far side of sign-up, and clears it there.
+   */
+  const initialForm = useMemo(() => loadOnboardingDraft() ?? undefined, [])
 
   // Rate limiter state
   const requestTimestamps = useRef<number[]>([])
@@ -30,7 +68,6 @@ export default function GetStartedPage() {
 
   function checkRateLimit(): boolean {
     const now = Date.now()
-    // Filter out timestamps outside the current window
     const recentRequests = requestTimestamps.current.filter(
       (timestamp) => now - timestamp < WINDOW_MS
     )
@@ -42,7 +79,6 @@ export default function GetStartedPage() {
       return false
     }
 
-    // Record new request timestamp
     recentRequests.push(now)
     requestTimestamps.current = recentRequests
     setRateLimitError(null)
@@ -50,16 +86,9 @@ export default function GetStartedPage() {
   }
 
   function handleGenerate(form: OnboardingFormState) {
-    // 1. Check rate limit before processing
-    if (!checkRateLimit()) {
-      return
-    }
-
-    // 2. Park the intake and ask them to sign up
+    if (!checkRateLimit()) return
     saveOnboardingDraft(form)
     setPromptSignup(true)
-
-    // Smooth scroll to the bottom prompt
     requestAnimationFrame(() =>
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     )
@@ -82,63 +111,75 @@ export default function GetStartedPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl space-y-8 px-4 py-2 sm:px-6 sm:py-12">
-        <Link
-          to="/"
-          className="text-ink-50 hover:text-ink inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
-        >
-          <ArrowLeft className="size-4" /> Back to home
-        </Link>
+      {isMachine ? (
+        <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
+          <MachinePageView
+            meta={getStartedMachineMetadata}
+            filename="spotlight-links-get-started.md"
+          />
+        </main>
+      ) : (
+        <main className="mx-auto max-w-3xl space-y-8 px-4 py-2 sm:px-6 sm:py-12">
+          <Link
+            to="/"
+            className="text-ink-50 hover:text-ink inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+          >
+            <ArrowLeft className="size-4" /> Back to home
+          </Link>
 
-        {/* Hero & Intro */}
-        <div className="space-y-4">
-          <h1 className="text-ink text-3xl font-bold tracking-tight sm:text-4xl">
-            Build your business profile
-          </h1>
+          {/* Hero & Intro */}
+          <div className="space-y-4">
+            <h1 className="text-ink text-3xl font-bold tracking-tight sm:text-4xl">
+              Build your business profile
+            </h1>
 
-          <p className="text-ink-50 text-base leading-relaxed sm:text-lg">
-            Let's customize Spotlight Links for your business. Tell us a bit about what you do—or
-            drop in a quick description and let our AI draft the details for you automatically.
-          </p>
+            <p className="text-ink-50 text-base leading-relaxed sm:text-lg">
+              A few plain questions about your business. We have already answered the ones we could
+              guess — read them over, fix anything we got wrong, and add whatever we missed.
+            </p>
 
-          <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-3">
-            <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
-              <Clock className="text-brand size-4 shrink-0" />
-              <span>Takes under 2 minutes</span>
-            </div>
-            <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
-              <Zap className="text-brand size-4 shrink-0" />
-              <span>Instant Setup. Please ensure you put in valid zip code.</span>
-            </div>
-            <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
-              <ShieldCheck className="text-brand size-4 shrink-0" />
-              <span>No credit card required</span>
+            <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-3">
+              <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
+                <Clock className="text-brand size-4 shrink-0" />
+                <span>Takes under 2 minutes</span>
+              </div>
+              <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
+                <Zap className="text-brand size-4 shrink-0" />
+                <span>Most of it is already filled in</span>
+              </div>
+              <div className="text-ink-70 flex items-center gap-2 text-xs font-medium">
+                <ShieldCheck className="text-brand size-4 shrink-0" />
+                <span>Your draft is saved as you type</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Rate Limit Warning Banner */}
-        {rateLimitError && (
-          <div className="border-brand bg-brand-tint text-ink flex items-center gap-3 rounded-xl border p-4 text-sm font-medium">
-            <AlertTriangle className="text-brand size-5 shrink-0" />
-            <span>{rateLimitError}</span>
-          </div>
-        )}
+          {/* Rate Limit Warning Banner */}
+          {rateLimitError && (
+            <div className="border-brand bg-brand-tint text-ink flex items-center gap-3 rounded-xl border p-4 text-sm font-medium">
+              <AlertTriangle className="text-brand size-5 shrink-0" />
+              <span>{rateLimitError}</span>
+            </div>
+          )}
 
-        {/* Form Container */}
-        <div className="border-line bg-surface-raised rounded-xl border p-4 shadow-sm sm:p-6">
+          {/* The form brings its own numbered step cards — wrapping them in a
+              second bordered panel just nested one box inside another. */}
           <ClientOnboardingForm
-            submitLabel="Create client & question set"
+            initialForm={initialForm}
+            submitLabel="Save my profile and continue"
             submitting={false}
             onSubmit={handleGenerate}
             onChange={(form) => {
               if (rateLimitError) setRateLimitError(null)
-              if (promptSignup) saveOnboardingDraft(form)
+              // Keep the parked draft current on every edit, not only after
+              // the sign-up prompt appears — a refresh mid-form should not
+              // cost someone the fields we just synthesized for them.
+              saveOnboardingDraft(form)
             }}
             banner={promptSignup ? <SignupPrompt /> : null}
           />
-        </div>
-      </main>
+        </main>
+      )}
     </div>
   )
 }

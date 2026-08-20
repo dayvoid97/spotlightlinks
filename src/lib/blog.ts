@@ -191,6 +191,8 @@ export interface BlogPostDetail {
   post: BlogPost
   /** Rendered, image-localized article HTML, safe to inject (first-party content). */
   html: string
+  /** Pristine raw markdown content including YAML frontmatter. */
+  raw: string
 }
 
 /** Fetch and render a single post for the on-site reader (/blog/:slug). */
@@ -220,5 +222,5 @@ export async function fetchBlogPost(slug: string): Promise<BlogPostDetail | null
   const body = stripLeadingH1(stripFrontmatter(raw))
   const html = enhanceArticleHtml(marked.parse(body, { gfm: true, async: false }))
 
-  return { post, html }
+  return { post, html, raw }
 }

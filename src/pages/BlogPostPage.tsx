@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -8,16 +8,16 @@ import { BlogCard } from '../components/BlogCard'
 import { Badge } from '../components/ui/Badge'
 import { Button } from '../components/ui/Button'
 import { FullPageSpinner } from '../components/ui/Spinner'
+import { useBlogReaderMode } from '../context/blog-reader-context'
+import { MachinePageView, type PageMachineMetadata } from '../components/MachinePageView'
 
 /**
- * On-site article reader (route "/blog/:slug"). Renders the markdown body in
- * blog typography — the app's base-layer element styles (Playfair headings,
- * Inter body, styled blockquotes/code/tables in index.css) do the work, plus a
- * `.blog-body` wrapper for reading rhythm. Distinct from the console's card UI.
- * See docs/11-homepage-and-blog.md.
+ * On-site article reader (route "/blog/:slug").
+ * Supports dual Human and Machine-readable modes.
  */
 export default function BlogPostPage() {
   const { slug = '' } = useParams()
+  const { isMachine } = useBlogReaderMode()
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['blog-post', slug],
@@ -35,6 +35,43 @@ export default function BlogPostPage() {
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [slug])
+
+  const jsonLd = useMemo(() => {
+    if (!data?.post) return null
+    return JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: data.post.title,
+      description: data.post.subtitle,
+      author: data.post.author ? { '@type': 'Person', name: data.post.author } : undefined,
+      datePublished: data.post.date,
+      publisher: {
+        '@type': 'Organization',
+        name: 'Spotlight Links',
+        url: 'https://spotlightlinks.com',
+      },
+      mainEntityOfPage: `https://spotlightlinks.com/blog/${slug}`,
+    })
+  }, [data, slug])
+
+  const articleMachineMeta: PageMachineMetadata | null = useMemo(() => {
+    if (!data) return null
+    return {
+      path: `/blog/${slug}`,
+      title: `${data.post.title} — Spotlight Links Article`,
+      h1: data.post.title,
+      description: data.post.subtitle || '',
+      canonical: `https://spotlightlinks.com/blog/${slug}`,
+      schemas: ['BlogPosting', 'Article'],
+      summary: data.post.subtitle || data.post.title,
+      sections: [
+        {
+          title: 'Article Raw Markdown Content',
+          content: data.raw,
+        },
+      ],
+    }
+  }, [data, slug])
 
   if (isLoading) return <FullPageSpinner label="Loading article…" />
 
@@ -60,65 +97,81 @@ export default function BlogPostPage() {
 
   return (
     <div className="bg-surface min-h-screen">
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      )}
+      <link rel="alternate" type="text/markdown" href={`/blog/${slug}.md`} />
+
       <PublicHeader />
 
-      <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-        <Link to="/blog" className="text-ink-50 hover:text-ink flex w-fit items-center gap-1.5 text-sm">
+      <article className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
+        <Link to="/blog" className="text-ink-50 hover:text-ink mb-6 flex w-fit items-center gap-1.5 text-sm">
           <ArrowLeft className="size-3.5" /> All posts
         </Link>
 
-        <header className="mt-6">
-          {post.categories.length > 0 && (
-            <div className="mb-4 flex flex-wrap gap-1.5">
-              {post.categories.slice(0, 3).map((c) => (
-                <Badge key={c} tone="violet">
-                  {c}
-                </Badge>
-              ))}
+        {/* Machine Mode View */}
+        {isMachine && articleMachineMeta ? (
+          <MachinePageView meta={articleMachineMeta} filename={`${slug}.md`} />
+        ) : (
+          /* Human Mode View */
+          <>
+            <header className="mt-4">
+              {post.categories.length > 0 && (
+                <div className="mb-4 flex flex-wrap gap-1.5">
+                  {post.categories.slice(0, 3).map((c) => (
+                    <Badge key={c} tone="violet">
+                      {c}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+
+              <h1 className="text-ink text-4xl font-semibold sm:text-5xl">{post.title}</h1>
+
+              {post.subtitle && <p className="lead text-ink-50 mt-4">{post.subtitle}</p>}
+
+              <div className="text-ink-30 mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                {post.author && <span className="text-ink-50">{post.author}</span>}
+                {post.author && (post.date || post.readTime) && <span>·</span>}
+                {post.date && <span>{post.date}</span>}
+                {post.date && post.readTime && <span>·</span>}
+                {post.readTime && <span>{post.readTime}</span>}
+              </div>
+            </header>
+
+            {heroImage && (
+              <img
+                src={heroImage}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none'
+                }}
+                className="border-line mt-8 w-full rounded-lg border"
+              />
+            )}
+
+            {/* First-party content — rendered marked output injected directly. */}
+            <div className="blog-body mt-10" dangerouslySetInnerHTML={{ __html: html }} />
+
+            <div className="border-line bg-surface-2 mt-14 rounded-2xl border p-6 text-center">
+              <h2 className="text-ink text-2xl font-semibold">See what AI says about your business</h2>
+              <p className="text-ink-50 mx-auto mt-2 max-w-md text-sm">
+                Run a multi-engine visibility audit across ChatGPT, Gemini, Claude, and Perplexity.
+              </p>
+              <Link to="/get-started" className="mt-4 inline-block">
+                <Button>
+                  Get started <ArrowRight className="size-3.5" />
+                </Button>
+              </Link>
             </div>
-          )}
-
-          <h1 className="text-ink text-4xl font-semibold sm:text-5xl">{post.title}</h1>
-
-          {post.subtitle && <p className="lead text-ink-50 mt-4">{post.subtitle}</p>}
-
-          <div className="text-ink-30 mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-            {post.author && <span className="text-ink-50">{post.author}</span>}
-            {post.author && (post.date || post.readTime) && <span>·</span>}
-            {post.date && <span>{post.date}</span>}
-            {post.date && post.readTime && <span>·</span>}
-            {post.readTime && <span>{post.readTime}</span>}
-          </div>
-        </header>
-
-        {heroImage && (
-          <img
-            src={heroImage}
-            alt=""
-            onError={(e) => {
-              e.currentTarget.style.display = 'none'
-            }}
-            className="border-line mt-8 w-full rounded-lg border"
-          />
+          </>
         )}
-
-        {/* First-party content — rendered marked output injected directly. */}
-        <div className="blog-body mt-10" dangerouslySetInnerHTML={{ __html: html }} />
-
-        <div className="border-line bg-surface-2 mt-14 rounded-2xl border p-6 text-center">
-          <h2 className="text-ink text-2xl font-semibold">See what AI says about your business</h2>
-          <p className="text-ink-50 mx-auto mt-2 max-w-md text-sm">
-            Run a free AI-visibility audit across ChatGPT, Gemini, Claude, and Perplexity.
-          </p>
-          <Link to="/get-started" className="mt-4 inline-block">
-            <Button>
-              Get started free <ArrowRight className="size-3.5" />
-            </Button>
-          </Link>
-        </div>
       </article>
 
-      {readNext.length > 0 && (
+      {!isMachine && readNext.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
           <h2 className="text-ink mb-5 text-xl font-semibold">Read next</h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

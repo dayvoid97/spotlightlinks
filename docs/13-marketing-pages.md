@@ -3,8 +3,36 @@
 Frontend only. These are the public sales surfaces that turn "we built it" into "buy it."
 
 Source: `src/lib/marketing.ts` (all copy + data), `src/components/marketing/*`
-(`PricingSection`, `FaqSection`, `ComparisonTable`, `Differentiators`), `src/pages/ComparePage.tsx`,
-plus new sections on `src/pages/HomePage.tsx`.
+(`PricingSection`, `FaqSection`, `ComparisonTable`, `Differentiators`),
+`src/pages/ComparePage.tsx`, `src/pages/AboutPage.tsx`, plus sections on `src/pages/HomePage.tsx`.
+
+## `/about` and the three services
+
+`SERVICES` in `marketing.ts` is the single definition of what the company sells: **AEO**, **GEO**,
+and **Platform Development & Deployment**. It renders on `/about` (`AboutPage`), as the homepage
+`ServicesSection`, and is lifted verbatim into `public/llms.txt` by
+`scripts/generate-sitemap.mjs` (`readServices()`), so the human page, the homepage, and the
+machine-readable copy cannot disagree. Add or edit a service in one place.
+
+`/about` had no route for a while even though answer engines kept citing it — anyone following a
+Gemini citation hit the 404. Keep the route, and keep it in `STATIC_ROUTES` in the sitemap script.
+
+Deployment is the service nobody guesses we offer, so it also gets a dedicated `#deployment`
+section on `/about`, a homepage card, an FAQ entry, and a line in the machine view's `# services`
+block. It is **quoted per project** — `DEPLOYMENT_NOTE` — and is not part of the subscription.
+
+## Human vs machine view
+
+Public pages render either the designed page or `MachinePageView`'s plain markdown, decided by
+`BlogReaderProvider` (`src/context/blog-reader-context.tsx`). Precedence: `?mode=machine` →
+an in-session click → crawler user-agent sniffing → human. It is **not** persisted to
+localStorage; a reload always returns to the real site. The only human-facing control is
+`MachineViewButton`, a small pill in the bottom-left corner of public routes (bottom-**left**
+because `ConsentBanner` owns bottom-right).
+
+UA sniffing is a bonus, not the mechanism: most answer-engine crawlers never run our JS, so they
+are actually served by `/llms.txt`, the raw `/blog/*.md` files, the JSON-LD in `index.html`, and
+`<link rel="alternate" type="text/markdown">`.
 
 ## One source of copy
 
