@@ -45,7 +45,7 @@ export default function AboutPage() {
       canonical: 'https://spotlightlinks.com/about',
       schemas: ['AboutPage', 'Organization', 'Service'],
       summary:
-        'Spotlight Links optimizes local and brick-and-mortar businesses so they get cited, recommended, and quoted by name in AI-driven search engines such as Google Gemini, ChatGPT, Anthropic Claude, and Perplexity — rather than buying traditional text ads. Three services: Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), and Custom Platform Development. AEO/GEO subscriptions start at $79/month; custom deployment work is scoped per project.',
+        'Spotlight Links optimizes local and brick-and-mortar businesses so they get cited, recommended, and quoted by name in AI-driven search engines such as Google Gemini, ChatGPT, Anthropic Claude, and Perplexity — rather than buying traditional text ads. Three services: Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), and Custom Platform Development. AEO/GEO subscriptions start at $79/month; deployment work is scoped per project.',
       sections: [
         ...SERVICES.map((s) => ({
           title: s.abbr ? `${s.name} (${s.abbr})` : s.name,

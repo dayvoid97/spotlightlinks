@@ -1,0 +1,599 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand: #7b1913;
+  --color-brand-dark: #5a110d;
+  --color-brand-tint: #f6eae8;
+  --color-accent: #e0802a;
+  --color-accent-dark: #b8611a;
+  --color-accent-tint: #fdf1e4;
+  --color-tan: #93835e;
+  --color-ink: #141210;
+  --color-ink-70: #4a433c;
+  --color-ink-50: #6e655c;
+  --color-ink-30: #a39a90;
+  --color-line: #e2dcd4;
+  --color-surface: #ffffff;
+  --color-surface-2: #f8f5f1;
+  --color-surface-raised: #ffffff;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, monospace;
+  --text-step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --text-step-0: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+  --text-step-1: clamp(1.25rem, 1.18rem + 0.35vw, 1.44rem);
+  --text-step-2: clamp(1.56rem, 1.44rem + 0.6vw, 1.9rem);
+  --text-step-3: clamp(1.95rem, 1.75rem + 1vw, 2.52rem);
+  --text-step-4: clamp(2.44rem, 2.11rem + 1.65vw, 3.33rem);
+  --text-step-5: clamp(3.05rem, 2.53rem + 2.6vw, 4.4rem);
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --max-w-container: 72rem;
+  --duration-base: 160ms;
+  --leading-tight: 1.15;
+  --leading-body: 1.65;
+  --tracking-wide: 0.14em;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-step-0);
+    line-height: var(--leading-body);
+    color: var(--color-ink);
+    background: var(--color-surface);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  h1 {
+    font-size: var(--text-step-3);
+  }
+  h2 {
+    font-size: var(--text-step-4);
+  }
+  h3 {
+    font-size: var(--text-step-3);
+  }
+  h4 {
+    font-size: var(--text-step-2);
+  }
+  h5 {
+    font-size: var(--text-step-1);
+  }
+  h6 {
+    font-family: var(--font-body);
+    font-size: var(--text-step--1);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-ink-50);
+  }
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  figure,
+  table {
+    margin-block-end: var(--space-4);
+  }
+  p {
+    max-width: 68ch;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-brand);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    transition: color var(--duration-base);
+  }
+  a:hover {
+    color: var(--color-accent-dark);
+  }
+
+  ul,
+  ol {
+    padding-inline-start: var(--space-5);
+  }
+  li + li {
+    margin-block-start: var(--space-2);
+  }
+
+  blockquote {
+    font-family: var(--font-display);
+    font-size: var(--text-step-1);
+    font-style: italic;
+    border-inline-start: 3px solid var(--color-accent);
+    padding-inline-start: var(--space-4);
+    color: var(--color-ink-50);
+  }
+
+  small {
+    font-size: var(--text-step--1);
+    color: var(--color-ink-50);
+  }
+  strong {
+    font-weight: 600;
+  }
+  code,
+  kbd,
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+  code {
+    background: var(--color-surface-2);
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius-sm);
+  }
+  pre {
+    background: var(--color-ink);
+    color: #f2efe9;
+    padding: var(--space-4);
+    border-radius: var(--radius);
+    overflow-x: auto;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-line);
+    margin-block: var(--space-7);
+  }
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    text-align: start;
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-line);
+  }
+  th {
+    font-size: var(--text-step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-50);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  ::selection {
+    background: var(--color-brand-tint);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .container {
+    width: min(100% - var(--space-5) * 2, var(--max-w-container));
+    margin-inline: auto;
+  }
+  .section {
+    padding-block: var(--space-9);
+  }
+  .stack > * + * {
+    margin-block-start: var(--space-4);
+  }
+
+  .eyebrow {
+    font-size: var(--text-step--1);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent-dark);
+  }
+  .lead {
+    font-size: var(--text-step-1);
+    color: var(--color-ink-50);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font: inherit;
+    font-weight: 600;
+    font-size: var(--text-step-0);
+    padding: var(--space-3) var(--space-5);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* Primary button — blood red, professional luxury */
+  .btn--primary {
+    background: var(--color-brand);
+    color: #ffffff;
+    border-color: var(--color-brand);
+    box-shadow: 0 4px 12px rgba(123, 25, 19, 0.2);
+  }
+  .btn--primary:hover {
+    background: var(--color-brand-dark);
+    border-color: var(--color-brand-dark);
+    box-shadow: 0 8px 24px rgba(123, 25, 19, 0.3);
+    transform: translateY(-2px);
+  }
+  .btn--primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(123, 25, 19, 0.25);
+  }
+  .btn--primary:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    box-shadow: none;
+  }
+
+  /* Accent button — warm gold/orange */
+  .btn--accent {
+    background: var(--color-accent);
+    color: var(--color-ink);
+    border-color: var(--color-accent);
+    font-weight: 600;
+  }
+  .btn--accent:hover {
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(184, 97, 26, 0.25);
+    transform: translateY(-2px);
+  }
+  .btn--accent:active {
+    transform: translateY(0);
+  }
+  .btn--accent:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Ghost button — outlined, air */
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+  .btn--ghost:hover {
+    background: var(--color-brand-tint);
+    border-color: var(--color-brand-dark);
+    color: var(--color-brand-dark);
+    box-shadow: 0 4px 12px rgba(123, 25, 19, 0.12);
+    transform: translateY(-2px);
+  }
+  .btn--ghost:active {
+    transform: translateY(0);
+  }
+  .btn--ghost:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    border-color: var(--color-ink-30);
+    color: var(--color-ink-30);
+  }
+
+  .btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-step--1);
+    letter-spacing: 0.01em;
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: 0 1px 2px rgb(20 18 16 / 0.06);
+  }
+  .card--raised {
+    background: var(--color-surface-2);
+    border-color: transparent;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: var(--text-step--1);
+    font-weight: 500;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--color-brand-tint);
+    color: var(--color-brand-dark);
+  }
+  .badge--accent {
+    background: var(--color-accent-tint);
+    color: var(--color-accent-dark);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-end: var(--space-4);
+  }
+  .label {
+    font-size: var(--text-step--1);
+    font-weight: 500;
+    color: var(--color-ink-50);
+  }
+  .input,
+  .select,
+  .textarea {
+    font: inherit;
+    color: var(--color-ink);
+    background: var(--color-surface);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    width: 100%;
+    transition: all var(--duration-base);
+  }
+  .input:hover,
+  .select:hover,
+  .textarea:hover {
+    border-color: var(--color-ink-30);
+  }
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px rgba(123, 25, 19, 0.08);
+  }
+  .input::placeholder,
+  .textarea::placeholder {
+    color: var(--color-ink-30);
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  }
+  .divider {
+    border-top: 1px solid var(--color-line);
+  }
+}
+
+@layer utilities {
+  .u-center {
+    text-align: center;
+    margin-inline: auto;
+  }
+  .u-muted {
+    color: var(--color-ink-50);
+  }
+  .u-brand {
+    color: var(--color-brand);
+  }
+  .u-accent {
+    color: var(--color-accent-dark);
+  }
+  .u-bg-brand {
+    background: var(--color-brand);
+    color: #ffffff;
+  }
+  .u-bg-raised {
+    background: var(--color-surface-2);
+  }
+  .u-mt-0 {
+    margin-block-start: 0;
+  }
+  .u-flow > * + * {
+    margin-block-start: var(--space-4);
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* The hero intake panel. Its tint comes from the variables below rather than
+     hardcoded white — that hardcoded white is what made it unreadable in dark
+     mode. The dark palette re-points them. */
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+}
+
+/* Tint variables consumed by .glass-panel above.
+   Light values are the base; the dark palette below re-points them. */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(226, 220, 212, 0.7);
+  --glass-shadow: 0 20px 50px rgba(20, 18, 16, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Theming ──────────────────────────────────────────────────────────────
+ * Light is the base :root palette in the @theme block above. Dark re-points
+ * the *same* semantic tokens (--color-surface, --color-ink, --color-line, …),
+ * so every utility and component that reads var(--color-*) re-themes at
+ * runtime with zero per-component work — one variable flip recolors the app.
+ *
+ * Three states, driven by the ThemeProvider (src/context/theme-context.tsx)
+ * via a data-theme attribute on <html>:
+ *   data-theme="dark"   → forced dark
+ *   data-theme="light"  → forced light (base tokens win; nothing to override)
+ *   (no attribute)      → "system": follow the OS via prefers-color-scheme
+ *
+ * The dark token block is intentionally duplicated across the two selectors
+ * below because a plain attribute selector and a media-query selector can't be
+ * combined into one rule. Keep them in sync.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+/* Reusable dark palette — applied by both selectors below. */
+:root[data-theme='dark'] {
+  --color-ink: #f2efe9;
+  --color-ink-70: #d4ccc0;
+  --color-ink-50: #b5ada3;
+  --color-ink-30: #7c736a;
+  --color-line: #362d25;
+  --color-surface: #17130f;
+  --color-surface-2: #211b16;
+  --color-surface-raised: #272019;
+  --color-brand-tint: #2e100c;
+  --color-accent-tint: #2a1b0c;
+  --glass-bg: rgba(33, 27, 22, 0.82);
+  --glass-border: rgba(54, 45, 37, 0.9);
+  --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+:root[data-theme='dark'] a {
+  color: #f0a45e;
+}
+:root[data-theme='dark'] pre {
+  background: #0e0b09;
+}
+
+/* Small utilities used by the probe console (thin scrollbars, live status dot).
+   Restored here on the semantic palette after the design-system rewrite. */
+.thin-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-ink-30);
+  border-radius: 8px;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+/* Rendered markdown article body (BlogPostPage). The global base-layer element
+   styles already give blog typography (Playfair headings, Inter body, styled
+   blockquotes / code / tables); this just adds reading rhythm — heading top
+   spacing, image treatment, comfortable line length. */
+.blog-body {
+  font-size: var(--text-step-1);
+}
+.blog-body > :first-child {
+  margin-block-start: 0;
+}
+.blog-body h2,
+.blog-body h3,
+.blog-body h4 {
+  margin-block-start: var(--space-7);
+  margin-block-end: var(--space-3);
+}
+.blog-body p,
+.blog-body ul,
+.blog-body ol,
+.blog-body blockquote {
+  max-width: none;
+}
+.blog-body img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-line);
+  margin-block: var(--space-6);
+}
+.blog-body hr {
+  margin-block: var(--space-8);
+}
+
+@media (prefers-color-scheme: dark) {
+  /* System default: dark unless the user has explicitly forced light. */
+  :root:not([data-theme='light']) {
+    --color-ink: #f2efe9;
+    --color-ink-70: #d4ccc0;
+    --color-ink-50: #b5ada3;
+    --color-ink-30: #7c736a;
+    --color-line: #362d25;
+    --color-surface: #17130f;
+    --color-surface-2: #211b16;
+    --color-surface-raised: #272019;
+    --color-brand-tint: #2e100c;
+    --color-accent-tint: #2a1b0c;
+    --glass-bg: rgba(33, 27, 22, 0.82);
+    --glass-border: rgba(54, 45, 37, 0.9);
+    --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+  :root:not([data-theme='light']) a {
+    color: #f0a45e;
+  }
+  :root:not([data-theme='light']) pre {
+    background: #0e0b09;
+  }
+}

@@ -46,21 +46,20 @@ GEO is the plumbing underneath AEO. A generative crawler has to be able to reach
 - Canonical, Open Graph, and sitemap hygiene so nothing reads as duplicate
 - Citation-path repair: the pages models land on when they look you up
 
-### Platform Development & Deployment
+### Custom Website Design & Build
 
-Your project is running on localhost. We put it in production, on your domain, live.
+A custom website for your business — built from scratch or rebuilt right, live on your domain.
 
-A working prototype is not a live business. Most of what we deploy was built fast — by a founder, a contractor, or an AI coding tool — and then stalled at the last mile: no domain, no database that survives a restart, no payments, no way to ship a change without breaking it. We take that repository and run the launch end to end: production hosting, custom domain and TLS, a real database with migrations and backups, secrets handled properly, deploys wired to your Git branch, and monitoring so you find out before your customers do. Every launch ships AI-readable from day one, because a site no answer engine can cite is a site that is only half live.
+Some businesses do not have a website. Others have one that is not working — outdated, slow, or built for a different business than the one they run today. We build custom websites for local businesses: a new site from scratch, or a full revamp of what you already have. You get a site that shows customers what they need — hours, services, pricing, location, how to book or buy — and works on every device. We handle the design, the build, the domain, and the launch. You own all of it.
 
-- Repository audit and a written deployment plan before anything moves
-- Production hosting, custom domain, DNS, and TLS — on infrastructure you own
-- Managed database provisioning, migrations, and scheduled backups
-- Environment and secret management — nothing live-keyed in a Git repo
-- Continuous deploys from your Git branch, with a staging environment first
-- Auth, transactional email (SPF/DKIM/DMARC), and Stripe billing wired and tested
-- Error tracking, uptime checks, and consent-gated analytics on launch day
-- AI-readiness at launch: robots, sitemap, llms.txt, JSON-LD, machine-readable pages
-- Handover: you hold the accounts, the domain, and the repository. Always.
+- Free consultation to figure out exactly what your business needs
+- Custom design built around your business, not a generic template
+- New site from scratch, or a full revamp of what you already have
+- Your own domain, hosting, and security — nothing shared or borrowed
+- All the info customers actually need: hours, services, pricing, location, contact
+- Mobile-friendly and fast, on every device
+- Set up to be found — by Google, and by AI answer engines
+- You own everything: the domain, the site, the content. No lock-in.
 
 Deployment work is scoped and quoted per project after a repository review, separately from the monthly AEO/GEO subscription. Typical launches run days, not quarters — the long pole is almost never the code, it is the accounts, domains, and data nobody set up yet.
 
@@ -132,6 +131,7 @@ A New York team building an AI-native business the hard way — shipping fast, p
 
 ## Articles
 
+- [The Pillars Holding Up Every Local Economy](https://spotlightlinks.com/blog/queens-is-the-new-rome): Every thriving city begins the way Rome did — as a cluster of trades a community can't live without. We mapped the businesses holding up our corner of Queens, and found the same 13 pillars in nearly every neighborhood we studied.
 - [The Corner Store That Disappeared](https://spotlightlinks.com/blog/the-corner-store-that-disappeared): Most local businesses do not lose because someone made better food. They lose because they were never visible in the places their customers were looking — and nobody ever told them.
 - [Your Website Link on Google Maps Is Probably Broken](https://spotlightlinks.com/blog/your-google-maps-website-link-is-probably-broken): A five-minute check every local business owner should run today — and what a dead website link is quietly costing you in Google results and in AI recommendations.
 - [How to Get Your Business Recommended by Google Gemini](https://spotlightlinks.com/blog/get-your-business-recommended-by-gemini): A complete blueprint on how Google Gemini evaluates local service providers, extracts citation tokens, and ranks recommendations using real-time search grounding.

@@ -19,7 +19,7 @@ excerpt: A deep-dive AI audit across Gemini, Claude, and Perplexity revealed cri
 
 ### The Diagnosis: Zero-Mention Sub-City Leakage
 
-When consumers asked Gemini or Perplexity: _"Where can I take adult pottery classes near Upper Montclair or Bloomfield?"_, the AI assistants defaulted to recommending studios located 15 miles away. The studio was completely invisible in 4 out of 6 key local search zones.
+When consumers asked Gemini or Perplexity: *"Where can I take adult pottery classes near Upper Montclair or Bloomfield?"*, the AI assistants defaulted to recommending studios located 15 miles away. The studio was completely invisible in 4 out of 6 key local search zones.
 
 ### The Solution: Spotlight Links Knowledge Base Injection
 

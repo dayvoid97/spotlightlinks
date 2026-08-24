@@ -208,11 +208,11 @@ export const SERVICES: Service[] = [
     slug: 'custom-website-design-and-build',
     name: 'Custom Website Design & Build',
     plain:
-      'No website, or one that is not working for you? We design and build a custom site and put it live on your domain.',
+      'No website, or one that isn\u2019t working for you? We design and build a custom site and put it live on your domain.',
     short:
       'A custom website for your business — built from scratch or rebuilt right, live on your domain.',
     summary:
-      'Some businesses do not have a website. Others have one that is not working — outdated, slow, or built for a different business than the one they run today. We build custom websites for local businesses: a new site from scratch, or a full revamp of what you already have. You get a site that shows customers what they need — hours, services, pricing, location, how to book or buy — and works on every device. We handle the design, the build, the domain, and the launch. You own all of it.',
+      'Some businesses don\u2019t have a website. Others have one that isn\u2019t working — outdated, slow, or built for a different business than the one they run today. We build custom websites for local businesses: a new site from scratch, or a full revamp of what you already have. You get a site that shows customers what they need — hours, services, pricing, location, how to book or buy — and works on every device. We handle the design, the build, the domain, and the launch. You own all of it.',
     bullets: [
       'Free consultation to figure out exactly what your business needs',
       'Custom design built around your business, not a generic template',

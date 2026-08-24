@@ -39,13 +39,13 @@ export default function AboutPage() {
     () => ({
       path: '/about',
       title: 'About Spotlight Links — AEO, GEO, and Platform Deployment',
-      h1: 'We get your businesses recommended and cited when your customer is searching online',
+      h1: 'We get businesses recommended by name inside AI answers',
       description:
-        'Spotlight Links operates out of Queens, New York. We help local and brick-and-mortar businesses cited, recommended, and quoted by name in AI answer engines. Spotlight Links also builds custom websites and apps for businesses upon request.',
+        'Spotlight Links is a New York digital agency that gets local and brick-and-mortar businesses cited, recommended, and quoted by name in AI answer engines — and launches the platforms those businesses run on.',
       canonical: 'https://spotlightlinks.com/about',
       schemas: ['AboutPage', 'Organization', 'Service'],
       summary:
-        'Spotlight Links optimizes local and brick-and-mortar businesses so they get cited, recommended, and quoted by name in AI-driven search engines such as Google Gemini, ChatGPT, Anthropic Claude, and Perplexity — rather than buying traditional text ads. Three services: Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), and Custom Platform Development. AEO/GEO subscriptions start at $79/month; custom deployment work is scoped per project.',
+        'Spotlight Links optimizes local and brick-and-mortar businesses so they get cited, recommended, and quoted by name in AI-driven search engines such as ChatGPT, Google Gemini, Anthropic Claude, and Perplexity — rather than buying traditional text ads. Three services: Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), and Platform Development & Deployment. AEO/GEO subscriptions start at $79/month; deployment work is scoped per project.',
       sections: [
         ...SERVICES.map((s) => ({
           title: s.abbr ? `${s.name} (${s.abbr})` : s.name,
@@ -89,8 +89,8 @@ export default function AboutPage() {
             <section className="py-14">
               <h2 className="text-ink text-2xl font-semibold">What we do</h2>
               <p className="text-ink-50 mt-2 max-w-2xl">
-                Three services. The first two make you citable. The third puts the thing being cited
-                on the internet in the first place.
+                Three services. The first two make you citable. The third puts the thing being
+                cited on the internet in the first place.
               </p>
 
               <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -218,30 +218,29 @@ function DeploymentSection() {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div>
           <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">
-            Custom builds &amp; digital presence
+            Platform development &amp; deployment
           </p>
           <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
-            Your business is real. Online, it doesn&rsquo;t exist yet.
+            It works on localhost. That is not a business yet.
           </h2>
           <p className="text-ink-50 mt-4 leading-relaxed">
-            Most of who we work with here don&rsquo;t hand us a repo — they don&rsquo;t have
-            anything yet. No site, no app, nothing a customer can find. We start from what the
-            business actually needs — a marketing site, a booking flow, a customer app, whatever the
-            job calls for — design and build it from scratch, and take it all the way live: domain,
-            hosting, a database that survives a restart, payments if you need them. And every build
-            ships AI-readable, because a business no answer engine can find is still half invisible.
+            Most of what we deploy was built fast — by a founder, a contractor, or an AI coding
+            tool — and then stalled at the last mile: no domain, no database that survives a
+            restart, no payments, no way to ship a change without breaking something. We take the
+            repository and run the launch end to end, and every launch ships AI-readable, because a
+            site no answer engine can cite is a site that is only half live.
           </p>
           <p className="text-ink-50 mt-4 leading-relaxed">{DEPLOYMENT_NOTE}</p>
           <Link to="/get-started" className="mt-6 inline-block">
             <Button size="lg">
-              Tell us what you need <ArrowRight className="size-4" />
+              Tell us what you built <ArrowRight className="size-4" />
             </Button>
           </Link>
         </div>
 
         <div className="border-line bg-surface-2 rounded-2xl border p-6 sm:p-7">
           <h3 className="text-ink text-sm font-semibold uppercase tracking-wider">
-            What a build includes
+            What a launch includes
           </h3>
           <ul className="mt-4 space-y-3">
             {service.bullets.map((b) => (

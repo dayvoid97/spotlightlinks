@@ -69,9 +69,7 @@ export function PublicFooter() {
         </nav>
         <div className="text-ink-30 border-line mt-6 flex flex-wrap items-center justify-between gap-3 border-t pt-5 text-xs">
           <span>© {new Date().getFullYear()} Spotlight Links LLC</span>
-          <span>
-            Answer Engine and Generative Engine Visibility Discovery &amp; Management Console
-          </span>
+          <span>Answer Engine and Generative Engine Visibility Discovery &amp; Management Console</span>
         </div>
       </div>
     </footer>

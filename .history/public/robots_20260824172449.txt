@@ -1,0 +1,83 @@
+# https://spotlightlinks.com/robots.txt
+# Spotlight Links sells a proprietary AI-answer-engine visibility solutions and offers buidling website and digital services , so every answer-engine
+# crawler is allowed on purpose. Blocking them here is the single most common
+# reason a business becomes uncitable — see /blog/how-to-get-recommended-by-
+# chatgpt-gemini-perplexity-claude.
+
+User-agent: *
+Allow: /
+
+# Signed-in console and auth screens — no public content, nothing to index.
+Disallow: /dashboard
+Disallow: /clients
+Disallow: /billing
+Disallow: /profile
+Disallow: /subdued
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /magic-link
+Disallow: /verify
+Disallow: /portal/
+Disallow: /404
+
+# ── Answer engines: explicitly allowed ──────────────────────────────────────
+# Named individually so a future wildcard tightening can never silently lock
+# out the engines this whole business is measured against.
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://spotlightlinks.com/sitemap.xml
