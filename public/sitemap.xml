@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://spotlightlinks.com/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -23,9 +23,15 @@
   </url>
   <url>
     <loc>https://spotlightlinks.com/blog</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/how-to-get-your-business-recommended-by-claude</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://spotlightlinks.com/blog/queens-is-the-new-rome</loc>
@@ -46,7 +52,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/get-your-business-recommended-by-gemini</loc>
+    <loc>https://spotlightlinks.com/blog/get-your-business-recommended-by-ai-engines</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -58,7 +64,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/get-your-business-recommended-by-ai-engines</loc>
+    <loc>https://spotlightlinks.com/blog/get-your-business-recommended-by-gemini</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -76,14 +82,14 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/case-study-montclair-mud-clay-studio</loc>
-    <lastmod>2026-08-10</lastmod>
+    <loc>https://spotlightlinks.com/blog/why-google-seo-fails-in-ai-search</loc>
+    <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/deploy-yourself-or-hire-help-vibe-coder-guide</loc>
-    <lastmod>2026-07-30</lastmod>
+    <loc>https://spotlightlinks.com/blog/case-study-montclair-mud-clay-studio</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -94,14 +100,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/how-ai-answer-engines-choose-citations</loc>
-    <lastmod>2026-07-26</lastmod>
+    <loc>https://spotlightlinks.com/blog/open-sesame-garages-day-30-report</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/how-long-does-100-dollars-claude-credits-last</loc>
-    <lastmod>2026-07-29</lastmod>
+    <loc>https://spotlightlinks.com/blog/what-goes-in-a-business-ai-context-pack</loc>
+    <lastmod>2026-08-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/your-ai-starts-from-zero-every-morning</loc>
+    <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -112,32 +124,20 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/how-to-get-recommended-by-chatgpt-gemini-perplexity-claude</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://spotlightlinks.com/blog/how-to-print-money-with-ai-search</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://spotlightlinks.com/blog/open-sesame-garages-aeo-geo-seo-case-study</loc>
-    <lastmod>2026-07-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://spotlightlinks.com/blog/open-sesame-garages-day-30-report</loc>
-    <lastmod>2026-08-06</lastmod>
+    <loc>https://spotlightlinks.com/blog/deploy-yourself-or-hire-help-vibe-coder-guide</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://spotlightlinks.com/blog/should-your-business-have-a-skill-md</loc>
     <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/how-long-does-100-dollars-claude-credits-last</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -154,26 +154,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/what-goes-in-a-business-ai-context-pack</loc>
-    <lastmod>2026-08-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://spotlightlinks.com/blog/why-aeo-geo-matters-now</loc>
-    <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://spotlightlinks.com/blog/why-ai-built-apps-break-in-production</loc>
     <lastmod>2026-07-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://spotlightlinks.com/blog/why-google-seo-fails-in-ai-search</loc>
-    <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -184,8 +166,32 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://spotlightlinks.com/blog/your-ai-starts-from-zero-every-morning</loc>
-    <lastmod>2026-08-04</lastmod>
+    <loc>https://spotlightlinks.com/blog/how-to-get-recommended-by-chatgpt-gemini-perplexity-claude</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/how-ai-answer-engines-choose-citations</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/open-sesame-garages-aeo-geo-seo-case-study</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/why-aeo-geo-matters-now</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://spotlightlinks.com/blog/how-to-print-money-with-ai-search</loc>
+    <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

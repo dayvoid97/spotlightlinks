@@ -3,7 +3,8 @@
 Frontend only — nothing here calls `xsl-backend` except indirectly, through `useAuth()` for the
 one thing that changes on this page: which CTA button renders.
 
-Source: `src/pages/HomePage.tsx`, `src/lib/blog.ts`, `src/components/BlogCard.tsx`.
+Source: `src/pages/HomePage.tsx`, `src/lib/blog.ts`, `src/components/BlogCard.tsx`, and the
+build scripts in `scripts/` (`blog-data.mjs`, `generate-sitemap.mjs`, `prerender.mjs`).
 
 ## Routing
 
@@ -41,8 +42,9 @@ for depth rather than a hard image edge.
 
 ### Where the content lives, and the on-site reader
 
-`public/blog/*.md` are the posts — plain markdown with YAML frontmatter — plus `index.json`
-listing them. They're served as static files, and the app renders them itself:
+`public/blog/*.md` are the posts — plain markdown with YAML frontmatter. **The folder is the
+manifest**: nothing lists the posts by hand. `scripts/generate-sitemap.mjs` reads the folder on
+every build and emits `public/blog/posts.json`, and the app renders from there:
 
 - **`/blog`** (`BlogIndexPage`) — the index: hero, category filter, a grid of `<BlogCard>`s.
 - **`/blog/:slug`** (`BlogPostPage`) — the on-site reader that renders the full article body.
@@ -53,9 +55,17 @@ if ever needed, but nothing routes through it now.)
 
 Static `.md`/`.json` under `/blog/` and the extension-less SPA routes `/blog` and `/blog/:slug`
 coexist without clashing: the dev/prod static layer serves a request only when a real file matches
-(`/blog/foo.md`, `/blog/index.json`), and everything else (`/blog`, `/blog/some-slug`) falls
-through to the SPA. So `BlogPostPage` fetches `/blog/${slug}.md` as a static asset while the router
-owns the pretty URL.
+(`/blog/foo.md`, `/blog/posts.json`), and everything else falls through to the SPA — except that
+`/blog` and `/blog/:slug` now match a real file too, the one the prerenderer writes (below).
+
+### Never name anything in `/blog/` `index.<ext>`
+
+The feed used to be `public/blog/index.json`, and that one filename was a live bug. A static host
+resolving a bare request for `/blog` looks for a directory index inside `blog/` — so
+`spotlightlinks.com/blog` answered a hard refresh with a raw JSON array of filenames instead of the
+lander. In-app navigation looked fine, because React Router never asked the server. Anything
+machine-readable that lives in this folder must avoid the `index` basename; `posts.json` is the
+current name.
 
 ### Rendering the article body
 
@@ -98,13 +108,16 @@ image: /media/some-image.png
 ---
 ```
 
-`fetchBlogPosts()` fetches `index.json` for the file list, then every markdown file, and runs each
-through a small hand-written parser rather than pulling in a YAML dependency — the format is
-narrow enough (checked against all 20 files in this folder while building this) that a line-based
-parser handles every case actually present. `subtitle` and `excerpt` are treated as the same field
-client-side (`subtitle ?? excerpt`), and `category`/`categories` are normalized into a single
-`categories: string[]` on the returned `BlogPost` — callers never need to know which shape a given
-post's frontmatter used.
+`fetchBlogPosts()` just reads `/blog/posts.json`, which already holds all of this parsed and
+sorted newest-first — it used to fetch the file list and then all ~28 markdown files on every
+visit to `/blog`. `fetchBlogPost()` still parses a single article's frontmatter itself, with a
+small hand-written parser rather than a YAML dependency: the format is narrow enough that a
+line-based parser handles every case actually present. The build-side copy in
+`scripts/blog-data.mjs` mirrors it exactly — change one and change the other.
+
+`subtitle` and `excerpt` are treated as the same field (`subtitle ?? excerpt`), and
+`category`/`categories` are normalized into a single `categories: string[]` — callers never need to
+know which shape a given post's frontmatter used.
 
 ### Images that don't exist in this project
 
@@ -116,6 +129,69 @@ whatever the frontmatter says, and `<BlogCard>` tries to load it with a plain `o
 that falls back to a gradient placeholder card (showing the post's primary category as a label
 instead) when the guess 404s. Drop more matching images into `public/mediasets/` later and the
 matching posts will pick them up automatically — no code change needed.
+
+The runtime `onError` fallback is invisible to a crawler, though, so the build-side resolver in
+`scripts/blog-data.mjs` is stricter: it checks `public/mediasets/` for real and drops anything it
+cannot resolve, rather than shipping a broken `<img>` or an `og:image` pointing at a 404 into the
+indexed HTML. Posts with no usable image fall back to the site-wide OG image.
+
+## The build pipeline: sitemap, feed, and prerendered HTML
+
+Three generated artifacts, all derived from `public/blog/` and none hand-maintained. Adding an
+article means dropping a `.md` in the folder and deploying — there is no list to update and nothing
+to resubmit to Google Search Console or Bing Webmaster Tools, because the sitemap they already have
+is rewritten on every build.
+
+`scripts/blog-data.mjs` is the shared reader: it parses every post's frontmatter, normalizes both
+date shapes to `YYYY-MM-DD`, resolves each post's `image` against the real files in
+`public/mediasets/` (by basename, ignoring extension — at least one post records `.jpeg` for a file
+saved as `.jpg`), and returns everything newest-first.
+
+**`prebuild` → `scripts/generate-sitemap.mjs`** writes `public/blog/posts.json` (the blog's own
+machine-readable feed, and what the app fetches), `public/sitemap.xml`, and `public/llms.txt`.
+Committed to the repo as well as generated, so `npm run dev` has them without a build.
+
+**`postbuild` → `scripts/prerender.mjs`** writes `dist/<route>/index.html` for every public route:
+the four marketing pages, `/blog`, and all 28 articles.
+
+That second step is the one that fixes what search results actually showed. This is a
+client-rendered SPA behind a catch-all rewrite, so every URL used to return the same
+`dist/index.html` — which is why an article appeared in Google as *"AI Search Visibility Console. -
+Spotlight Links"*: the only title in the HTML was the shell's, and the real one existed solely
+after React ran. Crawlers that never execute JS — GPTBot, ClaudeBot, PerplexityBot, most link
+unfurlers — got an empty `<div id="root">`, on a site whose entire business is being citable by
+exactly those crawlers.
+
+Each prerendered file carries its own `<title>`, description, canonical, `og:*`/`twitter:*`, and
+route-specific JSON-LD (`BlogPosting` + `BreadcrumbList` per article, `Blog` on the index, both
+tied by `@id` into the `Organization` graph in the shell), plus the rendered article body and real
+`<a href>` links to the rest of the site. React boots on top and replaces the container as usual,
+so nothing about the in-app experience changes. It is additive, never load-bearing: a host that
+failed to match the static file would simply fall through to the SPA rewrite and behave as before.
+
+The prerenderer rewrites the shell's head **by regex**, so the meta tags in the root `index.html`
+have to stay one-per-line in their current shape. `useDocumentHead()` (`src/lib/document-head.ts`)
+keeps the title and description in step during client-side navigation, matching the values the
+prerenderer baked in.
+
+### The booking CTA
+
+Onboarding is manual now — no self-serve checkout — so the blog's job is to end in a booked call.
+`src/components/BookDemo.tsx` is the one place that links to the Google Calendar appointment
+schedule, and it ships two exports: `<BookDemoLink>` (a bare anchor, used in `PublicFooter`) and
+`<BookDemoCta>` (the card that closes every article and the blog index).
+
+Both take a **`source`**, which is the reason they exist as a component rather than as a URL pasted
+in five places. Every click fires a GA4 `book_demo_click` event carrying it — `blog:<slug>` from an
+article, `blog-index`, `public-footer` — so "which post produced a booked call" is a question the
+analytics can actually answer, and the content calendar can follow it.
+
+The URL and copy live in `BOOKING` in `src/lib/marketing.ts`. The build reads that block as text
+via `scripts/marketing-data.mjs` (the same regex trick used for the FAQs and services), so
+`prerender.mjs` writes the CTA into every article's static HTML and `generate-sitemap.mjs` writes
+it into `llms.txt` — a CTA that only exists after hydration is invisible to exactly the crawlers
+this blog is written for. `readBooking()` throws rather than degrading: a build that silently
+dropped the booking URL out of 28 articles is worse than a build that fails.
 
 ### Category pills
 

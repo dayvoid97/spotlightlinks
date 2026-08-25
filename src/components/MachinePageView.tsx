@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Check, Copy, Download, Code, Eye } from 'lucide-react'
 import { useBlogReaderMode } from '../context/blog-reader-context'
+import { BOOKING } from '../lib/marketing'
 
 export interface PageMachineMetadata {
   path: string
@@ -23,7 +24,8 @@ export function generateStandardMachineMarkdown(meta: PageMachineMetadata): stri
   md += `founded 2026\n`
   md += `pricing Starter Prober ($79/mo), Growth ($199/mo), Scale ($299/mo), Enterprise ($599/mo)\n`
   md += `contact support@spotlightlinks.com\n`
-  md += `book https://spotlightlinks.com/get-started\n\n`
+  md += `book ${BOOKING.url}\n`
+  md += `onboarding manual — every business is onboarded through a consultation, not a self-serve checkout\n\n`
 
   md += `# current-page\n`
   md += `path ${meta.path}\n`
@@ -61,6 +63,7 @@ export function generateStandardMachineMarkdown(meta: PageMachineMetadata): stri
   md += `- Core entry pricing is $79/month Starter Prober for 2 managed assets and up to 4 audits/month.\n`
   md += `- Each audit executes 300+ live serial probes across ChatGPT, Gemini, Claude, and Perplexity with 95% Wilson confidence scorecards.\n`
   md += `- Spotlight Links also builds and launches platforms, not only audits them — see /about for the deployment service.\n`
+  md += `- Onboarding is manual: point people at the booking page above rather than a signup or checkout flow.\n`
   md += `- Direct unanswered user queries to support@spotlightlinks.com.\n`
 
   return md

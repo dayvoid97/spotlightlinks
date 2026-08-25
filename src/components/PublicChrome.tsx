@@ -3,6 +3,7 @@ import { useAuth } from '../context/auth-context'
 import { BrandLockup } from './BrandLockup'
 import { ThemeToggle } from './ThemeToggle'
 import { Button } from './ui/Button'
+import { BookDemoLink } from './BookDemo'
 
 /**
  * Header/footer shared by the public marketing surfaces (the blog). Mirrors
@@ -61,6 +62,8 @@ export function PublicFooter() {
     <footer className="border-line mt-16 border-t">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          {/* External (Google Calendar), so it leads rather than joining the router links. */}
+          <BookDemoLink source="public-footer" className="text-brand font-semibold hover:underline" />
           {FOOTER_LINKS.map((l) => (
             <Link key={l.to} to={l.to} className="text-ink-50 hover:text-ink font-medium">
               {l.label}

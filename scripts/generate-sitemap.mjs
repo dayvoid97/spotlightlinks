@@ -1,18 +1,18 @@
 /**
- * Emits public/sitemap.xml and public/llms.txt from the static route list below
- * plus every post in public/blog/index.json. Runs as `prebuild`, so neither file
- * can drift from the blog folder — add a post, rebuild, it is in both.
+ * Emits public/blog/posts.json, public/sitemap.xml and public/llms.txt from the
+ * static route list below plus every markdown file in public/blog/. Runs as
+ * `prebuild`, so none of the three can drift from the blog folder — add a post,
+ * rebuild, it is in all of them. Nothing here is hand-maintained, which is why
+ * a new article never needs resubmitting to Search Console or Bing Webmaster
+ * Tools: the sitemap they already have is regenerated on every deploy.
  *
  * Only public, indexable routes belong here. Auth screens and the signed-in
  * console are deliberately excluded and are also Disallow-ed in robots.txt.
  */
-import { readFileSync, writeFileSync } from 'node:fs'
-import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const ORIGIN = 'https://spotlightlinks.com'
-const BLOG_DIR = join(ROOT, 'public', 'blog')
+import { writeFileSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { ROOT, ORIGIN, BLOG_DIR, readPosts } from './blog-data.mjs'
+import { readBooking } from './marketing-data.mjs'
 
 /** Public marketing routes, in descending importance. */
 const STATIC_ROUTES = [
@@ -22,41 +22,6 @@ const STATIC_ROUTES = [
   { path: '/get-started', changefreq: 'monthly', priority: '0.9' },
   { path: '/blog', changefreq: 'weekly', priority: '0.8' },
 ]
-
-const MONTHS = {
-  january: '01', february: '02', march: '03', april: '04', may: '05', june: '06',
-  july: '07', august: '08', september: '09', october: '10', november: '11', december: '12',
-}
-
-/**
- * Frontmatter dates come in two shapes across the folder — ISO (`2026-07-30`)
- * and long form (`August 10, 2026`). <lastmod> requires W3C datetime, so
- * normalize both to YYYY-MM-DD and drop anything we cannot parse rather than
- * emitting an invalid date that would fail validation for the whole file.
- */
-function normalizeDate(raw) {
-  if (!raw) return null
-  const value = raw.trim().replace(/^['"]|['"]$/g, '')
-
-  const iso = value.match(/^(\d{4})-(\d{2})-(\d{2})/)
-  if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`
-
-  const long = value.match(/^([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})$/)
-  if (long) {
-    const month = MONTHS[long[1].toLowerCase()]
-    if (month) return `${long[3]}-${month}-${long[2].padStart(2, '0')}`
-  }
-  return null
-}
-
-function frontmatterField(slug, field) {
-  const raw = readFileSync(join(BLOG_DIR, `${slug}.md`), 'utf8')
-  const block = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
-  if (!block) return null
-  const line = block[1].split(/\r?\n/).find((l) => new RegExp(`^${field}:`).test(l))
-  if (!line) return null
-  return line.replace(new RegExp(`^${field}:\\s*`), '').trim().replace(/^['"]|['"]$/g, '')
-}
 
 /**
  * FAQ copy is the single most quotable thing on the site for an answer engine,
@@ -136,15 +101,36 @@ function readDeploymentNote() {
   return m ? m[2] : ''
 }
 
-const slugs = JSON.parse(readFileSync(join(BLOG_DIR, 'index.json'), 'utf8')).map((f) =>
-  f.replace(/\.md$/, ''),
+const entries = readPosts()
+
+/**
+ * The blog's own machine-readable feed, served at /blog/posts.json. Replaces the
+ * old hand-edited index.json, which additionally had to go: a file literally
+ * named `index.json` inside /blog/ is what a static host resolves `/blog` to,
+ * which is why the blog index used to answer a hard refresh with raw JSON
+ * instead of the lander.
+ */
+writeFileSync(
+  join(BLOG_DIR, 'posts.json'),
+  `${JSON.stringify(
+    {
+      site: ORIGIN,
+      feed: `${ORIGIN}/blog/posts.json`,
+      index: `${ORIGIN}/blog`,
+      generated: new Date().toISOString(),
+      count: entries.length,
+      posts: entries.map(({ raw: _raw, ...post }) => post),
+    },
+    null,
+    2,
+  )}\n`,
 )
 
-const posts = slugs.map((slug) => ({
-  path: `/blog/${slug}`,
-  title: frontmatterField(slug, 'title') ?? slug.replace(/-/g, ' '),
-  subtitle: frontmatterField(slug, 'subtitle'),
-  lastmod: normalizeDate(frontmatterField(slug, 'date')),
+const posts = entries.map((p) => ({
+  path: p.path,
+  title: p.title,
+  subtitle: p.subtitle,
+  lastmod: p.dateISO,
   changefreq: 'monthly',
   priority: '0.7',
 }))
@@ -192,6 +178,15 @@ const llms = `# Spotlight Links
 > Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) for small and
 > medium-sized businesses across the US. We measure whether ChatGPT, Google Gemini, Anthropic
 > Claude, and Perplexity recommend your business to customers — then tell you what to fix.
+
+## Book a consultation
+
+${(() => {
+  const b = readBooking()
+  return `${b.blurb} There is no self-serve checkout — a consultation is how every engagement starts.
+
+Booking page: ${b.url}`
+})()}
 
 ## Pricing
 
@@ -254,6 +249,7 @@ ${posts
 writeFileSync(join(ROOT, 'public', 'llms.txt'), llms)
 
 console.log(
-  `sitemap.xml — ${urls.length} URLs (${posts.length} posts), newest ${newest}\n` +
+  `blog/posts.json — ${entries.length} posts, newest ${newest}\n` +
+    `sitemap.xml — ${urls.length} URLs (${posts.length} posts)\n` +
     `llms.txt — ${posts.length} articles, ${readFaqs().length} FAQs, ${readServices().length} services`,
 )
