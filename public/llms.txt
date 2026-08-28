@@ -113,6 +113,7 @@ We offer Custom Prober pricing for enterprise brands, large multi-location franc
 
 ## Articles
 
+- [Why Small Businesses Resist AI](https://spotlightlinks.com/blog/sales-is-not-easy): An inside look at the structural barriers keeping main-street businesses from adopting AI tools, and how diagnostic probing converted 8 local businesses across retail, services, and hospitality in under two weeks.
 - [How to Get Your Business Recommended by Claude](https://spotlightlinks.com/blog/how-to-get-your-business-recommended-by-claude): Claude does not use Google or Bing. It runs on a separate index, uses three separately documented crawlers, and cites passages rather than pages. This guide covers what Claude reads before it recommends a business, and what the evidence actually supports.
 - [The Pillars Holding Up Every Local Economy](https://spotlightlinks.com/blog/queens-is-the-new-rome): Every thriving city begins the way Rome did — as a cluster of trades a community can't live without. We mapped the businesses holding up our corner of Queens, and found the same 13 pillars in nearly every neighborhood we studied.
 - [The Corner Store That Disappeared](https://spotlightlinks.com/blog/the-corner-store-that-disappeared): Most local businesses do not lose because someone made better food. They lose because they were never visible in the places their customers were looking — and nobody ever told them.

@@ -2,23 +2,28 @@
   "site": "https://spotlightlinks.com",
   "feed": "https://spotlightlinks.com/blog/posts.json",
   "index": "https://spotlightlinks.com/blog",
-  "generated": "2026-08-28T03:18:32.954Z",
-  "count": 29,
+  "generated": "2026-08-25T18:34:12.290Z",
+  "count": 28,
   "posts": [
     {
       "slug": "sales-is-not-easy",
       "url": "https://spotlightlinks.com/blog/sales-is-not-easy",
       "path": "/blog/sales-is-not-easy",
-      "markdown": "https://spotlightlinks.com/blog/sales-is-not-easy.md",
-      "title": "Why Small Businesses Resist AI",
-      "subtitle": "An inside look at the structural barriers keeping main-street businesses from adopting AI tools, and how diagnostic probing converted 8 local businesses across retail, services, and hospitality in under two weeks.",
-      "date": "August 27, 2026",
+      "markdown": "https://spotlightlinks.com/blog/how-to-get-your-business-recommended-by-claude.md",
+      "title": "Sales Is Not Easy",
+      "subtitle": "We approached 400 businesses to make 10 sales. It was definitely not easy.",
+      "date": "2026-08-27",
       "dateISO": "2026-08-27",
-      "author": "Spotlight Links Ground Work Team",
+      "author": "Spotlight Links Ground Work",
       "categories": [
-        "Field Reports & GEO Strategy"
+        "Sales",
+        "Marketing",
+        "ARR",
+        "MRR",
+        "Spotlight Links",
+        "How To Make Money Online"
       ],
-      "readTime": "6 min read",
+      "readTime": "7 minutes",
       "image": "/mediasets/shangrilla-entreprenuership.jpeg"
     },
     {
@@ -31,13 +36,7 @@
       "date": "2026-08-25",
       "dateISO": "2026-08-25",
       "author": "Spotlight Links Research",
-      "categories": [
-        "Claude",
-        "Anthropic",
-        "AEO",
-        "GEO",
-        "Citation Building"
-      ],
+      "categories": ["Claude", "Anthropic", "AEO", "GEO", "Citation Building"],
       "readTime": null,
       "image": "/mediasets/get-recommended-claude.jpeg"
     },
@@ -51,10 +50,7 @@
       "date": "2026-08-24",
       "dateISO": "2026-08-24",
       "author": "Spotlight Links Research",
-      "categories": [
-        "Community Commerce",
-        "Queens"
-      ],
+      "categories": ["Community Commerce", "Queens"],
       "readTime": "7 min read",
       "image": "/mediasets/open.jpeg"
     },
@@ -68,12 +64,7 @@
       "date": "2026-08-20",
       "dateISO": "2026-08-20",
       "author": "Spotlight Links Team",
-      "categories": [
-        "Local Business",
-        "Queens",
-        "Small Business",
-        "AEO"
-      ],
+      "categories": ["Local Business", "Queens", "Small Business", "AEO"],
       "readTime": null,
       "image": "/mediasets/bike-jester.jpeg"
     },
@@ -87,12 +78,7 @@
       "date": "2026-08-20",
       "dateISO": "2026-08-20",
       "author": "Spotlight Links Team",
-      "categories": [
-        "Local Business",
-        "Queens",
-        "Small Business",
-        "GEO"
-      ],
+      "categories": ["Local Business", "Queens", "Small Business", "GEO"],
       "readTime": null,
       "image": null
     },
@@ -106,13 +92,7 @@
       "date": "2026-08-19",
       "dateISO": "2026-08-19",
       "author": "Spotlight Links Team",
-      "categories": [
-        "AEO",
-        "GEO",
-        "AI Engines",
-        "Strategy",
-        "Multi-Engine"
-      ],
+      "categories": ["AEO", "GEO", "AI Engines", "Strategy", "Multi-Engine"],
       "readTime": null,
       "image": null
     },
@@ -126,13 +106,7 @@
       "date": "2026-08-19",
       "dateISO": "2026-08-19",
       "author": "Spotlight Links Team",
-      "categories": [
-        "ChatGPT",
-        "OpenAI",
-        "AEO",
-        "GEO",
-        "Citation Building"
-      ],
+      "categories": ["ChatGPT", "OpenAI", "AEO", "GEO", "Citation Building"],
       "readTime": null,
       "image": "/mediasets/get-recommended-chatgpt.jpg"
     },
@@ -146,13 +120,7 @@
       "date": "2026-08-19",
       "dateISO": "2026-08-19",
       "author": "Spotlight Links Team",
-      "categories": [
-        "Gemini",
-        "AEO",
-        "GEO",
-        "Google",
-        "Local Business"
-      ],
+      "categories": ["Gemini", "AEO", "GEO", "Google", "Local Business"],
       "readTime": null,
       "image": "/mediasets/get-recommended-gemini.jpeg"
     },
@@ -166,13 +134,7 @@
       "date": "2026-08-19",
       "dateISO": "2026-08-19",
       "author": "Spotlight Links Team",
-      "categories": [
-        "Pricing",
-        "AEO Tools",
-        "Software",
-        "Local Business",
-        "Strategy"
-      ],
+      "categories": ["Pricing", "AEO Tools", "Software", "Local Business", "Strategy"],
       "readTime": null,
       "image": null
     },
@@ -186,11 +148,7 @@
       "date": "August 14, 2026",
       "dateISO": "2026-08-14",
       "author": "Spotlight Links Engineering",
-      "categories": [
-        "Strategy",
-        "AEO",
-        "GEO"
-      ],
+      "categories": ["Strategy", "AEO", "GEO"],
       "readTime": "6 min read",
       "image": "/mediasets/aeo-for-brick-and-mortar.png"
     },
@@ -204,9 +162,7 @@
       "date": "August 14, 2026",
       "dateISO": "2026-08-14",
       "author": "Spotlight Links Engineering",
-      "categories": [
-        "GEO Strategy"
-      ],
+      "categories": ["GEO Strategy"],
       "readTime": "7 min read",
       "image": null
     },
@@ -220,9 +176,7 @@
       "date": "August 10, 2026",
       "dateISO": "2026-08-10",
       "author": "Spotlight Links Research",
-      "categories": [
-        "Case Studies"
-      ],
+      "categories": ["Case Studies"],
       "readTime": "5 min read",
       "image": null
     },
@@ -236,9 +190,7 @@
       "date": "August 06, 2026",
       "dateISO": "2026-08-06",
       "author": "Spotlight Links Data Lab",
-      "categories": [
-        "AEO Auditing"
-      ],
+      "categories": ["AEO Auditing"],
       "readTime": "6 min read",
       "image": null
     },
@@ -252,14 +204,7 @@
       "date": "2026-08-06",
       "dateISO": "2026-08-06",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AEO",
-        "GEO",
-        "SEO",
-        "Case Study",
-        "Real Data",
-        "Local Business"
-      ],
+      "categories": ["AEO", "GEO", "SEO", "Case Study", "Real Data", "Local Business"],
       "readTime": null,
       "image": null
     },
@@ -273,12 +218,7 @@
       "date": "2026-08-05",
       "dateISO": "2026-08-05",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AI Development",
-        "Strategy",
-        "Spotlight Skills",
-        "Real Data"
-      ],
+      "categories": ["AI Development", "Strategy", "Spotlight Skills", "Real Data"],
       "readTime": null,
       "image": null
     },
@@ -292,11 +232,7 @@
       "date": "2026-08-04",
       "dateISO": "2026-08-04",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AI Development",
-        "Strategy",
-        "Spotlight Skills"
-      ],
+      "categories": ["AI Development", "Strategy", "Spotlight Skills"],
       "readTime": null,
       "image": null
     },
@@ -310,9 +246,7 @@
       "date": "August 02, 2026",
       "dateISO": "2026-08-02",
       "author": "Spotlight Links Engineering",
-      "categories": [
-        "AI Benchmarks"
-      ],
+      "categories": ["AI Benchmarks"],
       "readTime": "4 min read",
       "image": null
     },
@@ -326,12 +260,7 @@
       "date": "2026-07-30",
       "dateISO": "2026-07-30",
       "author": "Kanchan Sharma",
-      "categories": [
-        "Deployment",
-        "AI Development",
-        "Strategy",
-        "Local Business"
-      ],
+      "categories": ["Deployment", "AI Development", "Strategy", "Local Business"],
       "readTime": null,
       "image": null
     },
@@ -345,12 +274,7 @@
       "date": "2026-07-30",
       "dateISO": "2026-07-30",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AI Development",
-        "Strategy",
-        "AEO",
-        "Real Data"
-      ],
+      "categories": ["AI Development", "Strategy", "AEO", "Real Data"],
       "readTime": null,
       "image": null
     },
@@ -364,11 +288,7 @@
       "date": "2026-07-29",
       "dateISO": "2026-07-29",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AI Costs",
-        "Agency Life",
-        "Real Data"
-      ],
+      "categories": ["AI Costs", "Agency Life", "Real Data"],
       "readTime": null,
       "image": null
     },
@@ -382,12 +302,7 @@
       "date": "2026-07-29",
       "dateISO": "2026-07-29",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AI Costs",
-        "Strategy",
-        "Agency Life",
-        "Real Data"
-      ],
+      "categories": ["AI Costs", "Strategy", "Agency Life", "Real Data"],
       "readTime": null,
       "image": null
     },
@@ -401,12 +316,7 @@
       "date": "2026-07-29",
       "dateISO": "2026-07-29",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AI Costs",
-        "Agency Life",
-        "Strategy",
-        "Real Data"
-      ],
+      "categories": ["AI Costs", "Agency Life", "Strategy", "Real Data"],
       "readTime": null,
       "image": null
     },
@@ -420,11 +330,7 @@
       "date": "2026-07-29",
       "dateISO": "2026-07-29",
       "author": "Kanchan Sharma",
-      "categories": [
-        "Deployment",
-        "AI Development",
-        "Technical"
-      ],
+      "categories": ["Deployment", "AI Development", "Technical"],
       "readTime": null,
       "image": null
     },
@@ -438,11 +344,7 @@
       "date": "2026-07-28",
       "dateISO": "2026-07-28",
       "author": "Kanchan Sharma",
-      "categories": [
-        "Deployment",
-        "AI Development",
-        "Strategy"
-      ],
+      "categories": ["Deployment", "AI Development", "Strategy"],
       "readTime": null,
       "image": null
     },
@@ -456,13 +358,7 @@
       "date": "2026-07-27",
       "dateISO": "2026-07-27",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AEO",
-        "GEO",
-        "SEO",
-        "Strategy",
-        "Local Business"
-      ],
+      "categories": ["AEO", "GEO", "SEO", "Strategy", "Local Business"],
       "readTime": null,
       "image": null
     },
@@ -476,12 +372,7 @@
       "date": "2026-07-26",
       "dateISO": "2026-07-26",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AEO",
-        "GEO",
-        "SEO",
-        "Strategy"
-      ],
+      "categories": ["AEO", "GEO", "SEO", "Strategy"],
       "readTime": null,
       "image": null
     },
@@ -517,13 +408,7 @@
       "date": "2026-07-03",
       "dateISO": "2026-07-03",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AEO",
-        "GEO",
-        "SEO",
-        "Strategy",
-        "Local Business"
-      ],
+      "categories": ["AEO", "GEO", "SEO", "Strategy", "Local Business"],
       "readTime": null,
       "image": null
     },
@@ -537,14 +422,7 @@
       "date": "2026-06-27",
       "dateISO": "2026-06-27",
       "author": "Kanchan Sharma",
-      "categories": [
-        "AEO",
-        "GEO",
-        "SEO",
-        "Strategy",
-        "Playbook",
-        "Local Business"
-      ],
+      "categories": ["AEO", "GEO", "SEO", "Strategy", "Playbook", "Local Business"],
       "readTime": null,
       "image": "/mediasets/aeo-for-brick-and-mortar.png"
     }
