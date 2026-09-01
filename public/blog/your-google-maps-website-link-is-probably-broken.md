@@ -1,8 +1,8 @@
 ---
-title: 'Your Website Link on Google Maps Is Probably Broken'
-subtitle: A five-minute check every local business owner should run today — and what a dead website link is quietly costing you in Google results and in AI recommendations.
-date: '2026-08-20'
-author: Spotlight Links Team
+title: "Your Website Link on Google Maps Is Probably Broken"
+subtitle: "A five-minute check every local business owner should run today — and what a dead website link is quietly costing you in Google results and in AI recommendations."
+date: "2026-08-20"
+author: "Spotlight Links Team"
 categories:
   - Local Business
   - Queens

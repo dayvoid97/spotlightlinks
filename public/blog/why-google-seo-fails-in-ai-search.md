@@ -1,15 +1,13 @@
 ---
-title: Why 84% of Top-Ranking Google Businesses Are Completely Invisible in ChatGPT & Gemini
-date: August 14, 2026
-author: Spotlight Links Engineering
-category: GEO Strategy
-readTime: 7 min read
-excerpt: Traditional SEO targets 10 blue links on Google using backlinks and keyword density. But conversational AI search engines synthesize recommendations using entity knowledge graphs, local sentiment, and citation authority. Here is why Google #1 rankings fail in AI search.
+title: "Why 84% of Top-Ranking Google Businesses Are Completely Invisible in ChatGPT & Gemini"
+subtitle: "Traditional SEO targets 10 blue links on Google using backlinks and keyword density. But conversational AI search engines synthesize recommendations using entity knowledge graphs, local sentiment, and citation authority. Here is why Google #1 rankings fail in AI search."
+date: "2026-08-14"
+author: "Spotlight Links Engineering"
+categories:
+  - GEO Strategy
 ---
 
-# Why 84% of Top-Ranking Google Businesses Are Completely Invisible in ChatGPT & Gemini
-
-### The Paradigm Shift: From Link Indexes to Generative Recommendations
+## The Paradigm Shift: From Link Indexes to Generative Recommendations
 
 For twenty-five years, digital marketing relied on a single fundamental mechanism: **Google PageRank**. If a business acquired high domain authority backlinks and optimized on-page title tags, it earned a top placement on Google's 10 blue links SERP.
 
@@ -17,7 +15,7 @@ In 2026, consumer behavior has shifted permanently. When a user asks OpenAI Chat
 
 > Key Research Finding: Our empirical audit of 500 local businesses revealed that 84% of businesses ranking in Google's Top 3 map pack received zero mentions when consumers asked conversational AI search engines for recommendations in the exact same ZIP codes.
 
-### Why Traditional SEO Fails in Generative AI Search
+## Why Traditional SEO Fails in Generative AI Search
 
 Generative Engine Optimization (GEO) operates on fundamentally different computational principles than legacy search engines:
 
@@ -25,7 +23,7 @@ Generative Engine Optimization (GEO) operates on fundamentally different computa
 - **Sub-City Geo Leakage:** AI search models evaluate spatial proximity based on natural language queries (e.g. *"near Montclair train station"*). If your business citations lack sub-city neighborhood facts, competitors win the recommendation.
 - **Citation Authority & Sentiment Alignment:** AI search engines sample third-party review aggregators and editorial lists. Negative or sparse sentiment across review sentiment vectors suppresses AI recommendations instantly.
 
-### Action Playbook for Generative Engine Optimization
+## Action Playbook for Generative Engine Optimization
 
 To capture maximum recommendation share across Google Gemini, Claude, and Perplexity:
 

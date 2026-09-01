@@ -97,11 +97,35 @@ Yes. We love seeing new businesses launch strong in competitive markets. If you 
 
 ### Which AI engines do you probe?
 
-We audit all major AI engines — ChatGPT, Google Gemini, Anthropic Claude, Perplexity, and active frontier models. Every audit cycle runs 300+ live multi-sample calls to deliver statistically reliable 95% Wilson-score confidence scoring.
+We probe all major AI engines — ChatGPT, Google Gemini, Anthropic Claude, and Perplexity — on every audit cycle, at 300+ live multi-sample calls for statistically reliable 95% Wilson-score confidence scoring. Our optimization work focuses on Google Gemini and ChatGPT, because that is where nearly all everyday consumer AI use happens, and because Gemini is built into Google Search itself. Claude and Perplexity are always measured and reported, and we optimize for them on request.
 
 ### What if I need prober tracking for more than 7 locations?
 
 We offer Custom Prober pricing for enterprise brands, large multi-location franchises, and marketing agencies managing 8+ client locations.
+
+### What does the Spotlight Links Probe do?
+
+The Probe measures what AI engines actually tell customers about your business. We build a grid of the real buying questions your customers ask, scoped to your city, ZIP code, and service radius, then run it live against ChatGPT, Google Gemini, Anthropic Claude, and Perplexity — 300+ multi-sample calls per audit cycle, because these models answer probabilistically and one screenshot proves nothing. You get your recommendation rate with 95% Wilson-score confidence bounds, a prompt-by-prompt record of what each engine said, a competitor leaderboard showing who gets named when you do not, and a prioritized list of what to fix. It runs in about ten minutes and exports to PDF, Word, RTF, and HTML. Pricing starts at $79 per month for one managed asset.
+
+### What does the Spotlight Links Enterprise Plan consist of?
+
+Enterprise is $599 per month for one business entity, and it is the done-for-you tier: we act as your web and AI department instead of handing you a report. That covers a complete custom website design and build, or a full revamp of the site you have; the whole technical deployment including domain, fast hosting, SSL, and security; continuous multi-engine probing; and the AEO/GEO implementation itself — structured entity graphs, schema, FAQ and citation content written to be quoted by AI engines. You get hands-on implementation, monthly optimization, and direct access to the development team. It is strictly permanent web and search infrastructure. We do not do social media posting.
+
+### My business is a small business. Is Spotlight Links Enterprise only for big businesses?
+
+No. Enterprise is the name of the plan, not the size of the customer. We take pride in bringing local businesses the same state-of-the-art tools and technology the big brands use, so that a neighborhood shop is not missing out on a single potential customer who is searching online. Most Enterprise clients are exactly that: one storefront, one owner, no in-house technical staff and no time to manage a website, DNS, schema, and AI indexing. That is the gap the plan exists to fill. If you already have someone managing your site, the cheaper path is often the Probe on its own — hand them the audit and let them execute.
+
+### How long does the Spotlight Links AEO/GEO implementation take?
+
+Usually 45 to 60 days before everything is properly set up and working. That covers the baseline audit, the technical groundwork, the entity and schema work, the content, and enough re-probing to confirm the numbers actually moved rather than assuming they did. After that initial build, the work shifts to upkeep: we recommend keeping the site fresh as the business changes — new services, new pricing, new locations, seasonal hours — because AI engines reward current, accurate information and quietly stop citing content that has gone stale.
+
+### Does Spotlight Links serve customers in Europe?
+
+Right now we are focused on serving American businesses. That said, we never say no to an opportunity — we can work globally, but only upon request. If you are outside the United States and want to talk, book a consultation and we will tell you honestly whether we are the right fit for your market.
+
+### Why is Spotlight Links focused on businesses in the United States?
+
+Because our tools and technology are built progressively around the business landscape in the United States. The prompt grids, the local and ZIP-level geo probing, the directory and citation sources we repair, and the entity data the engines read all reflect how American customers search and how American businesses are recorded online. We would rather be genuinely good in one market than approximately right everywhere.
 
 ## Pages
 
@@ -113,6 +137,8 @@ We offer Custom Prober pricing for enterprise brands, large multi-location franc
 
 ## Articles
 
+- [Your Business Might Be Invisible to AI — And How Spotlight Links Fixes It](https://spotlightlinks.com/blog/why-your-business-might-be-invisible-to-gemini): Search isn''t just Google anymore. Your next customer might be asking Gemini, ChatGPT, or Perplexity where to find "the best [services you provide] near me" — and if your business isn''t optimized for how AI engines read, rank, and recommend, you''re simply not in the conversation. Worry not- Spotlight Links is here to help
+- [The Local Businesses Embracing New Technology — What Sets Them Apart](https://spotlightlinks.com/blog/small-business-embracing-ai-technology): A look at the shifting demographic and high-retention business models driving early adoption of Generative Engine Optimization (GEO), and how local brands are adapting to AI-first search.
 - [Why Small Businesses Resist AI](https://spotlightlinks.com/blog/sales-is-not-easy): An inside look at the structural barriers keeping main-street businesses from adopting AI tools, and how diagnostic probing converted 8 local businesses across retail, services, and hospitality in under two weeks.
 - [How to Get Your Business Recommended by Claude](https://spotlightlinks.com/blog/how-to-get-your-business-recommended-by-claude): Claude does not use Google or Bing. It runs on a separate index, uses three separately documented crawlers, and cites passages rather than pages. This guide covers what Claude reads before it recommends a business, and what the evidence actually supports.
 - [The Pillars Holding Up Every Local Economy](https://spotlightlinks.com/blog/queens-is-the-new-rome): Every thriving city begins the way Rome did — as a cluster of trades a community can't live without. We mapped the businesses holding up our corner of Queens, and found the same 13 pillars in nearly every neighborhood we studied.

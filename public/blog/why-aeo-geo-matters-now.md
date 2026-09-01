@@ -1,9 +1,9 @@
 ---
-title: 'AI Traffic Converts 5× Better. Your Competitors Are About to Find Out.'
-subtitle: More than half of Americans now use AI chatbots every week — and the traffic those chatbots send converts at a multiple of traditional search. Here is why Answer Engine Optimization is the highest-leverage thing a business can do right now, and how Spotlight Links executes it.
-date: '2026-07-03'
-author: Kanchan Sharma
-image: '/context.png'
+title: "AI Traffic Converts 5× Better. Your Competitors Are About to Find Out."
+subtitle: "More than half of Americans now use AI chatbots every week — and the traffic those chatbots send converts at a multiple of traditional search. Here is why Answer Engine Optimization is the highest-leverage thing a business can do right now, and how Spotlight Links executes it."
+date: "2026-07-03"
+author: "Kanchan Sharma"
+image: "/context.png"
 categories:
   - AEO
   - GEO

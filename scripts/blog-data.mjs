@@ -8,10 +8,16 @@
  * sitemap submitted once to Search Console / Bing Webmaster Tools stays correct
  * forever, so a new article never needs to be submitted by hand.
  *
- * The frontmatter parser deliberately mirrors `parseFrontmatter()` in
- * `src/lib/blog.ts` — the same two shapes appear across this folder
- * (`category`/`readTime`/`excerpt` on older posts, `categories`/`subtitle` on
- * newer ones) and both sides must agree on how they normalize. Keep them in step.
+ * Every post carries the same frontmatter: `title`, `subtitle`, `date` (ISO),
+ * `author`, optional `image`, then a `categories` block list. The legacy
+ * `category`/`excerpt` keys are still accepted below so a stray old file cannot
+ * break a build, but nothing in the folder uses them any more.
+ *
+ * Two display fields are *derived* rather than authored, so they read the same on
+ * every post instead of only on the ones somebody remembered to fill in:
+ * `date` (long form, from the ISO frontmatter) and `readTime` (from word count).
+ * The parser and both derivations deliberately mirror `src/lib/blog.ts`, which
+ * repeats this work client-side for the on-site reader. Keep them in step.
  */
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { join, dirname, extname, basename } from 'node:path'
@@ -40,11 +46,17 @@ const MONTHS = {
   december: '12',
 }
 
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
 /**
- * Frontmatter dates come in two shapes across the folder — ISO (`2026-07-30`)
- * and long form (`August 10, 2026`). `<lastmod>` and schema.org `datePublished`
- * both require W3C datetime, so normalize both to YYYY-MM-DD and drop anything
- * unparseable rather than emitting an invalid date.
+ * Frontmatter dates are authored as ISO (`2026-07-30`). Long form
+ * (`August 10, 2026`) is still accepted for any file that predates that rule.
+ * `<lastmod>` and schema.org `datePublished` both require W3C datetime, so
+ * normalize to YYYY-MM-DD and drop anything unparseable rather than emitting an
+ * invalid date.
  */
 export function normalizeDate(raw) {
   if (!raw) return null
@@ -68,7 +80,11 @@ function unquote(value) {
   if (v.length >= 2) {
     const first = v[0]
     const last = v[v.length - 1]
-    if ((first === '"' && last === '"') || (first === "'" && last === "'")) return v.slice(1, -1)
+    if ((first === '"' && last === '"') || (first === "'" && last === "'")) {
+      // Titles and subtitles are double-quoted and carry \" for any quote of
+      // their own; leaving the backslash in ships it to og:description verbatim.
+      return v.slice(1, -1).replace(/\\"/g, '"').replace(/\\'/g, "'")
+    }
   }
   return v
 }
@@ -119,6 +135,43 @@ function str(v) {
 }
 
 /**
+ * The byline date, derived from the ISO frontmatter so every post reads
+ * "August 10, 2026" rather than half the folder showing a bare `2026-08-10`.
+ * Built from the date parts directly — `new Date('2026-08-10')` parses as UTC
+ * midnight and formats as the 9th in any timezone west of Greenwich.
+ * Mirrors `formatPostDate()` in src/lib/blog.ts.
+ */
+export function formatPostDate(iso) {
+  if (!iso) return null
+  const [y, m, d] = iso.split('-')
+  const month = MONTH_NAMES[Number(m) - 1]
+  return month ? `${month} ${Number(d)}, ${y}` : iso
+}
+
+/** Words per minute used for the estimate. Ordinary prose, read attentively. */
+const WORDS_PER_MINUTE = 200
+
+/**
+ * The byline read time, derived from the body so it is present and computed the
+ * same way on every post — hand-written `readTime` frontmatter only ever covered
+ * a third of the folder, which is what made the bylines look mismatched.
+ * Markdown syntax, code fences and URLs are stripped first so a post heavy in
+ * links does not read as longer than it is.
+ * Mirrors `estimateReadTime()` in src/lib/blog.ts.
+ */
+export function estimateReadTime(body) {
+  const prose = String(body)
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/[#>*_~|-]/g, ' ')
+  const words = prose.split(/\s+/).filter(Boolean).length
+  return `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min read`
+}
+
+/**
  * Frontmatter `image` paths point at spotlightlinks.com's own asset layout
  * (`/media/...`, `/blog/aeo/...`, `/spotlightskills/...`); only some of those
  * files have local copies in `public/mediasets/`. Resolve by basename, ignoring
@@ -147,8 +200,9 @@ export function stripFrontmatter(raw) {
 }
 
 /**
- * Drop a single leading `# Heading` from the body — most posts repeat their
- * title as an H1, and every renderer here emits the frontmatter title itself.
+ * Drop a single leading `# Heading` from the body. No post in the folder carries
+ * one any more — the frontmatter title is the page's only H1 — but this stays as
+ * a safety net for a hand-written file that reintroduces the duplicate.
  * Mirrors `stripLeadingH1()` in src/lib/blog.ts.
  */
 export function stripLeadingH1(body) {
@@ -173,8 +227,10 @@ export function readPosts() {
       const categories = Array.isArray(fm.categories)
         ? fm.categories
         : typeof fm.category === 'string'
-        ? [fm.category]
+        ? fm.category.split(',').map((c) => c.trim()).filter(Boolean)
         : []
+
+      const dateISO = normalizeDate(str(fm.date))
 
       return {
         slug,
@@ -183,13 +239,14 @@ export function readPosts() {
         markdown: `${ORIGIN}/blog/${slug}.md`,
         title: str(fm.title) ?? slug.replace(/-/g, ' '),
         subtitle: str(fm.subtitle) ?? str(fm.excerpt),
-        /** As written in the frontmatter — this is what the UI displays. */
-        date: str(fm.date),
+        /** Long form, for the byline. Derived — see formatPostDate(). */
+        date: formatPostDate(dateISO) ?? str(fm.date),
         /** W3C YYYY-MM-DD, for <lastmod> and schema.org. Null if unparseable. */
-        dateISO: normalizeDate(str(fm.date)),
+        dateISO,
         author: str(fm.author),
         categories,
-        readTime: str(fm.readTime),
+        /** Derived from the body, not the frontmatter — see estimateReadTime(). */
+        readTime: estimateReadTime(stripFrontmatter(raw)),
         image: resolveLocalImage(str(fm.image)),
         raw,
       }

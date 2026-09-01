@@ -1,3 +1,22 @@
+/* ── Engine focus ──────────────────────────────────────────────────────────
+ * We probe four engines, but we do not weight them equally, and the site should
+ * say so plainly rather than listing all four as though they mattered the same
+ * amount. Gemini and ChatGPT are where nearly all everyday consumer AI use
+ * happens — and Gemini is the one wired directly into Google Search, so it
+ * reaches people who never opened a chatbot at all. Claude and Perplexity are
+ * covered in every audit; they are not where we spend the optimization budget.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export const ENGINE_FOCUS = {
+  /** Where the optimization work is aimed. Order is deliberate. */
+  primary: ['Google Gemini', 'ChatGPT'] as string[],
+  /** Still probed and reported on every cycle — just not the priority. */
+  secondary: ['Anthropic Claude', 'Perplexity'] as string[],
+  headline: 'We optimize for Gemini and ChatGPT first',
+  rationale:
+    'Almost all everyday consumer AI use runs through two engines: ChatGPT and Google Gemini. Gemini matters twice over, because it is built into Google Search itself — it reaches customers who never opened a chatbot in their life and simply searched the way they always have. So that is where we aim the work. We still probe Anthropic Claude and Perplexity on every audit cycle and report exactly where you stand on both, and we will optimize for them on request. But when there is a tradeoff to make, we make it in favor of the two engines your customers are actually using.',
+}
+
 export interface Faq {
   q: string
   a: string
@@ -22,13 +41,75 @@ export const FAQS: Faq[] = [
   },
   {
     q: 'Which AI engines do you probe?',
-    a: 'We audit all major AI engines — ChatGPT, Google Gemini, Anthropic Claude, Perplexity, and active frontier models. Every audit cycle runs 300+ live multi-sample calls to deliver statistically reliable 95% Wilson-score confidence scoring.',
+    a: 'We probe all major AI engines — ChatGPT, Google Gemini, Anthropic Claude, and Perplexity — on every audit cycle, at 300+ live multi-sample calls for statistically reliable 95% Wilson-score confidence scoring. Our optimization work focuses on Google Gemini and ChatGPT, because that is where nearly all everyday consumer AI use happens, and because Gemini is built into Google Search itself. Claude and Perplexity are always measured and reported, and we optimize for them on request.',
   },
   {
     q: 'What if I need prober tracking for more than 7 locations?',
     a: 'We offer Custom Prober pricing for enterprise brands, large multi-location franchises, and marketing agencies managing 8+ client locations.',
   },
 ]
+
+/* ── /about FAQ ────────────────────────────────────────────────────────────
+ * A second, separate list rather than more entries in FAQS, because these
+ * answer "what is this company and how does it work with me" rather than the
+ * pricing-desk questions the homepage and /compare are answering. Both lists
+ * are lifted into llms.txt by scripts/generate-sitemap.mjs, which reads this
+ * file as text and matches every q/a pair — so a string containing an
+ * apostrophe must use double quotes, or the regex stops at the apostrophe.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export const ABOUT_FAQS: Faq[] = [
+  {
+    q: 'What does the Spotlight Links Probe do?',
+    a: "The Probe measures what AI engines actually tell customers about your business. We build a grid of the real buying questions your customers ask, scoped to your city, ZIP code, and service radius, then run it live against ChatGPT, Google Gemini, Anthropic Claude, and Perplexity — 300+ multi-sample calls per audit cycle, because these models answer probabilistically and one screenshot proves nothing. You get your recommendation rate with 95% Wilson-score confidence bounds, a prompt-by-prompt record of what each engine said, a competitor leaderboard showing who gets named when you do not, and a prioritized list of what to fix. It runs in about ten minutes and exports to PDF, Word, RTF, and HTML. Pricing starts at $79 per month for one managed asset.",
+  },
+  {
+    q: 'What does the Spotlight Links Enterprise Plan consist of?',
+    a: "Enterprise is $599 per month for one business entity, and it is the done-for-you tier: we act as your web and AI department instead of handing you a report. That covers a complete custom website design and build, or a full revamp of the site you have; the whole technical deployment including domain, fast hosting, SSL, and security; continuous multi-engine probing; and the AEO/GEO implementation itself — structured entity graphs, schema, FAQ and citation content written to be quoted by AI engines. You get hands-on implementation, monthly optimization, and direct access to the development team. It is strictly permanent web and search infrastructure. We do not do social media posting.",
+  },
+  {
+    q: 'My business is a small business. Is Spotlight Links Enterprise only for big businesses?',
+    a: "No. Enterprise is the name of the plan, not the size of the customer. We take pride in bringing local businesses the same state-of-the-art tools and technology the big brands use, so that a neighborhood shop is not missing out on a single potential customer who is searching online. Most Enterprise clients are exactly that: one storefront, one owner, no in-house technical staff and no time to manage a website, DNS, schema, and AI indexing. That is the gap the plan exists to fill. If you already have someone managing your site, the cheaper path is often the Probe on its own — hand them the audit and let them execute.",
+  },
+  {
+    q: 'How long does the Spotlight Links AEO/GEO implementation take?',
+    a: "Usually 45 to 60 days before everything is properly set up and working. That covers the baseline audit, the technical groundwork, the entity and schema work, the content, and enough re-probing to confirm the numbers actually moved rather than assuming they did. After that initial build, the work shifts to upkeep: we recommend keeping the site fresh as the business changes — new services, new pricing, new locations, seasonal hours — because AI engines reward current, accurate information and quietly stop citing content that has gone stale.",
+  },
+  {
+    q: 'Does Spotlight Links serve customers in Europe?',
+    a: "Right now we are focused on serving American businesses. That said, we never say no to an opportunity — we can work globally, but only upon request. If you are outside the United States and want to talk, book a consultation and we will tell you honestly whether we are the right fit for your market.",
+  },
+  {
+    q: 'Why is Spotlight Links focused on businesses in the United States?',
+    a: "Because our tools and technology are built progressively around the business landscape in the United States. The prompt grids, the local and ZIP-level geo probing, the directory and citation sources we repair, and the entity data the engines read all reflect how American customers search and how American businesses are recorded online. We would rather be genuinely good in one market than approximately right everywhere.",
+  },
+]
+
+/* ── The Probe ─────────────────────────────────────────────────────────────
+ * The product people ask about by name. PROBER_FLAGSHIP below is the pricing
+ * card; this is the explanation — what the thing actually does, in the order a
+ * business owner asks it. Rendered on /about and lifted into llms.txt, so it is
+ * written to be quoted whole.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export const PROBE = {
+  name: 'The Spotlight Links Probe',
+  price: '$79',
+  cadence: '/ month',
+  priceNote: 'Starter Prober — 1 managed asset. Growth $199 · Scale $299 · Enterprise $599.',
+  /** Two paragraphs, in reading order. Kept as prose because that is what gets quoted. */
+  body: [
+    'The Probe is our diagnostic engine, and it answers a question you cannot answer by searching for yourself: when a real customer asks an AI assistant for a business like yours, what does it actually say? We build a grid of the buying questions your customers genuinely ask — phrased their way, scoped to your city, your ZIP code, your service radius, and the neighboring markets you compete in — and we run that grid live against the engines. Not once. Every prompt is sampled repeatedly across engines and across cycles, at 300+ live calls per audit, because a single screenshot of one answer proves nothing: these models sample probabilistically, and the same question can return a different business twice in a row.',
+    'What comes back is a measurement, not an impression. You get your recommendation rate with a 95% Wilson-score confidence interval, a prompt-by-prompt matrix of exactly what each engine said, a competitor leaderboard naming who is winning the answers you are losing, and an executive SWOT that turns all of it into a prioritized list of what to fix first. It runs in about ten minutes and exports to PDF, Word, RTF, and HTML, so you can hand it to whoever manages your website — or hand it back to us to execute. The Probe starts at $79 a month for one managed asset, which is one storefront, location, website, or business entity.',
+  ] as string[],
+  /** The four things the Probe produces. Short enough to render as a list. */
+  outputs: [
+    'Your recommendation rate per engine, with 95% Wilson-score confidence bounds',
+    'A prompt-by-prompt matrix of what every engine actually answered',
+    'A competitor leaderboard: who gets named when you do not',
+    'An executive AI SWOT with fixes ranked by what moves the number most',
+  ] as string[],
+}
 
 export interface PricingFeature {
   text: string

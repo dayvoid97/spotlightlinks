@@ -1,9 +1,9 @@
 ---
-title: 'Your AI Starts From Zero Every Morning. That Is Why Your Output Keeps Changing.'
-subtitle: Monday you explain your pricing for twenty minutes and get a great quote. Thursday the assistant knows none of it. Your employee's sessions know even less. This is not a model problem — it is a context problem, and it has a boring, permanent fix.
-date: '2026-08-04'
-author: Kanchan Sharma
-image: '/spotlightskills/context-pack-diagram.svg'
+title: "Your AI Starts From Zero Every Morning. That Is Why Your Output Keeps Changing."
+subtitle: "Monday you explain your pricing for twenty minutes and get a great quote. Thursday the assistant knows none of it. Your employee's sessions know even less. This is not a model problem — it is a context problem, and it has a boring, permanent fix."
+date: "2026-08-04"
+author: "Kanchan Sharma"
+image: "/spotlightskills/context-pack-diagram.svg"
 categories:
   - AI Development
   - Strategy

@@ -66,6 +66,52 @@ function toStringField(v: string | string[] | undefined): string | null {
   return null
 }
 
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+/**
+ * The byline date. Frontmatter dates are authored as ISO; the byline shows long
+ * form, so every post reads "August 10, 2026" instead of half the folder showing
+ * a bare `2026-08-10`. Built from the date parts directly, since
+ * `new Date('2026-08-10')` parses as UTC midnight and renders as the 9th in any
+ * timezone west of Greenwich. Anything not ISO is passed through untouched.
+ *
+ * Mirrors `formatPostDate()` in scripts/blog-data.mjs, which does this at build
+ * time for posts.json — keep the two in step.
+ */
+function formatPostDate(raw: string | null): string | null {
+  if (!raw) return null
+  const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (!iso) return raw
+  const month = MONTH_NAMES[Number(iso[2]) - 1]
+  return month ? `${month} ${Number(iso[3])}, ${iso[1]}` : raw
+}
+
+/** Words per minute used for the estimate. Ordinary prose, read attentively. */
+const WORDS_PER_MINUTE = 200
+
+/**
+ * The byline read time, derived from the body so it is present and computed the
+ * same way on every post — hand-written `readTime` frontmatter only ever covered
+ * a third of the folder, which is what made the bylines look mismatched.
+ *
+ * Mirrors `estimateReadTime()` in scripts/blog-data.mjs — keep the two in step,
+ * or a post's read time changes as you navigate from the index into the reader.
+ */
+function estimateReadTime(body: string): string {
+  const prose = body
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/[#>*_~|-]/g, ' ')
+  const words = prose.split(/\s+/).filter(Boolean).length
+  return `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min read`
+}
+
 interface BlogFeed {
   count: number
   posts: BlogPost[]
@@ -139,21 +185,22 @@ export async function fetchBlogPost(slug: string): Promise<BlogPostDetail | null
     const categories = Array.isArray(fm.categories)
       ? fm.categories
       : typeof fm.category === 'string'
-      ? [fm.category]
+      ? fm.category.split(',').map((c) => c.trim()).filter(Boolean)
       : []
+
+    const body = stripLeadingH1(stripFrontmatter(raw))
 
     const post: BlogPost = {
       slug,
       title: toStringField(fm.title) ?? slug.replace(/-/g, ' '),
       subtitle: toStringField(fm.subtitle) ?? toStringField(fm.excerpt),
-      date: toStringField(fm.date),
+      date: formatPostDate(toStringField(fm.date)),
       author: toStringField(fm.author),
       categories,
-      readTime: toStringField(fm.readTime),
+      readTime: estimateReadTime(body),
       image: toStringField(fm.image),
     }
 
-    const body = stripLeadingH1(stripFrontmatter(raw))
     const parsed = marked.parse(body, { gfm: true, breaks: false }) as string
     const html = enhanceArticleHtml(parsed)
 

@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import clsx from 'clsx'
-import { FAQS } from '../../lib/marketing'
+import { FAQS, type Faq } from '../../lib/marketing'
 
 /**
  * schema.org FAQPage for this section. Emitted explicitly rather than left to
  * the crawler because the accordion *unmounts* closed answers — a rendering
- * crawler would otherwise only ever find the one open answer. Built from FAQS
- * so the markup and the visible copy can never disagree, which is also what
- * Google's FAQ guidelines require.
+ * crawler would otherwise only ever find the one open answer. Built from the
+ * same array the section renders so the markup and the visible copy can never
+ * disagree, which is also what Google's FAQ guidelines require.
  */
-function faqJsonLd() {
+function faqJsonLd(items: Faq[]) {
   const doc = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQS.map((item) => ({
+    mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.q,
       acceptedAnswer: { '@type': 'Answer', text: item.a },
@@ -24,27 +24,39 @@ function faqJsonLd() {
   return JSON.stringify(doc).replace(/</g, '\\u003c')
 }
 
+interface FaqSectionProps {
+  /** Defaults to the site-wide FAQS. /about passes its own ABOUT_FAQS. */
+  items?: Faq[]
+  eyebrow?: string
+  heading?: string
+  /** Anchor id. Two FAQ sections must never both claim `#faq` on one page. */
+  id?: string
+}
+
 /**
  * FAQ accordion for the public pages. Content is grounded in the product docs
  * and the company blog — see src/lib/marketing.ts. First item open by default
  * so the section never reads as an empty stack of headers.
  */
-export function FaqSection() {
+export function FaqSection({
+  items = FAQS,
+  eyebrow = 'Questions, answered',
+  heading = 'Frequently asked',
+  id = 'faq',
+}: FaqSectionProps) {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="scroll-mt-24">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd() }} />
+    <section id={id} className="scroll-mt-24">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd(items) }} />
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
-          <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">
-            Questions, answered
-          </p>
-          <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">Frequently asked</h2>
+          <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">{eyebrow}</p>
+          <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">{heading}</h2>
         </div>
 
         <div className="mt-8 divide-y divide-line border-line overflow-hidden rounded-2xl border">
-          {FAQS.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i
             return (
               <div key={item.q} className="bg-surface">

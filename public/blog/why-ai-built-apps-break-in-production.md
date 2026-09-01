@@ -1,9 +1,9 @@
 ---
-title: 'Why Your AI-Built App Works on Localhost but Breaks in Production'
-subtitle: The seven failures we see in almost every AI-assisted build, in the order they usually appear — from the environment variables that vanish at build time to the CORS error that only shows up on the real domain.
-date: '2026-07-29'
-author: Kanchan Sharma
-image: '/blog/deploy/localhost-to-live.svg'
+title: "Why Your AI-Built App Works on Localhost but Breaks in Production"
+subtitle: "The seven failures we see in almost every AI-assisted build, in the order they usually appear — from the environment variables that vanish at build time to the CORS error that only shows up on the real domain."
+date: "2026-07-29"
+author: "Kanchan Sharma"
+image: "/blog/deploy/localhost-to-live.svg"
 categories:
   - Deployment
   - AI Development

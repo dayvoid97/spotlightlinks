@@ -1,9 +1,9 @@
 ---
-title: 'You Built Your App With AI. It Runs on Localhost. Now What?'
-subtitle: ChatGPT, Claude, and Cursor got you to a working prototype on your machine — and then the tutorials ran out. Here is why deployment is where AI-assisted projects stall, what the gap actually consists of, and how to get across it.
-date: '2026-07-28'
-author: Kanchan Sharma
-image: '/blog/deploy/localhost-to-live.svg'
+title: "You Built Your App With AI. It Runs on Localhost. Now What?"
+subtitle: "ChatGPT, Claude, and Cursor got you to a working prototype on your machine — and then the tutorials ran out. Here is why deployment is where AI-assisted projects stall, what the gap actually consists of, and how to get across it."
+date: "2026-07-28"
+author: "Kanchan Sharma"
+image: "/blog/deploy/localhost-to-live.svg"
 categories:
   - Deployment
   - AI Development
