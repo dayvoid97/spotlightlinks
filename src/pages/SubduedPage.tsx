@@ -47,7 +47,7 @@ export default function SubduedPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-ink flex items-center gap-2 text-xl font-semibold">
+        <h1 className="text-ink flex items-center gap-2 text-xl font-bold">
           <Trash2 className="text-ink-50 size-5" /> Subdued entities
         </h1>
         <p className="text-ink-50 text-sm">

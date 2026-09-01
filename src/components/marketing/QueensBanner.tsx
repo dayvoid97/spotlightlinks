@@ -25,7 +25,7 @@ export function QueensBanner() {
           <MapPin className="size-3.5" /> Queens, New York
         </p>
 
-        <h2 className="text-ink mt-3 text-balance text-2xl font-semibold leading-tight sm:text-3xl md:text-4xl">
+        <h2 className="text-ink mt-3 text-balance text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
           Proudly serving local businesses across Queens, NYC
         </h2>
 

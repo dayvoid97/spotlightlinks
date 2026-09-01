@@ -9,6 +9,7 @@ import {
   type OnboardingFormState,
 } from '../lib/onboarding-draft'
 import { ClientOnboardingForm, splitList } from '../components/ClientOnboardingForm'
+import { ProbeAccessNotice } from '../components/ProbeAccessNotice'
 import { useToast } from '../context/toast-context'
 
 /**
@@ -82,12 +83,14 @@ export default function NewClientPage() {
       </Link>
 
       <div>
-        <h1 className="text-ink text-xl font-semibold">Onboard a client</h1>
+        <h1 className="text-ink text-xl font-bold">Onboard a client</h1>
         <p className="text-ink-50 text-sm">
           Every field here becomes part of the question set Quasar asks AI engines on this
           business's behalf.
         </p>
       </div>
+
+      <ProbeAccessNotice source="probe-notice:clients-new" />
 
       <ClientOnboardingForm
         initialForm={initialForm}

@@ -69,7 +69,7 @@ export default function ClientDetailPage() {
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-ink text-xl font-semibold">{client.name}</h1>
+              <h1 className="text-ink text-xl font-bold">{client.name}</h1>
               {client.isPublic ? (
                 <Badge tone="info">
                   <Globe2 className="size-3" /> Public

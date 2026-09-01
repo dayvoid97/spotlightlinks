@@ -41,7 +41,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
           ))}
         </div>
 
-        <h3 className="text-ink group-hover:text-brand text-sm font-semibold leading-snug">
+        <h3 className="text-ink group-hover:text-brand text-sm font-bold leading-snug">
           {post.title}
         </h3>
 

@@ -2,9 +2,30 @@
   "site": "https://spotlightlinks.com",
   "feed": "https://spotlightlinks.com/blog/posts.json",
   "index": "https://spotlightlinks.com/blog",
-  "generated": "2026-09-01T01:26:57.308Z",
-  "count": 31,
+  "generated": "2026-09-01T20:30:03.509Z",
+  "count": 32,
   "posts": [
+    {
+      "slug": "google-reviews-alone-wont-get-you-recommended-by-ai",
+      "url": "https://spotlightlinks.com/blog/google-reviews-alone-wont-get-you-recommended-by-ai",
+      "path": "/blog/google-reviews-alone-wont-get-you-recommended-by-ai",
+      "markdown": "https://spotlightlinks.com/blog/google-reviews-alone-wont-get-you-recommended-by-ai.md",
+      "title": "1000+ Reviews and Gemini Still Won't Recommend Your Business: Why Google Maps Alone Won't Get You Recommended",
+      "subtitle": "We probed one of the most-reviewed businesses in its category in New York — Thousands of reviews, a 4.7 average, and an SEO agency already on retainer — across 200 answer-engine runs. It was mentioned in 13% of them and cited in exactly zero. Here is what the data says actually decides who AI recommends.",
+      "date": "September 1, 2026",
+      "dateISO": "2026-09-01",
+      "author": "Kanchan Sharma",
+      "categories": [
+        "Real Data",
+        "Case Study",
+        "AEO",
+        "GEO",
+        "Local Business",
+        "Gemini"
+      ],
+      "readTime": "8 min read",
+      "image": "/mediasets/barely-visible.jpeg"
+    },
     {
       "slug": "why-your-business-might-be-invisible-to-gemini",
       "url": "https://spotlightlinks.com/blog/why-your-business-might-be-invisible-to-gemini",

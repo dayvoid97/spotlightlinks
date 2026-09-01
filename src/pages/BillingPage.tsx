@@ -95,7 +95,7 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-ink text-xl font-semibold">Billing & plans</h1>
+        <h1 className="text-ink text-xl font-bold">Billing & plans</h1>
         <p className="text-ink-50 text-sm">
           Current plan: <span className="text-ink-70">{user?.planTier ?? 'none'}</span> · asset
           limit {user?.assetLimit ?? 3}

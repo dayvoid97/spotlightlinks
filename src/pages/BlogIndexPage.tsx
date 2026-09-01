@@ -94,7 +94,7 @@ export default function BlogIndexPage() {
               <p className="text-brand mb-2 text-xs font-semibold uppercase tracking-[0.14em]">
                 The Spotlight Links Blog
               </p>
-              <h1 className="text-ink max-w-3xl text-4xl font-semibold sm:text-5xl">{BLOG_H1}</h1>
+              <h1 className="text-ink max-w-3xl text-4xl font-bold sm:text-5xl">{BLOG_H1}</h1>
               <p className="text-ink-50 mt-4 max-w-2xl text-lg">{BLOG_TAGLINE}</p>
             </header>
 

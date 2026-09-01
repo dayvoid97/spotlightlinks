@@ -7,6 +7,7 @@ import { AuthLayout } from './AuthLayout'
 import { Button } from '../../components/ui/Button'
 import { Input, Label } from '../../components/ui/Input'
 import { Alert } from '../../components/ui/Alert'
+import { ProbeAccessNotice } from '../../components/ProbeAccessNotice'
 
 /** POST /api/auth/signup — see docs/02-authentication.md */
 export default function SignupPage() {
@@ -49,6 +50,8 @@ export default function SignupPage() {
         </>
       }
     >
+      <ProbeAccessNotice source="probe-notice:signup" className="mb-6" />
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <Alert tone="error">{error}</Alert>}
         <div className="grid grid-cols-2 gap-3">

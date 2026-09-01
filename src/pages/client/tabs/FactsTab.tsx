@@ -66,7 +66,7 @@ export default function FactsTab({ client }: { client: ClientSummary }) {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-sm font-semibold text-ink">Verified fact ledger</h2>
+          <h2 className="text-sm font-bold text-ink">Verified fact ledger</h2>
           <p className="text-xs text-ink-50">Every fact carries a source URL — nothing here is model-recalled.</p>
         </div>
         {canHarvest ? (

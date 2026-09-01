@@ -20,7 +20,7 @@ export function PricingSection() {
         <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">
           Pricing & Services
         </p>
-        <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
+        <h2 className="text-ink mt-2 text-3xl font-bold sm:text-4xl">
           Choose how you want to grow.
         </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl text-base">
@@ -41,7 +41,7 @@ export function PricingSection() {
                 Self-Serve SaaS
               </span>
             </div>
-            <h3 className="text-ink mt-3 text-2xl font-semibold">{PROBER_FLAGSHIP.name}</h3>
+            <h3 className="text-ink mt-3 text-2xl font-bold">{PROBER_FLAGSHIP.name}</h3>
             <div className="mt-2 flex items-baseline gap-1">
               <span className="text-ink text-4xl font-bold">{PROBER_FLAGSHIP.price}</span>
               <span className="text-ink-50 text-sm">{PROBER_FLAGSHIP.cadence}</span>
@@ -103,7 +103,7 @@ export function PricingSection() {
             <span className="text-brand text-xs font-semibold uppercase tracking-wider">
               Done-For-You Partner
             </span>
-            <h3 className="text-ink mt-3 text-2xl font-semibold">{MANAGED_SERVICE.name}</h3>
+            <h3 className="text-ink mt-3 text-2xl font-bold">{MANAGED_SERVICE.name}</h3>
             <div className="mt-2 flex items-baseline gap-1">
               <span className="text-ink text-4xl font-bold">{MANAGED_SERVICE.price}</span>
               <span className="text-ink-50 text-sm">{MANAGED_SERVICE.cadence}</span>

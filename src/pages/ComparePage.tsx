@@ -58,7 +58,7 @@ export default function ComparePage() {
               <p className="text-brand mb-2 text-xs font-semibold uppercase tracking-[0.14em]">
                 How we compare
               </p>
-              <h1 className="text-ink mx-auto max-w-3xl text-4xl font-semibold sm:text-5xl">
+              <h1 className="text-ink mx-auto max-w-3xl text-4xl font-bold sm:text-5xl">
                 Built for AI answers — not retrofitted for them
               </h1>
               <p className="text-ink-50 mx-auto mt-4 max-w-2xl text-lg">
@@ -73,7 +73,7 @@ export default function ComparePage() {
             </section>
 
             <section className="pb-12">
-              <h2 className="text-ink mb-6 text-2xl font-semibold">Feature-by-feature</h2>
+              <h2 className="text-ink mb-6 text-2xl font-bold">Feature-by-feature</h2>
               <ComparisonTable />
             </section>
 
@@ -87,7 +87,7 @@ export default function ComparePage() {
 
             <section className="py-16">
               <div className="border-brand bg-brand-tint rounded-2xl border p-8 text-center sm:p-12">
-                <h2 className="text-ink text-3xl font-semibold">See where you stand today</h2>
+                <h2 className="text-ink text-3xl font-bold">See where you stand today</h2>
                 <p className="text-ink-50 mx-auto mt-2 max-w-xl">
                   Build your business profile, let AI draft the details, and run your first
                   multi-engine visibility audit with a prioritized plan at the end of it.

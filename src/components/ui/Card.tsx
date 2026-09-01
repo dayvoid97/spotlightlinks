@@ -19,5 +19,5 @@ export function CardBody({ className, ...rest }: HTMLAttributes<HTMLDivElement>)
 }
 
 export function CardTitle({ className, ...rest }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h3 className={clsx('text-ink text-sm font-semibold', className)} {...rest} />
+  return <h3 className={clsx('text-ink text-sm font-bold', className)} {...rest} />
 }

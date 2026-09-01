@@ -20,7 +20,7 @@ Booking page: https://calendar.google.com/calendar/appointments/schedules/AcZssZ
 
 ## Service area
 
-Queens, New York City. Spotlight Links serves local and brick-and-mortar businesses across Queens, NYC — hardware stores, pizzerias, restaurants, takeout counters, and discount shops — with AI and search visibility audits scoped to their own ZIP code and surrounding neighborhoods.
+New York City. Spotlight Links serves local and brick-and-mortar businesses across New York City — hardware stores, pizzerias, restaurants, takeout counters, and discount shops — with AI and search visibility audits scoped to their own ZIP code and surrounding neighborhoods.
 
 Neighborhoods served: Astoria, Jackson Heights, Elmhurst, Woodside, Sunnyside, Corona, Long Island City.
 
@@ -137,6 +137,7 @@ Because our tools and technology are built progressively around the business lan
 
 ## Articles
 
+- [1000+ Reviews and Gemini Still Won't Recommend Your Business: Why Google Maps Alone Won't Get You Recommended](https://spotlightlinks.com/blog/google-reviews-alone-wont-get-you-recommended-by-ai): We probed one of the most-reviewed businesses in its category in New York — Thousands of reviews, a 4.7 average, and an SEO agency already on retainer — across 200 answer-engine runs. It was mentioned in 13% of them and cited in exactly zero. Here is what the data says actually decides who AI recommends.
 - [Your Business Might Be Invisible to AI — And How Spotlight Links Fixes It](https://spotlightlinks.com/blog/why-your-business-might-be-invisible-to-gemini): Search isn''t just Google anymore. Your next customer might be asking Gemini, ChatGPT, or Perplexity where to find "the best [services you provide] near me" — and if your business isn''t optimized for how AI engines read, rank, and recommend, you''re simply not in the conversation. Worry not- Spotlight Links is here to help
 - [The Local Businesses Embracing New Technology — What Sets Them Apart](https://spotlightlinks.com/blog/small-business-embracing-ai-technology): A look at the shifting demographic and high-retention business models driving early adoption of Generative Engine Optimization (GEO), and how local brands are adapting to AI-first search.
 - [Why Small Businesses Resist AI](https://spotlightlinks.com/blog/sales-is-not-easy): An inside look at the structural barriers keeping main-street businesses from adopting AI tools, and how diagnostic probing converted 8 local businesses across retail, services, and hospitality in under two weeks.

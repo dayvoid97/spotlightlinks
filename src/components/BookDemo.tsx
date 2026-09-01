@@ -62,7 +62,7 @@ export function BookDemoCta({ source, className }: { source: string; className?:
         className
       )}
     >
-      <h2 className="text-ink text-2xl font-semibold">{BOOKING.headline}</h2>
+      <h2 className="text-ink text-2xl font-bold">{BOOKING.headline}</h2>
       <p className="text-ink-50 mx-auto mt-3 max-w-xl text-sm leading-relaxed">{BOOKING.blurb}</p>
 
       <BookDemoLink

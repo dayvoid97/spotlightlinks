@@ -6,6 +6,19 @@ declare global {
   }
 }
 
+/**
+ * Fired on this window when the visitor accepts or declines. Same-tab writes to
+ * localStorage do not fire `storage`, so anything else that has to yield this
+ * corner while the banner is up (BookDemoFab) has no other way to learn that it
+ * is gone.
+ */
+export const CONSENT_EVENT = 'cookie-consent-set'
+
+/** Whether the visitor has already answered the banner, either way. */
+export function hasConsentChoice() {
+  return Boolean(localStorage.getItem('cookie_consent'))
+}
+
 export function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false)
 
@@ -33,11 +46,13 @@ export function CookieBanner() {
         ad_personalization: 'granted',
       })
     }
+    window.dispatchEvent(new Event(CONSENT_EVENT))
     setShowBanner(false)
   }
 
   const handleDecline = () => {
     localStorage.setItem('cookie_consent', 'denied')
+    window.dispatchEvent(new Event(CONSENT_EVENT))
     setShowBanner(false)
   }
 

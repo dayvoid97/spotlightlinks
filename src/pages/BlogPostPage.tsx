@@ -74,7 +74,7 @@ export default function BlogPostPage() {
       <div className="bg-surface min-h-screen">
         <PublicHeader />
         <div className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
-          <h1 className="text-ink text-3xl font-semibold">Article not found</h1>
+          <h1 className="text-ink text-3xl font-bold">Article not found</h1>
           <p className="text-ink-50 mt-2">This post doesn't exist or has moved.</p>
           <Link to="/blog" className="text-brand mt-4 inline-block text-sm hover:underline">
             ← Back to all posts
@@ -124,7 +124,7 @@ export default function BlogPostPage() {
                 </div>
               )}
 
-              <h1 className="text-ink text-4xl font-semibold sm:text-5xl">{post.title}</h1>
+              <h1 className="text-ink text-4xl font-bold sm:text-5xl">{post.title}</h1>
 
               {post.subtitle && <p className="lead text-ink-50 mt-4">{post.subtitle}</p>}
 
@@ -160,7 +160,7 @@ export default function BlogPostPage() {
 
       {!isMachine && readNext.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
-          <h2 className="text-ink mb-5 text-xl font-semibold">Read next</h2>
+          <h2 className="text-ink mb-5 text-xl font-bold">Read next</h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {readNext.map((p) => (
               <BlogCard key={p.slug} post={p} />

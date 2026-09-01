@@ -1,18 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import {
-  ArrowRight,
-  Building2,
-  MapPin,
-  Sparkles,
-  ShieldCheck,
-  FileText,
-  Loader2,
-  Search,
-  Network,
-  Rocket,
-} from 'lucide-react'
+import { ArrowRight, Loader2, Search, Network, Rocket } from 'lucide-react'
 import clsx from 'clsx'
 import { useAuth } from '../context/auth-context'
 import { useBlogReaderMode } from '../context/blog-reader-context'
@@ -125,7 +114,7 @@ function ComparisonTeaser() {
         <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">
           Why Spotlight Links
         </p>
-        <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
+        <h2 className="text-ink mt-2 text-3xl font-bold sm:text-4xl">
           Built for AI answers, from New York, from the ground up
         </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
@@ -161,7 +150,7 @@ function ServicesSection() {
     <section id="services">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">What we do</p>
-        <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">
+        <h2 className="text-ink mt-2 text-3xl font-bold sm:text-4xl">
           Get found. Get recommended. Get online properly.
         </h2>
         <p className="text-ink-50 mx-auto mt-3 max-w-2xl">
@@ -188,7 +177,7 @@ function ServicesSection() {
               <div className="bg-brand text-white flex size-10 items-center justify-center rounded-lg">
                 <Icon className="size-5" />
               </div>
-              <h3 className="text-ink mt-4 text-lg font-semibold">
+              <h3 className="text-ink mt-4 text-lg font-bold">
                 {service.name}
                 {service.abbr && (
                   <span className="text-ink-30 ml-2 font-mono text-xs">{service.abbr}</span>
@@ -289,33 +278,70 @@ function SiteHeader({
   )
 }
 
+/**
+ * The lander.
+ *
+ * One black band, set in the same New York civic signage as /about: a caps
+ * label, the question at poster scale, and the intake form inside the band
+ * rather than floating over it on glass. The blurred colour blobs it replaced
+ * read as a SaaS template.
+ *
+ * The brand red is an accent here, not the ground: a full maroon slab is a lot
+ * of one colour to walk into, and it flattens the type instead of carrying it.
+ * Warm off-white ground, black Helvetica, and red on exactly two things — the
+ * label and the button you are meant to press. The column is capped well inside
+ * the page so the headline breaks into tight lines rather than running the full
+ * width of a monitor.
+ */
 function Hero({ loading }: { loading: boolean }) {
   return (
-    <section className="relative overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="bg-brand/20 pointer-events-none absolute -left-24 -top-32 size-96 rounded-full blur-[120px]" />
-      <div className="bg-accent/10 pointer-events-none absolute -bottom-32 right-0 size-96 rounded-full blur-[120px]" />
+    <section className="bg-surface-2 border-line border-b px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-4xl">
+        <p className="signage-label text-brand">AI visibility check &middot; New York City</p>
 
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 ">
-        <div className="flex max-w-3xl flex-col items-center">
-          <h1>Is your business recommended when a customer is searching nearby ?</h1>
-          <br />
+        <h1 className="text-ink mt-5 max-w-2xl text-4xl leading-[1.04] tracking-[-0.035em] sm:text-5xl">
+          Is your business recommended when a customer is searching nearby?
+        </h1>
 
-          <h5>
-            Your customers ask AI everyday for local recommendations. Discover whether or not your
-            business shows up in their answers and recommendations.
-          </h5>
-          <br />
-          <p>Fill out the form, run your first probe, BE AMAZED!</p>
+        <p className="text-ink-50 mt-5 max-w-xl text-base leading-relaxed sm:text-lg">
+          Your customers ask AI for a local recommendation every day, and act on the answer they get
+          back. Find out whether your business is in it.
+        </p>
 
-          <div className="mt-4 w-full max-w-2xl">
-            <HeroInteractiveInput loading={loading} />
-          </div>
+        <div className="mt-10 max-w-2xl">
+          <HeroInteractiveInput loading={loading} />
         </div>
       </div>
     </section>
   )
 }
+
+/** Fields carry printed labels rather than placeholders — the way a form on a
+ *  civic document does, and the way a screen reader needs them to. */
+function HeroField({
+  label,
+  htmlFor,
+  className,
+  children,
+}: {
+  label: string
+  htmlFor: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className={className}>
+      <label htmlFor={htmlFor} className="signage-label text-ink-50 block">
+        {label}
+      </label>
+      {children}
+    </div>
+  )
+}
+
+const HERO_INPUT =
+  'border-line text-ink placeholder:text-ink-30 focus:border-brand mt-2 w-full border ' +
+  'bg-surface px-3.5 py-3 text-base font-medium outline-none transition-colors'
 
 function HeroInteractiveInput({ loading }: { loading: boolean }) {
   const navigate = useNavigate()
@@ -399,69 +425,63 @@ function HeroInteractiveInput({ loading }: { loading: boolean }) {
     navigate(targetRoute)
   }
 
-  if (loading) return <div className="bg-surface-2 h-14 w-full animate-pulse rounded-xl" />
+  if (loading) return <div className="bg-line/60 h-56 w-full animate-pulse" />
 
   return (
-    <div className="space-y-4">
-      <form
-        onSubmit={handleSubmit}
-        className="glass-panel group border-line/80 bg-surface-raised/90 flex flex-col gap-3 rounded-2xl p-4 shadow-2xl transition-all border backdrop-blur-md"
-      >
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <div className="relative sm:col-span-2">
-            <Building2 className="text-ink-30 group-focus-within:text-brand absolute left-3.5 top-1/2 size-4 -translate-y-1/2 transition-colors" />
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <HeroField label="Business name" htmlFor="hero-business" className="sm:col-span-2">
             <input
+              id="hero-business"
               type="text"
               value={businessName}
               onChange={(e) => setBusinessName(e.target.value)}
-              placeholder="Business Name (e.g. Acme Roasters)"
+              placeholder="Acme Roasters"
               required
-              className="text-ink placeholder:text-ink-30 bg-surface/70 border-line/50 focus:border-brand w-full rounded-xl py-3 pl-10 pr-3 text-sm font-medium outline-none border transition-colors sm:text-base"
+              className={HERO_INPUT}
             />
-          </div>
+          </HeroField>
 
-          <div className="relative">
-            <MapPin className="text-ink-30 group-focus-within:text-brand absolute left-3.5 top-1/2 size-4 -translate-y-1/2 transition-colors" />
+          <HeroField label="ZIP code" htmlFor="hero-zip">
             <input
+              id="hero-zip"
               type="text"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
-              placeholder="ZIP Code"
+              placeholder="11106"
               maxLength={10}
               required
-              className="text-ink placeholder:text-ink-30 bg-surface/70 border-line/50 focus:border-brand w-full rounded-xl py-3 pl-10 pr-3 text-sm font-medium outline-none border transition-colors sm:text-base"
+              className={HERO_INPUT}
             />
-          </div>
+          </HeroField>
         </div>
 
-        <div className="relative">
-          <Sparkles className="text-ink-30 group-focus-within:text-brand absolute left-3.5 top-3 size-4 transition-colors" />
+        <HeroField label="What the business does" htmlFor="hero-bio" className="mt-5">
           <textarea
+            id="hero-bio"
             rows={2}
             value={bio}
             onChange={(e) => setBio(e.target.value)}
-            placeholder="Please provide one sentence or two about your business..."
-            className="text-ink placeholder:text-ink-30 bg-surface/70 border-line/50 focus:border-brand w-full rounded-xl py-2.5 pl-10 pr-3 text-sm font-medium outline-none border transition-colors resize-none sm:text-base"
+            placeholder="One or two sentences is plenty."
+            className={`${HERO_INPUT} resize-none`}
           />
-        </div>
+        </HeroField>
 
-        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between pt-1">
+        <div className="mt-8 flex flex-wrap gap-3">
           <button
             type="submit"
             disabled={synthesizing}
-            className="group/btn from-brand to-brand-dark shadow-brand/25 hover:shadow-brand/40 relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r px-6 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+            className="bg-brand hover:bg-brand-dark inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-bold uppercase tracking-[0.08em] text-white transition disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <span className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover/btn:opacity-100" />
             {synthesizing ? (
               <>
                 <Loader2 className="size-4 shrink-0 animate-spin" />
-                <span>Reading up on your business…</span>
+                Reading up on your business…
               </>
             ) : (
               <>
-                <Sparkles className="text-accent size-4 shrink-0" />
-                <span>Check my AI visibility</span>
-                <ArrowRight className="size-4 shrink-0 transition-transform duration-200 group-hover/btn:translate-x-1" />
+                Check my AI visibility <ArrowRight className="size-4 shrink-0" />
               </>
             )}
           </button>
@@ -470,27 +490,16 @@ function HeroInteractiveInput({ loading }: { loading: boolean }) {
             type="button"
             onClick={handleManualOnboarding}
             disabled={synthesizing}
-            className="text-ink-50 hover:text-ink hover:underline flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 transition-colors disabled:opacity-50"
+            className="border-line text-ink hover:border-ink inline-flex items-center justify-center gap-2 border px-6 py-3.5 text-sm font-bold uppercase tracking-[0.08em] transition disabled:opacity-50"
           >
-            <FileText className="text-brand size-3.5" />
-            <span>I Prefer Manual Onboarding</span>
+            I prefer manual onboarding
           </button>
         </div>
       </form>
 
-      {/* Micro-trust indicators */}
-      <div className="text-ink-50 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-medium">
-        <span className="flex items-center gap-1">
-          <ShieldCheck className="text-brand size-3.5" /> Takes about 10 minutes
-        </span>
-        <span className="hidden sm:inline">•</span>
-        <span className="flex items-center gap-1">
-          <Sparkles className="text-brand size-3.5" /> AI Assist
-        </span>
-
-        <span className="hidden sm:inline">•</span>
-        <span>Scoped for your ZIP and surrounding blocks.</span>
-      </div>
+      <p className="text-ink-50 mt-6 text-sm">
+        Takes about ten minutes, and it is scoped to your ZIP and the blocks around it.
+      </p>
     </div>
   )
 }
@@ -526,7 +535,7 @@ function BlogSection() {
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-ink text-xl font-semibold">Explore Spotlight Links insights</h2>
+          <h2 className="text-ink text-xl font-bold">Explore Spotlight Links insights</h2>
           <p className="text-ink-50 text-sm">
             AEO, GEO, and what actually gets a business recommended by AI.
           </p>

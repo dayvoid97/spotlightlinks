@@ -80,7 +80,7 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-xl space-y-4">
       <div>
-        <h1 className="text-ink text-xl font-semibold">Profile</h1>
+        <h1 className="text-ink text-xl font-bold">Profile</h1>
         <p className="text-ink-50 text-sm">{user.email}</p>
       </div>
 

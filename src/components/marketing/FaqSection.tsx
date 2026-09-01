@@ -52,7 +52,7 @@ export function FaqSection({
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <p className="text-brand text-xs font-semibold uppercase tracking-[0.14em]">{eyebrow}</p>
-          <h2 className="text-ink mt-2 text-3xl font-semibold sm:text-4xl">{heading}</h2>
+          <h2 className="text-ink mt-2 text-3xl font-bold sm:text-4xl">{heading}</h2>
         </div>
 
         <div className="mt-8 divide-y divide-line border-line overflow-hidden rounded-2xl border">

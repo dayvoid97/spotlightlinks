@@ -41,7 +41,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-ink text-xl font-semibold">Managed assets</h1>
+          <h1 className="text-ink text-xl font-bold">Managed assets</h1>
           <p className="text-ink-50 text-sm">Businesses you're probing for AI search visibility.</p>
         </div>
         <Link to="/clients/new">

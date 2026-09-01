@@ -80,7 +80,7 @@ export default function AssetsTab({ client }: { client: ClientSummary }) {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-sm font-semibold text-ink">GEO content assets</h2>
+          <h2 className="text-sm font-bold text-ink">GEO content assets</h2>
           <p className="text-xs text-ink-50">Schema markup, FAQ briefs, and citation packets built from verified facts.</p>
         </div>
         {canBuild ? (

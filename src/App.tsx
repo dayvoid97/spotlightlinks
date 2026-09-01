@@ -16,6 +16,7 @@ import MagicLinkPage from './pages/auth/MagicLinkPage'
 import VerifyPage from './pages/auth/VerifyPage'
 import { CookieBanner } from './components/ConsentBanner'
 import { MachineViewButton } from './components/MachineViewButton'
+import { BookDemoFab } from './components/BookDemoFab'
 
 import DashboardPage from './pages/DashboardPage'
 import NewClientPage from './pages/NewClientPage'
@@ -66,6 +67,7 @@ export default function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <MachineViewButton />
+      <BookDemoFab />
       <CookieBanner />
     </>
   )

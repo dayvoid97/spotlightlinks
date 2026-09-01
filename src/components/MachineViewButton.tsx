@@ -9,7 +9,8 @@ import { useBlogReaderMode } from '../context/blog-reader-context'
  * bottom-left corner of the public site rather than a mode switch sitting in
  * the header of every page.
  *
- * Bottom-LEFT on purpose: the cookie banner owns bottom-right (ConsentBanner).
+ * Bottom-LEFT on purpose: bottom-right is taken — by the cookie banner
+ * (ConsentBanner), and on the blog by the booking button (BookDemoFab).
  */
 
 /** Public marketing surfaces only — never over the signed-in console or auth. */

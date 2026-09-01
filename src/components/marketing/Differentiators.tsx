@@ -14,7 +14,7 @@ export function Differentiators() {
             <div className="bg-brand-tint text-brand flex size-9 items-center justify-center rounded-lg">
               <Icon className="size-4.5" />
             </div>
-            <h3 className="text-ink mt-3 text-base font-semibold">{d.title}</h3>
+            <h3 className="text-ink mt-3 text-base font-bold">{d.title}</h3>
             <p className="text-ink-50 mt-1.5 text-sm leading-relaxed">{d.body}</p>
           </div>
         )

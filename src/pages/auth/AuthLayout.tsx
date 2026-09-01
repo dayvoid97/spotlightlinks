@@ -19,7 +19,7 @@ export function AuthLayout({
           <div className="bg-brand size-19 mb-3 flex items-center justify-center rounded-xl">
             <img src={logo} alt="spotlight links logo" />
           </div>
-          <h1 className="text-ink text-lg font-semibold">{title}</h1>
+          <h1 className="text-ink text-lg font-bold">{title}</h1>
           {subtitle && <p className="text-ink-50 mt-1 text-sm">{subtitle}</p>}
         </div>
         <div className="border-line bg-surface-2/60 rounded-2xl border p-6 shadow-xl shadow-black/30 backdrop-blur-sm">
